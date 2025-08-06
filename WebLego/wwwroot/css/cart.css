@@ -1,0 +1,200 @@
+﻿/* Kiểu dáng cho thẻ h2 */
+h2 {
+    font-size: 20px;
+    font-weight: 600;
+    color: #333;
+    padding: 20px 0 15px 0px;
+    align-self: start;
+    margin: 20px 0 20px 0;
+    text-align: left;
+}
+
+.cart-header th {
+    background-color: #FECC29;
+    color: black;
+    border: none;
+    padding: 15px;
+    text-align: center;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.cart-item td {
+    padding: 15px;
+    background-color: white;
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+    vertical-align: middle;
+    font-weight: 400 !important;
+    font-size: 15px;
+}
+
+    /* Kích thước cố định cho từng cột */
+    .cart-header th.checkbox-col,
+    .cart-item td.checkbox-col {
+        width: 50px;
+    }
+
+    .cart-header th.image-col,
+    .cart-item td.image-col {
+        width: 100px;
+    }
+
+    .cart-header th.name-col,
+    .cart-item td.name-col {
+        width: 250px;
+    }
+
+    .cart-header th.price-col,
+    .cart-item td.price-col {
+        width: 120px;
+    }
+
+    .cart-header th.quantity-col,
+    .cart-item td.quantity-col {
+        width: 150px;
+    }
+
+    .cart-header th.total-col,
+    .cart-item td.total-col {
+        width: 120px;
+    }
+
+    .cart-header th.action-col,
+    .cart-item td.action-col {
+        width: 100px;
+    }
+
+    .cart-item td.name-col {
+        font-size: 16px;
+        font-weight: 500 !important;
+        text-align: left;
+    }
+
+    /* Kích thước cố định cho ảnh trong cột hình ảnh */
+    .cart-item td.image-col img.cart-image {
+        width: 120px;
+        height: 120px;
+        object-fit: contain;
+        display: block;
+        margin: 0 auto;
+    }
+
+/* Khoảng cách trong quantity-control */
+.cart-table .quantity-control {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+}
+
+    .cart-table .quantity-control .quantity-display {
+        min-width: 30px;
+        text-align: center;
+    }
+
+/* Kiểu dáng cho nút xóa bằng icon */
+.btn-icon-delete {
+    background: none;
+    border: none;
+    padding: 0;
+}
+
+    .btn-icon-delete .delete-icon {
+        width: 24px;
+        height: 24px;
+    }
+
+.cart-footer {
+    display: flex;
+    align-items: flex-start;
+    margin-top: 20px;
+    padding: 20px;
+    background-color: white;
+    min-height: 80px;
+    position: relative;
+}
+
+    .cart-footer p {
+        font-size: 16px;
+        font-weight: 600;
+        margin: 0 10px;
+        text-align: right;
+    }
+
+.cart-footer-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 10px;
+    margin-left: auto;
+    flex-shrink: 0;
+}
+
+.btn-order {
+    padding: 10px 22px;
+    border: none;
+    border-radius: 10px;
+    font-weight: 500;
+    background-color: #FECC29;
+    text-align: center;
+    flex-shrink: 0;
+}
+
+/*.btn-order:hover {
+    background-color: #E0B522;
+    color: black;
+}*/
+
+/* Điều chỉnh bố cục cho phần recommend sản phẩm trong Cart */
+.cart-container {
+    width: 100%;
+    max-width: 1300px; /* Điều chỉnh theo thiết kế, có thể thay 1000px nếu phù hợp */
+    margin: 0 auto; /* Căn giữa toàn bộ container */
+    padding: 0 10px; /* Padding ngang để không chạm mép */
+}
+
+.products-grid {
+    margin-top: 20px;
+    margin-bottom: 50px;    
+    width: 100%; /* Ghi đè width từ product.css */
+}
+
+.product-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 cột mỗi dòng */
+    gap: 20px; /* Khoảng cách giữa các sản phẩm */
+    justify-content: center; /* Căn giữa các cột trong Grid */
+    margin: 0 auto; /* Đảm bảo căn giữa */
+    width: 100%; /* Đảm bảo lấp đầy container */
+}
+
+.product-card {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Thêm hoặc cập nhật CSS cho thông báo lỗi */
+.alert {
+    position: relative;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.alert-danger {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+#clientError {
+    position: fixed;
+    top: 60px; /* Điều chỉnh vị trí trên cùng */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    max-width: 500px;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}

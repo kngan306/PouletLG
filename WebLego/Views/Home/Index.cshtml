@@ -1,0 +1,344 @@
+﻿@model WebLego.Models.ViewModel.HomeViewModel
+@{
+    ViewData["Title"] = "Trang chủ";
+}
+
+<link href="~/css/home.css" rel="stylesheet">
+<link href="~/css/product.css" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
+<!-- Carousel -->
+<div class="container-fluid p-0">
+    <div id="productCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            @if (Model.Banners.Any())
+            {
+                @for (int i = 0; i < Model.Banners.Count; i++)
+                {
+                    var banner = Model.Banners[i];
+                    <div class="carousel-item @(i == 0 ? "active" : "")">
+                        <img src="@Url.Content(banner.ImageUrl)" class="d-block w-100" alt="Banner @(i + 1)">
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="carousel-item active">
+                    <img src="~/images/placeholder.png" class="d-block w-100" alt="Placeholder">
+                </div>
+            }
+        </div>
+        <!-- Controls -->
+        <button class="carousel-control-prev custom-prev" type="button" data-bs-target="#productCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next custom-next" type="button" data-bs-target="#productCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+        <!-- Indicators -->
+        @if (Model.Banners.Any())
+        {
+            <div class="carousel-indicators">
+                @for (int i = 0; i < Model.Banners.Count; i++)
+                {
+                    <button type="button" data-bs-target="#productCarousel" data-bs-slide-to="@i" class="@(i == 0 ? "active" : "")" aria-current="@(i == 0 ? "true" : "false")" aria-label="Slide @(i + 1)"></button>
+                }
+            </div>
+        }
+    </div>
+</div>
+
+<!-- Đi tìm thế giới LEGO của riêng bạn -->
+<div class="category-container">
+    <div class="category-content">
+        <h3 class="category-title">ĐI TÌM THẾ GIỚI LEGO CỦA RIÊNG BẠN!</h3>
+        <div class="category-title-divider"></div>
+
+        @foreach (var cat in Model.Categories)
+        {
+            var cssClass = cat.CategoryName.Replace(" ", "-").ToLower();
+
+            <section class="theme-section @cssClass-section" style="background-color:@(cat.BackgroundColor ?? "#fff")">
+                <div class="section-category-layout">
+                    @if (cat.CategoryId % 2 == 1)
+                    {
+                        <div class="image-column @cssClass-image-column">
+                            <img src="@(cat.ImagePath ?? "/images/categories/default.png")"
+                                 class="section-image @cssClass-image"
+                                 alt="@cat.CategoryName"
+                                 onerror="this.onerror=null;this.src='/images/categories/default.png';" />
+                        </div>
+                        <div class="content-column @cssClass-content-column">
+                            <div class="section-content @cssClass-content">
+                                <h2 class="section-category-title">@cat.CategoryName</h2>
+                                <p class="section-category-description">@Html.Raw(cat.Description?.Replace("\n", "<br />"))</p>
+                                <a asp-controller="Product" asp-action="Index" asp-route-id="@cat.CategoryId"
+                                   class="view-more-button @cssClass-button" style="background-color:@(cat.ButtonColor ?? "#000")">
+                                    <span>Xem thêm</span>
+                                    <img src="~/images/icon_arrow.png" class="button-arrow" alt="Arrow" />
+                                </a>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="content-column @cssClass-content-column">
+                            <div class="section-content @cssClass-content">
+                                <h2 class="section-category-title">@cat.CategoryName</h2>
+                                <p class="section-category-description">@Html.Raw(cat.Description?.Replace("\n", "<br />"))</p>
+                                <a asp-controller="Product" asp-action="Index" asp-route-id="@cat.CategoryId"
+                                   class="view-more-button @cssClass-button" style="background-color:@(cat.ButtonColor ?? "#000")">
+                                    <span>Xem thêm</span>
+                                    <img src="~/images/icon_arrow.png" class="button-arrow" alt="Arrow" />
+                                </a>
+                            </div>
+                        </div>
+                        <div class="image-column @cssClass-image-column">
+                            <img src="@(cat.ImagePath ?? "/images/categories/default.png")"
+                                 class="section-image @cssClass-image"
+                                 alt="@cat.CategoryName"
+                                 onerror="this.onerror=null;this.src='/images/categories/default.png';" />
+                        </div>
+                    }
+                </div>
+            </section>
+        }
+    </div>
+</div>
+
+<!-- SẢN PHẨM NỔI BẬT -->
+<div class="container position-relative featured-section">
+    <div class="section-header">
+        <h2 class="section-title text-center mb-4">SẢN PHẨM NỔI BẬT</h2>
+        <div class="title-underline"></div>
+    </div>
+    <div id="featuredCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            @{
+                var now = DateTime.Now;
+                var favoriteProductIds = ViewBag.FavoriteProductIds as List<int> ?? new List<int>();
+                for (int i = 0; i < Model.FeaturedProducts.Count; i += 2)
+                {
+                    <div class="carousel-item @(i == 0 ? "active" : "")">
+                        <div class="row justify-content-center">
+                            @for (int j = i; j < i + 2 && j < Model.FeaturedProducts.Count; j++)
+                            {
+                                var p = Model.FeaturedProducts[j];
+                                var img = p.ProductImages.FirstOrDefault()?.ImageUrl ?? "default.png";
+                                var isFavorite = favoriteProductIds.Contains(p.ProductId);
+                                <div class="col-md-6">
+                                    <article class="featured-product-card">
+                                        <button class="favorite-btn @(isFavorite ? "active" : "")" onclick="toggleFavorite(@p.ProductId)" id="favorite-@p.ProductId">
+                                            <img src="@(isFavorite? Url.Content("~/images/icon_loved.png") : Url.Content("~/images/icon_heart.png"))" class="favorite-icon" id="icon-@p.ProductId" />
+                                        </button>
+                                        <img src="@Url.Content($"{img}")" class="featured-product-image" alt="@p.ProductName"
+                                             onerror="this.onerror=null;this.src='/images/products/default.png';" />
+                                        <div class="featured-product-info">
+                                            <div class="featured-product-detail">
+                                                <span><img src="~/images/icon_agerange.png" /> @p.AgeRange</span>
+                                                <span><img src="~/images/icon_pieces.png" /> @p.PieceCount pcs</span>
+                                                <span><img src="~/images/icon_rating.png" /> @p.Rating</span>
+                                            </div>
+                                            <h2 class="featured-product-title">@p.ProductName</h2>
+                                            <div class="featured-product-price">
+                                                @if (p.DiscountPrice.HasValue)
+                                                {
+                                                    <span class="text-decoration-line-through text-muted me-2">@p.Price.ToString("N0")<span class="currency">₫</span></span>
+                                                    <span class="text-danger fw-bold">@p.DiscountPrice?.ToString("N0")<span class="currency">₫</span></span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="featured-price-amount">@p.Price.ToString("N0")<span class="currency">₫</span></span>
+                                                }
+                                            </div>
+                                            <form asp-controller="Cart" asp-action="AddToCart" method="post" class="d-inline">
+                                                <input type="hidden" name="productId" value="@p.ProductId" />
+                                                <button type="submit" class="featured-add-to-cart-btn" title="Thêm vào giỏ hàng">
+                                                    <img src="~/images/icon_cart.png" class="featured-cart-icon" alt="Add to cart">
+                                                    <span class="featured-btn-text">Thêm vào giỏ hàng</span>
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </article>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#featuredCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#featuredCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon"></span>
+        </button>
+    </div>
+</div>
+
+<!-- SẢN PHẨM KHUYẾN MÃI -->
+<div class="promo-container">
+    <div id="promotionCarousel" class="carousel slide promotion-section" data-bs-interval="false">
+        <div class="section-header">
+            <h3 class="section-title text-center mb-4">SẢN PHẨM KHUYẾN MÃI</h3>
+            <div class="title-underline"></div>
+        </div>
+        @{
+            var promoEndDate = Model.DiscountedProducts.FirstOrDefault()?.Promotion?.EndDate;
+        }
+        @if (promoEndDate.HasValue)
+        {
+            <div class="text-center mb-3">
+                <span class="countdown-label fw-bold">Khuyến mãi kết thúc sau:</span>
+                <span id="countdown" class="fw-bold text-danger fs-5 ms-2"></span>
+            </div>
+        }
+        <div class="carousel-inner">
+            @{
+                var promoGroups = Model.DiscountedProducts.Chunk(3).ToList();
+                for (int i = 0; i < promoGroups.Count; i++)
+                {
+                    var group = promoGroups[i];
+                    <div class="carousel-item @(i == 0 ? "active" : "")">
+                        <div class="d-flex justify-content-center">
+                            <div class="products-grid">
+                                <div class="product-row d-flex justify-content-center gap-4">
+                                    @foreach (var p in group)
+                                    {
+                                        var img = p.ProductImages.FirstOrDefault(i => i.IsMain == true)?.ImageUrl ?? "~/images/placeholder.png";
+                                        var isFavorite = favoriteProductIds.Contains(p.ProductId);
+                                        <article class="product-card">
+                                            <button class="favorite-btn @(isFavorite ? "active" : "")" onclick="toggleFavorite(@p.ProductId)" id="favorite-@p.ProductId">
+                                                <img src="@(isFavorite? Url.Content("~/images/icon_loved.png") : Url.Content("~/images/icon_heart.png"))" class="favorite-icon" id="icon-@p.ProductId" />
+                                            </button>
+                                            <a asp-controller="Product" asp-action="Detail" asp-route-id="@p.ProductId" class="product-link">
+                                                <div class="product-image-wrapper">
+                                                    <img src="@Url.Content(img)" class="product-image" alt="@p.ProductName" />
+                                                </div>
+                                                <h2 class="product-name">@p.ProductName</h2>
+                                            </a>
+                                            <p class="card-text">
+                                                <span class="text-warning">
+                                                    @for (int j = 1; j <= 5; j++)
+                                                    {
+                                                        if (j <= Math.Floor(p.Rating ?? 0))
+                                                        {
+                                                            <i class="bi bi-star-fill"></i>
+                                                        }
+                                                        else if (j - (p.Rating ?? 0) < 1)
+                                                        {
+                                                            <i class="bi bi-star-half"></i>
+                                                        }
+                                                        else
+                                                        {
+                                                            <i class="bi bi-star"></i>
+                                                        }
+                                                    }
+                                                </span>
+                                                <span class="text-muted">(@(p.Rating?.ToString("0.0") ?? "0.0"))</span>
+                                            </p>
+                                            <p class="product-price">
+                                                @if (p.DiscountPrice.HasValue)
+                                                {
+                                                    <span class="text-decoration-line-through text-muted me-2">@p.Price.ToString("N0")<span class="currency">₫</span></span>
+                                                    <span class="text-danger fw-bold">@p.DiscountPrice?.ToString("N0")<span class="currency">₫</span></span>
+                                                }
+                                                else
+                                                {
+                                                    @p.Price.ToString("N0")
+                                                    <span class="currency">₫</span>
+                                                }
+                                            </p>
+                                            <form asp-controller="Cart" asp-action="AddToCart" method="post">
+                                                <input type="hidden" name="productId" value="@p.ProductId" />
+                                                <button type="submit" class="add-to-cart-btn" title="Thêm vào giỏ hàng">
+                                                    <img src="~/images/icon_addtocart.png" class="cart-icon default-icon" />
+                                                    <img src="~/images/icon_addtocart_hover.png" class="cart-icon hover-icon" />
+                                                </button>
+                                            </form>
+                                        </article>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#promotionCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#promotionCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        </button>
+        <div class="text-end mt-3">
+            <a asp-controller="Product" asp-action="Index" asp-route-isPromotion="true" class="view-all-link">Xem tất cả khuyến mãi</a>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        function toggleFavorite(productId) {
+            $.post("/User/ToggleFavorite", { productId: productId }, function (response) {
+                if (response.success) {
+                    var icon = $("#icon-" + productId);
+                    var btn = $("#favorite-" + productId);
+                    if (response.isFavorite) {
+                        icon.attr("src", "@Url.Content("~/images/icon_loved.png")");
+                        btn.addClass("active");
+                    } else {
+                        icon.attr("src", "@Url.Content("~/images/icon_heart.png")");
+                        btn.removeClass("active");
+                    }
+                } else {
+                    alert(response.message);
+                    window.location.href = "/Auth/Login";
+                }
+            }).fail(function (xhr, status, error) {
+                console.log("Lỗi: " + error);
+            });
+        }
+
+        $(document).ready(function () {
+            var favoriteProductIds = @Html.Raw(Json.Serialize(ViewBag.FavoriteProductIds));
+            console.log("Favorite Product IDs:", favoriteProductIds);
+
+            // Logic đồng hồ đếm ngược
+            const countdownEl = document.getElementById("countdown");
+            if (countdownEl) {
+                // Lấy ngày kết thúc khuyến mãi sớm nhất từ model
+                var endDates = @Html.Raw(Json.Serialize(Model.DiscountedProducts.Select(p => p.Promotion?.EndDate).OrderBy(d => d).FirstOrDefault()?.ToString("yyyy-MM-ddTHH:mm:ss")));
+                const promoEndDate = endDates ? new Date(endDates) : null;
+
+                if (promoEndDate) {
+                    function updateCountdown() {
+                        const now = new Date();
+                        const distance = promoEndDate - now;
+
+                        if (distance <= 0) {
+                            countdownEl.innerText = "Đã kết thúc";
+                            return;
+                        }
+
+                        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                        countdownEl.innerText = `${days} ngày ${hours} giờ ${minutes} phút ${seconds} giây`;
+                    }
+
+                    updateCountdown();
+                    setInterval(updateCountdown, 1000);
+                } else {
+                    countdownEl.innerText = "Không có khuyến mãi";
+                }
+            }
+        });
+    </script>
+}

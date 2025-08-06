@@ -1,0 +1,376 @@
+﻿@model WebLego.Areas.Admin.Models.AccountViewModel
+@{
+    ViewData["Title"] = "Quản lý tài khoản";
+    var roleId = int.Parse(User.FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value ?? "0");
+}
+
+@if (TempData["BulkError"] != null)
+{
+    <div class="alert alert-warning">@TempData["BulkError"]</div>
+}
+
+@if (TempData["Success"] != null)
+{
+    <div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="successModalLabel">Thành công</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    @TempData["Success"]
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Đóng</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<!-- Tabs -->
+<ul class="nav nav-tabs mb-3" id="accountTabs" role="tablist">
+    <li class="nav-item">
+        <a class="nav-link active" id="customer-tab" data-bs-toggle="tab" href="#customer" role="tab">Khách hàng</a>
+    </li>
+
+    @if (roleId == 3)
+    {
+        <li class="nav-item">
+            <a class="nav-link" id="staff-tab" data-bs-toggle="tab" href="#staff" role="tab">Nhân viên & Quản trị</a>
+        </li>
+    }
+</ul>
+
+<div class="tab-content" id="accountTabContent">
+    <!-- TAB KHÁCH HÀNG -->
+    <div class="tab-pane fade show active" id="customer" role="tabpanel">
+        <!-- Form lọc khách hàng -->
+        <form asp-action="Index" method="get" class="mb-3">
+            <input type="hidden" name="tab" value="customer" />
+            <div class="row g-2 align-items-end">
+                <div class="col-md-2">
+                    <label class="form-label">Tên</label>
+                    <input type="text" name="searchName" value="@Model.SearchName" class="form-control" placeholder="Tìm theo tên" />
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label">Email</label>
+                    <input type="text" name="searchEmail" value="@Model.SearchEmail" class="form-control" placeholder="Tìm theo email" />
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label">Giới tính</label>
+                    @Html.DropDownList("FilterGender", new SelectList(new[] {
+                    new { Value = "", Text = "Tất cả" },
+                    new { Value = "Nam", Text = "Nam" },
+                    new { Value = "Nữ", Text = "Nữ" },
+                    new { Value = "Khác", Text = "Khác" }
+                    }, "Value", "Text", Model.FilterGender), new { @class = "form-select" })
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label">Hạng thành viên</label>
+                    @Html.DropDownList("FilterRank", new SelectList(new[] {
+                    new { Value = "", Text = "Tất cả" },
+                    new { Value = "Đồng", Text = "Đồng" },
+                    new { Value = "Bạc", Text = "Bạc" },
+                    new { Value = "Vàng", Text = "Vàng" }
+                    }, "Value", "Text", Model.FilterRank), new { @class = "form-select" })
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label">Trạng thái</label>
+                    @Html.DropDownList("FilterStatus", new SelectList(new[] {
+                    new { Value = "", Text = "Tất cả" },
+                    new { Value = "Hoạt động", Text = "Hoạt động" },
+                    new { Value = "Tạm khóa", Text = "Tạm khóa" }
+                    }, "Value", "Text", Model.FilterStatus), new { @class = "form-select" })
+                </div>
+                <div class="col-md-2 d-flex">
+                    <button type="submit" class="btn btn-primary me-2">Tìm kiếm</button>
+                    <a asp-action="Index" asp-route-tab="customer" class="btn btn-secondary">Xóa lọc</a>
+                </div>
+            </div>
+        </form>
+
+        <!-- Bảng khách hàng -->
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>STT</th>
+                    <th>Tên đăng nhập</th>
+                    <th>Email</th>
+                    <th>Giới tính</th>
+                    <th>Trạng thái</th>
+                    <th>Mã giảm giá</th>
+                    <th>Hạng thành viên</th>
+                    <th>Hành động</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (int i = 0; i < ViewBag.CustomerTab.Count; i++)
+                {
+                    var acc = ViewBag.CustomerTab[i];
+                    <tr>
+                        <td>@(i + 1)</td>
+                        <td>@acc.FullName</td>
+                        <td>@acc.Email</td>
+                        <td>@acc.Gender</td>
+                        <td>
+                            @if (roleId == 3)
+                            {
+                                <form asp-action="UpdateStatus" method="post" class="d-inline">
+                                    @Html.AntiForgeryToken()
+                                    <input type="hidden" name="userId" value="@acc.UserId" />
+                                    <input type="hidden" name="tab" value="customer" />
+                                    <select name="status" class="form-select form-select-sm status-select" data-user-id="@acc.UserId">
+                                        <option value="Hoạt động" selected="@(acc.UserStatus == "Hoạt động")">Hoạt động</option>
+                                        <option value="Tạm khóa" selected="@(acc.UserStatus == "Tạm khóa")">Tạm khóa</option>
+                                    </select>
+                                </form>
+                            }
+                            else
+                            {
+                                @acc.UserStatus
+                            }
+                        </td>
+                        <td>@acc.CustomerProfile?.DiscountCode</td>
+                        <td>@acc.CustomerProfile?.CustomerRank</td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@acc.UserId" class="btn btn-sm btn-outline-primary">
+                                <i class="bi bi-eye"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    @if (roleId == 3)
+    {
+        <!-- TAB NHÂN VIÊN & QUẢN TRỊ -->
+        <div class="tab-pane fade" id="staff" role="tabpanel">
+            <!-- Form lọc -->
+            <form asp-action="Index" method="get" class="mb-3">
+                <input type="hidden" name="tab" value="staff" />
+                <div class="row g-2">
+                    <div class="col-md-2">
+                        <label class="form-label">Tên</label>
+                        <input type="text" name="searchName" value="@Model.SearchName" class="form-control" placeholder="Tìm theo tên" />
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label">Email</label>
+                        <input type="text" name="searchEmail" value="@Model.SearchEmail" class="form-control" placeholder="Tìm theo email" />
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label">Giới tính</label>
+                        @Html.DropDownList("FilterGender", new SelectList(new[] {
+                    new { Value = "", Text = "Tất cả" },
+                    new { Value = "Nam", Text = "Nam" },
+                    new { Value = "Nữ", Text = "Nữ" },
+                    new { Value = "Khác", Text = "Khác" }
+                    }, "Value", "Text", Model.FilterGender), new { @class = "form-select" })
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label">Chức vụ</label>
+                        @Html.DropDownListFor(m => m.FilterRoleId, new SelectList(new[] {
+                    new { Value = "", Text = "Tất cả" },
+                    new { Value = "3", Text = "Quản lý" },
+                    new { Value = "2", Text = "Nhân viên bán hàng" },
+                    new { Value = "4", Text = "Nhân viên giao hàng" }
+                    }, "Value", "Text", Model.FilterRoleId), new { @class = "form-select" })
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label">Trạng thái</label>
+                        @Html.DropDownList("FilterStatus", new SelectList(new[] {
+                    new { Value = "", Text = "Tất cả" },
+                    new { Value = "Hoạt động", Text = "Hoạt động" },
+                    new { Value = "Tạm khóa", Text = "Tạm khóa" }
+                    }, "Value", "Text", Model.FilterStatus), new { @class = "form-select" })
+                    </div>
+                    <div class="col-md-2 d-flex">
+                        <button type="submit" class="btn btn-primary me-2">Tìm kiếm</button>
+                        <a asp-action="Index" asp-route-tab="staff" class="btn btn-secondary">Xóa lọc</a>
+                    </div>
+                </div>
+            </form>
+
+            <!-- Nút tạo và xóa nhiều -->
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <a asp-action="Create" class="btn btn-warning text-dark">
+                    <i class="bi bi-plus-circle"></i> Tạo mới tài khoản
+                </a>
+                <div class="d-flex align-items-center">
+                    <span id="selectedCountLabel" class="me-3 text-secondary">
+                        (0) Dòng được chọn
+                    </span>
+                    <button id="btnDeleteSelected" type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmBulkDelete" disabled>
+                        <i class="bi bi-trash"></i> Xóa
+                    </button>
+                </div>
+            </div>
+
+            <!-- Bảng nhân viên -->
+            <form id="bulkDeleteForm" asp-action="DeleteSelected" method="post">
+                @Html.AntiForgeryToken()
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th style="width:40px;">
+                                <input type="checkbox" id="selectAll" />
+                            </th>
+                            <th>Tên đăng nhập</th>
+                            <th>Email</th>
+                            <th>Giới tính</th>
+                            <th>Vai trò</th>
+                            <th>Trạng thái</th>
+                            <th>Hành động</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (int i = 0; i < ViewBag.StaffTab.Count; i++)
+                        {
+                            var acc = ViewBag.StaffTab[i];
+                            <tr>
+                                <td>
+                                    <input type="checkbox" class="row-checkbox" name="selectedIds" value="@acc.UserId" />
+                                </td>
+                                <td>@acc.FullName</td>
+                                <td>@acc.Email</td>
+                                <td>@acc.Gender</td>
+                                <td>@acc.Role?.RoleName</td>
+                                <td>
+                                    <form asp-action="UpdateStatus" method="post" class="d-inline">
+                                        @Html.AntiForgeryToken()
+                                        <input type="hidden" name="userId" value="@acc.UserId" />
+                                        <input type="hidden" name="tab" value="staff" />
+                                        <select name="status" class="form-select form-select-sm status-select" data-user-id="@acc.UserId">
+                                            <option value="Hoạt động" selected="@(acc.UserStatus == "Hoạt động")">Hoạt động</option>
+                                            <option value="Tạm khóa" selected="@(acc.UserStatus == "Tạm khóa")">Tạm khóa</option>
+                                        </select>
+                                    </form>
+                                </td>
+                                <td>
+                                    <a asp-action="Edit" asp-route-id="@acc.UserId" class="btn btn-sm btn-outline-primary">
+                                        <i class="bi bi-eye"></i>
+                                    </a>
+                                    <button type="button" class="btn btn-sm btn-outline-danger" onclick="showSingleDeleteModal(@acc.UserId)">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </form>
+        </div>
+    }
+</div>
+
+<!-- Modal xác nhận xóa một -->
+<div class="modal fade" id="confirmSingleDelete" tabindex="-1" role="dialog" aria-labelledby="singleDeleteLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Xác nhận xóa</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">Bạn có chắc muốn xóa tài khoản này?</div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Hủy</button>
+                <button type="button" class="btn btn-danger btn-sm" id="confirmSingleBtn">Xóa</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal xác nhận xóa nhiều -->
+<div class="modal fade" id="confirmBulkDelete" tabindex="-1" role="dialog" aria-labelledby="bulkDeleteLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Xác nhận</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                Bạn có chắc muốn xóa <strong><span id="selectedCountModal">0</span></strong> tài khoản này?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Hủy</button>
+                <button type="button" id="confirmBulkBtn" class="btn btn-danger btn-sm">Xóa</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<form id="singleDeleteForm" asp-action="Delete" method="post">
+    @Html.AntiForgeryToken()
+    <input type="hidden" name="id" id="singleDeleteId" />
+</form>
+
+@section Scripts {
+    <script>
+        let UserIdToDelete = 0;
+        function showSingleDeleteModal(id) {
+            UserIdToDelete = id;
+            $('#confirmSingleDelete').modal('show');
+        }
+
+        document.getElementById('confirmSingleBtn').addEventListener('click', function () {
+            document.getElementById('singleDeleteId').value = UserIdToDelete;
+            document.getElementById('singleDeleteForm').submit();
+        });
+
+        // Xử lý checkbox xóa nhiều
+        document.addEventListener('DOMContentLoaded', () => {
+            const selectAll = document.getElementById('selectAll');
+            const rows = document.querySelectorAll('.row-checkbox');
+            const btnDelete = document.getElementById('btnDeleteSelected');
+            const countLabel = document.getElementById('selectedCountLabel');
+            const countLabelModal = document.getElementById('selectedCountModal');
+            const confirmBulkBtn = document.getElementById('confirmBulkBtn');
+            const bulkForm = document.getElementById('bulkDeleteForm');
+
+            function updateCount() {
+                const c = document.querySelectorAll('.row-checkbox:checked').length;
+                countLabel.textContent = `(${c}) Dòng được chọn`;
+                countLabelModal.textContent = c;
+                btnDelete.disabled = c === 0;
+            }
+
+            if (selectAll) {
+                selectAll.addEventListener('change', e => {
+                    rows.forEach(r => r.checked = e.target.checked);
+                    updateCount();
+                });
+            }
+
+            rows.forEach(r => r.addEventListener('change', updateCount));
+            confirmBulkBtn.addEventListener('click', () => bulkForm.submit());
+
+            // Xử lý cập nhật trạng thái
+            document.querySelectorAll('.status-select').forEach(select => {
+                select.addEventListener('change', function () {
+                    const form = this.closest('form');
+                    form.submit();
+                });
+            });
+
+            // Hiển thị modal thông báo thành công
+        @if (TempData["Success"] != null)
+        {
+            <text>
+                                $(document).ready(function () {
+                                    $('#successModal').modal('show');
+                                });
+            </text>
+        }
+        });
+
+        // Giữ tab đang mở
+        const urlParams = new URLSearchParams(window.location.search);
+        const tab = urlParams.get('tab');
+        if (tab === 'staff' && @roleId == 3) {
+            new bootstrap.Tab(document.querySelector('#staff-tab')).show();
+        }
+    </script>
+}

@@ -1,0 +1,12 @@
+﻿@{
+    int cartCount = ViewBag.CartCount != null ? (int)ViewBag.CartCount : 0;
+}
+
+<a asp-controller="Cart" asp-action="Index" class="position-relative">
+    <img src="~/images/icon_cart.png" style="width: 30px" />
+    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill" style="background-color: #FECC29; color: black;">
+        @cartCount
+    </span>
+</a>
+
+

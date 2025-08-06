@@ -1,0 +1,123 @@
+﻿@model List<WebLego.DataSet.GdrService.ContactInformation>
+@{
+    ViewData["Title"] = "Liên hệ";
+}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="stylesheet" href="~/css/contact.css" />
+
+<div class="row">
+    <!-- Container Left -->
+    <div class="col-md-6 container-left">
+        <h2>Liên hệ với chúng tôi</h2>
+        <h3>Hãy kết nối để khám phá thêm nhiều thông tin thú vị về chúng tôi!</h3>
+        <p>Vui lòng điền đầy đủ thông tin vào form sau nếu bạn muốn yêu cầu hoặc thắc mắc của bạn về cho chúng tôi.</p>
+        <form>
+            <div class="form-group">
+                <label for="fullName">Họ tên</label>
+                <input type="text" class="form-control" id="fullName" required />
+            </div>
+            <div class="form-group">
+                <label for="phoneNumber">Số điện thoại</label>
+                <input type="tel" class="form-control" id="phoneNumber" required />
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" class="form-control" id="email" required />
+            </div>
+            <div class="form-group">
+                <label for="message">Nội dung</label>
+                <textarea class="form-control" id="message" rows="5" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Gửi</button>
+        </form>
+    </div>
+
+    <!-- Container Right -->
+    <div class="col-md-5 container-right">
+        <h2>Vị trí của chúng tôi</h2>
+        <div id="map" style="height: 675px; width: 100%;"></div>
+    </div>
+</div>
+
+<!-- Container dưới cùng -->
+<div class="contact-info">
+    <div class="row text-center">
+        <div class="col-md-4 contact-item">
+            <div class="icon-wrapper"><i class="fas fa-phone"></i></div>
+            <div class="text-content">
+                <h4>Số điện thoại</h4>
+                @if (Model != null && Model.Any())
+                {
+                    foreach (var contact in Model.Take(3))
+                    {
+                        <p>@contact.PhoneNumber</p>
+                    }
+                }
+                else
+                {
+                    <p>Chưa có thông tin</p>
+                }
+            </div>
+        </div>
+        <div class="col-md-4 contact-item">
+            <div class="icon-wrapper"><i class="fas fa-map-marker-alt"></i></div>
+            <div class="text-content">
+                <h4>Địa chỉ</h4>
+                @if (Model != null && Model.Any())
+                {
+                    foreach (var contact in Model.Take(3))
+                    {
+                        <p>@contact.Address</p>
+                    }
+                }
+                else
+                {
+                    <p>Chưa có thông tin</p>
+                }
+            </div>
+        </div>
+        <div class="col-md-4 contact-item">
+            <div class="icon-wrapper"><i class="fas fa-envelope"></i></div>
+            <div class="text-content">
+                <h4>Email</h4>
+                @if (Model != null && Model.Any())
+                {
+                    foreach (var contact in Model.Take(3))
+                    {
+                        <p>@contact.Email</p>
+                    }
+                }
+                else
+                {
+                    <p>Chưa có thông tin</p>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        // Lấy tọa độ từ bản ghi đầu tiên có IsActive = true
+        var contact = @Html.Raw(Json.Serialize(Model.FirstOrDefault(c => c.IsActive == true)));
+        var lat = contact && contact.latitude ? parseFloat(contact.latitude) : 10.776389; // Tọa độ mặc định
+        var lng = contact && contact.longitude ? parseFloat(contact.longitude) : 106.700989;
+        var address = contact ? contact.address : "123 Đường ABC, Quận 1, TP.HCM";
+
+        // Khởi tạo bản đồ
+        var map = L.map('map').setView([lat, lng], 15);
+
+        // Thêm lớp bản đồ từ OpenStreetMap
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        // Thêm marker
+        L.marker([lat, lng]).addTo(map)
+            .bindPopup(address)
+            .openPopup();
+    </script>
+}

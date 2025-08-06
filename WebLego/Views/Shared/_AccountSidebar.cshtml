@@ -1,0 +1,94 @@
+﻿@inject Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper<dynamic> Html
+@{
+    var currentAction = ViewContext.RouteData.Values["action"]?.ToString();
+    var currentController = ViewContext.RouteData.Values["controller"]?.ToString();
+
+    Func<string, string, string> activeClass = (controller, action) =>
+        (controller == currentController && action == currentAction) ? "active-tab" : "";
+}
+
+<div class="account-sidebar">
+    <a asp-controller="User" asp-action="Profile" class="sidebar-item @activeClass("User", "Profile")">
+        <img src="~/images/icon_user.png" alt="User Icon" class="sidebar-icon" style="width: 24px ; height: 24px;"/>
+        <span>Hồ sơ</span>
+    </a>
+    <a asp-controller="Order" asp-action="Index" class="sidebar-item @activeClass("Order", "Index")">
+        <img src="~/images/icon_order.png" alt="Order Icon" class="sidebar-icon" style="width: 27px ; height: 22px;" />
+        <span>Đơn hàng</span>
+    </a>
+    <a asp-controller="User" asp-action="Membership" class="sidebar-item @activeClass("User", "Membership")">
+        <img src="~/images/icon_rank.png" alt="Membership Icon" class="sidebar-icon" style="width: 23px; height: 24px;" />
+        <span>Thành viên</span>
+    </a>
+    <a asp-controller="User" asp-action="Favorites" class="sidebar-item @activeClass("User", "Favorites")">
+        <img src="~/images/icon_favorite.png" alt="Favorite Icon" class="sidebar-icon" style="width: 24px ; height: 26px;" />
+        <span>Yêu thích</span>
+    </a>
+    <a asp-controller="User" asp-action="Addresses" class="sidebar-item @activeClass("User", "Addresses")">
+        <img src="~/images/icon_location.png" alt="Location Icon" class="sidebar-icon" style="width: 22px ; height: 24px;" />
+        <span>Địa chỉ</span>
+    </a>
+</div>
+
+<style>
+    .account-sidebar {
+        width: 300px;
+        background-color: #fff;
+        padding: 15px;
+        border-radius: 12px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+        /* position: sticky; */
+        top: 20px;
+        height: 300px; /* Tăng chiều cao để chứa thêm mục */
+    }
+
+    .sidebar-item {
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+        padding: 12px 15px;
+        text-decoration: none;
+        color: #333;
+        font-size: 16px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        border-radius: 6px;
+        margin-bottom: 8px;
+        position: relative; /* Để hỗ trợ hiệu ứng active */
+    }
+
+    .sidebar-item span{
+        margin-left: 15px;
+    }
+        .sidebar-item:hover {
+            color: #333;
+            background-color: #f9f9f9;
+        }
+
+/*         .sidebar-item.active-tab {
+            font-weight: 600;
+            color: #FECC29; 
+        } */
+
+            .sidebar-item.active-tab::before {
+                content: "";
+                position: absolute;
+                left: -15px; /* Bù lại padding của .account-sidebar */
+                top: 10%;
+                transform: translateY(0);
+                width: 4px; /* Đường viền mỏng bên trái */
+                height: 80%; /* Tăng chiều dài viền lên 80% chiều cao mục */
+                background-color: #FECC29;
+                border-radius: 2px;
+            }
+
+    .sidebar-icon {
+/*         width: 24px;
+        height: 26px; */
+        object-fit: contain;
+    }
+
+    .sidebar-item:last-child {
+        margin-bottom: 0;
+    }
+</style>

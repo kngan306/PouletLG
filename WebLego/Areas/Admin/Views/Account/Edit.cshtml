@@ -1,0 +1,133 @@
+﻿@model WebLego.Areas.Admin.Models.AccountViewModel
+@{
+    ViewData["Title"] = "Chỉnh sửa tài khoản";
+    var loginRoleId = int.Parse(User.FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value ?? "0");
+    var isCustomer = Model.RoleId == 1;
+}
+
+<div class="container-fluid py-4">
+    <div class="card shadow-sm">
+        <div class="card-header bg-light d-flex justify-content-between align-items-center">
+            <a asp-action="Index" class="btn btn-outline-secondary btn-sm shadow-sm" aria-label="Quay lại danh sách tài khoản">
+                <i class="bi bi-arrow-left me-2"></i>Quay lại
+            </a>
+        </div>
+        <div class="card-body">
+            <form asp-area="Admin" asp-controller="Account" asp-action="Edit" method="post">
+                @Html.AntiForgeryToken()
+                <input type="hidden" asp-for="UserId" />
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-4 alert alert-danger alert-dismissible fade show" role="alert" style="@(ViewData.ModelState.IsValid ? "display: none;" : "")">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+
+                <div class="row g-3">
+                    <!-- Họ và tên -->
+                    <div class="col-md-6 col-sm-12">
+                        <label asp-for="FullName" class="form-label fw-semibold">Họ và tên</label>
+                        <input asp-for="FullName" class="form-control bg-light border-0" readonly aria-describedby="fullNameHelp" />
+                        <span asp-validation-for="FullName" class="text-danger"></span>
+                        <small id="fullNameHelp" class="form-text text-muted">Không thể chỉnh sửa họ và tên.</small>
+                    </div>
+
+                    <!-- Email -->
+                    <div class="col-md-6 col-sm-12">
+                        <label asp-for="Email" class="form-label fw-semibold">Email</label>
+                        <input asp-for="Email" class="form-control bg-light border-0" readonly aria-describedby="emailHelp" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                        <small id="emailHelp" class="form-text text-muted">Không thể chỉnh sửa email.</small>
+                    </div>
+
+                    <!-- Vai trò -->
+                    <div class="col-md-6 col-sm-12">
+                        <label class="form-label fw-semibold">Vai trò</label>
+                        <input class="form-control bg-light border-0" value="@Model.RoleName" readonly aria-describedby="roleHelp" />
+                        <small id="roleHelp" class="form-text text-muted">Vai trò được xác định bởi hệ thống.</small>
+                    </div>
+
+                    <!-- Số điện thoại -->
+                    <div class="col-md-6 col-sm-12">
+                        <label asp-for="Phone" class="form-label fw-semibold">Số điện thoại</label>
+                        <input asp-for="Phone" class="form-control bg-light border-0" readonly aria-describedby="phoneHelp" />
+                        <span asp-validation-for="Phone" class="text-danger"></span>
+                        <small id="phoneHelp" class="form-text text-muted">Không thể chỉnh sửa số điện thoại.</small>
+                    </div>
+
+                    <!-- Giới tính -->
+                    <div class="col-md-6 col-sm-12">
+                        <label asp-for="Gender" class="form-label fw-semibold">Giới tính</label>
+                        <input asp-for="Gender" class="form-control bg-light border-0" readonly aria-describedby="genderHelp" />
+                        <span asp-validation-for="Gender" class="text-danger"></span>
+                        <small id="genderHelp" class="form-text text-muted">Không thể chỉnh sửa giới tính.</small>
+                    </div>
+
+                    <!-- Ngày sinh -->
+                    <div class="col-md-6 col-sm-12">
+                        <label asp-for="DateOfBirth" class="form-label fw-semibold">Ngày sinh</label>
+                        <input asp-for="DateOfBirth" class="form-control bg-light border-0" readonly aria-describedby="dobHelp" />
+                        <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+                        <small id="dobHelp" class="form-text text-muted">Không thể chỉnh sửa ngày sinh.</small>
+                    </div>
+
+                    <!-- Trạng thái -->
+                    <div class="col-md-6 col-sm-12">
+                        <label asp-for="UserStatus" class="form-label fw-semibold">Trạng thái</label>
+                        <input asp-for="UserStatus" class="form-control bg-light border-0" readonly aria-describedby="statusHelp" />
+                        <input type="hidden" asp-for="UserStatus" />
+                        <small id="statusHelp" class="form-text text-muted">Trạng thái được quản lý tại danh sách tài khoản.</small>
+                    </div>
+                </div>
+
+                <!-- Thông tin khách hàng -->
+                @if (isCustomer && Model.CustomerProfile != null)
+                {
+                    <hr class="my-4" />
+                    <h4 class="fw-semibold mb-3">Thông tin khách hàng</h4>
+                    <div class="row g-3">
+                        <div class="col-md-6 col-sm-12">
+                            <label class="form-label fw-semibold">Mã giảm giá</label>
+                            <input class="form-control bg-light border-0" value="@(Model.CustomerProfile.DiscountCode ?? "-")" readonly aria-describedby="discountHelp" />
+                            <small id="discountHelp" class="form-text text-muted">Mã giảm giá hiện tại của khách hàng.</small>
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                            <label class="form-label fw-semibold">Hạng thành viên</label>
+                            <input class="form-control bg-light border-0" value="@(Model.CustomerProfile.CustomerRank ?? "-")" readonly aria-describedby="rankHelp" />
+                            <small id="rankHelp" class="form-text text-muted">Hạng thành viên hiện tại của khách hàng.</small>
+                        </div>
+                    </div>
+                }
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+    <style>
+        .card {
+            border-radius: 0.5rem;
+        }
+
+        .form-control[readonly] {
+            background-color: #f8f9fa !important;
+            opacity: 1;
+            cursor: not-allowed;
+        }
+
+        .form-label {
+            margin-bottom: 0.25rem;
+            font-size: 0.9rem;
+        }
+
+        .form-text {
+            font-size: 0.85rem;
+        }
+
+        .btn {
+            border-radius: 0.375rem;
+        }
+
+        .alert-dismissible {
+            border-radius: 0.375rem;
+        }
+    </style>
+}

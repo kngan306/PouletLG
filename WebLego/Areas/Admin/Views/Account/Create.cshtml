@@ -1,0 +1,144 @@
+﻿@model WebLego.Areas.Admin.Models.CreateAccountViewModel
+
+@{
+    ViewData["Title"] = "Tạo tài khoản nhân viên";
+}
+
+<div class="container py-4">
+    <form asp-action="Create" method="post" class="needs-validation" novalidate>
+        @Html.AntiForgeryToken()
+        <div asp-validation-summary="All" class="text-danger mb-3"></div>
+
+        <div class="row g-3">
+            <div class="col-md-6">
+                <label asp-for="FullName" class="form-label"></label>
+                <input asp-for="FullName" class="form-control" />
+                <span asp-validation-for="FullName" class="text-danger small"></span>
+            </div>
+
+            <div class="col-md-6">
+                <label asp-for="Email" class="form-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger small"></span>
+            </div>
+
+            <div class="col-md-6">
+                <label asp-for="Phone" class="form-label"></label>
+                <input asp-for="Phone" class="form-control" />
+                <span asp-validation-for="Phone" class="text-danger small"></span>
+            </div>
+
+            <div class="col-md-6">
+                <label asp-for="Gender" class="form-label"></label>
+                <select asp-for="Gender" class="form-select" asp-items="Model.GenderOptions">
+                    <option value="">-- Chọn giới tính --</option>
+                </select>
+                <span asp-validation-for="Gender" class="text-danger small"></span>
+            </div>
+
+            <div class="col-md-6">
+                <label asp-for="DateOfBirth" class="form-label"></label>
+                <input asp-for="DateOfBirth" class="form-control" type="date" />
+                <span asp-validation-for="DateOfBirth" class="text-danger small"></span>
+            </div>
+
+            <div class="col-md-6">
+                <label asp-for="RoleId" class="form-label"></label>
+                <select asp-for="RoleId" class="form-select" asp-items="Model.RoleOptions">
+                    <option value="">-- Chọn vai trò --</option>
+                </select>
+                <span asp-validation-for="RoleId" class="text-danger small"></span>
+            </div>
+
+            <div class="col-md-6">
+                <label asp-for="UserStatus" class="form-label"></label>
+                <select asp-for="UserStatus" class="form-select" asp-items="Model.StatusOptions">
+                    <option value="">-- Chọn trạng thái --</option>
+                </select>
+                <span asp-validation-for="UserStatus" class="text-danger small"></span>
+            </div>
+
+            <div class="col-md-6">
+                <label asp-for="UserPassword" class="form-label"></label>
+                <div class="input-group">
+                    <input asp-for="UserPassword" class="form-control" id="passwordInput" type="password" placeholder="Nhập mật khẩu" />
+                    <button class="btn btn-outline-secondary" type="button" id="togglePassword">
+                        <i class="bi bi-eye" id="eyeIcon"></i>
+                    </button>
+                </div>
+                <span asp-validation-for="UserPassword" class="text-danger small"></span>
+            </div>
+
+            <div class="col-md-6">
+                <label asp-for="ConfirmPassword" class="form-label"></label>
+                <div class="input-group">
+                    <input asp-for="ConfirmPassword" class="form-control" id="confirmPasswordInput" type="password" placeholder="Nhập lại mật khẩu" />
+                    <button class="btn btn-outline-secondary" type="button" id="toggleConfirmPassword">
+                        <i class="bi bi-eye" id="confirmEyeIcon"></i>
+                    </button>
+                </div>
+                <span asp-validation-for="ConfirmPassword" class="text-danger small"></span>
+            </div>
+        </div>
+
+        <div class="mt-4">
+            <button type="submit" class="btn btn-primary me-2">
+                <i class="bi bi-check-circle"></i> Tạo tài khoản
+            </button>
+            <a asp-action="Index" asp-route-tab="Staff" class="btn btn-outline-secondary">
+                <i class="bi bi-x-circle"></i> Hủy
+            </a>
+        </div>
+    </form>
+</div>
+
+<!-- Modal thông báo thành công -->
+<div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-success">
+            <div class="modal-header bg-success text-white">
+                <h5 class="modal-title" id="successModalLabel"><i class="bi bi-check-circle-fill me-2"></i> Thành công</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+            </div>
+            <div class="modal-body">
+                Tài khoản đã được tạo thành công!
+            </div>
+            <div class="modal-footer">
+                <a asp-action="Index" asp-route-tab="Staff" class="btn btn-success">Quay lại danh sách</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+    <script>
+        document.getElementById("togglePassword").addEventListener("click", function () {
+            const input = document.getElementById("passwordInput");
+            const icon = document.getElementById("eyeIcon");
+            const type = input.type === "password" ? "text" : "password";
+            input.type = type;
+            icon.classList.toggle("bi-eye");
+            icon.classList.toggle("bi-eye-slash");
+        });
+
+        document.getElementById("toggleConfirmPassword").addEventListener("click", function () {
+            const input = document.getElementById("confirmPasswordInput");
+            const icon = document.getElementById("confirmEyeIcon");
+            const type = input.type === "password" ? "text" : "password";
+            input.type = type;
+            icon.classList.toggle("bi-eye");
+            icon.classList.toggle("bi-eye-slash");
+        });
+
+        // Hiển thị modal nếu tạo thành công
+        @if (TempData["Success"] != null)
+        {
+            <text>
+                    $(document).ready(function () {
+                        $('#successModal').modal('show');
+                    });
+            </text>
+        }
+    </script>
+}

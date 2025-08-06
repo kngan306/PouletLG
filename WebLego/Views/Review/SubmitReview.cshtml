@@ -1,0 +1,162 @@
+﻿@model dynamic
+@{
+    ViewData["Title"] = ViewBag.IsBulkReview ? "Đánh giá chung đơn hàng" : "Đánh giá sản phẩm";
+    var orderId = ViewBag.OrderId;
+    var productName = ViewBag.ProductName;
+    var products = ViewBag.Products as List<dynamic>;
+    var isBulkReview = ViewBag.IsBulkReview;
+}
+
+<link href="~/css/checkout.css" rel="stylesheet" asp-append-version="true" />
+<style>
+    .star-rating {
+        display: flex;
+        gap: 5px;
+        margin-bottom: 20px;
+    }
+
+    .star {
+        font-size: 30px;
+        color: #ccc;
+        cursor: pointer;
+    }
+
+        .star.filled {
+            color: #FECC29;
+        }
+</style>
+
+<div class="checkout-container">
+    <h2>@(isBulkReview ? $"Đánh giá chung đơn hàng #{orderId}" : $"Đánh giá sản phẩm: {productName}")</h2>
+    @if (TempData["Message"] != null)
+    {
+        <p class="message-success">@TempData["Message"]</p>
+    }
+    @if (TempData["Error"] != null)
+    {
+        <p class="message-error">@TempData["Error"]</p>
+    }
+    <div class="card mb-3">
+        <div class="card-body">
+            @if (isBulkReview)
+            {
+                <h4>Sản phẩm trong đơn hàng:</h4>
+                <ul>
+                    @foreach (var product in products)
+                    {
+                        <li>@product.ProductName @(product.HasReviewed ? "(Đã đánh giá)" : "")</li>
+                    }
+                </ul>
+            }
+            <form asp-action="SubmitReview" method="post" enctype="multipart/form-data">
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="orderId" value="@orderId" />
+                @if (!isBulkReview)
+                {
+                    <input type="hidden" name="productId" value="@ViewBag.ProductId" />
+                }
+                <input type="hidden" name="rating" id="rating" value="0" />
+                <div class="mb-3">
+                    <label class="form-label">Điểm đánh giá:</label>
+                    <div class="star-rating">
+                        @for (int i = 1; i <= 5; i++)
+                        {
+                            <span class="star" data-value="@i">★</span>
+                        }
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="comment" class="form-label">Bình luận:</label>
+                    <textarea name="comment" id="comment" class="form-control" rows="5" required></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="image" class="form-label">Hình ảnh (tùy chọn):</label>
+                    <input type="file" name="image" id="image" class="form-control" accept=".jpg,.jpeg,.png" />
+                </div>
+                <div class="button-container">
+                    <a asp-action="Detail" asp-controller="Order" asp-route-orderId="@orderId" class="btn btn-back">Quay lại</a>
+                    <button type="submit" class="btn btn-yellow">Gửi đánh giá</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const stars = document.querySelectorAll('.star');
+        const ratingInput = document.getElementById('rating');
+
+        stars.forEach(star => {
+            star.addEventListener('click', function () {
+                const value = parseInt(this.getAttribute('data-value'));
+                ratingInput.value = value;
+
+                stars.forEach(s => {
+                    if (parseInt(s.getAttribute('data-value')) <= value) {
+                        s.classList.add('filled');
+                    } else {
+                        s.classList.remove('filled');
+                    }
+                });
+            });
+        });
+    });
+</script>
+
+<style>
+    .btn-yellow {
+        font-size: 15px;
+        padding: 8px 15px;
+        border: none;
+        border-radius: 5px;
+        font-weight: 500;
+        background-color: #FECC29;
+        color: black;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+    }
+
+        .btn-yellow:hover {
+            background-color: #E0B522;
+            color: black;
+        }
+
+    .btn-back {
+        font-size: 15px;
+        padding: 8px 15px;
+        border: none;
+        border-radius: 5px;
+        font-weight: 500;
+        background-color: #6c757d;
+        color: white;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+    }
+
+        .btn-back:hover {
+            background-color: #5a6268;
+            color: white;
+        }
+
+    .message-success {
+        6 color: green;
+        margin-bottom: 10px;
+        font-weight: 500;
+    }
+
+    .message-error {
+        color: red;
+        margin-bottom: 10px;
+        font-weight: 500;
+    }
+
+    .button-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 15px;
+    }
+</style>

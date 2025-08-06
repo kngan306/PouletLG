@@ -1,0 +1,35 @@
+﻿@model WebLego.Models.ViewModel.ProductListViewModel
+@{
+    ViewData["Title"] = Model.CategoryName;
+}
+
+<div class="container py-4">
+    <h2 class="mb-4">@Model.CategoryName</h2>
+
+    <div class="row">
+        @if (!Model.Products.Any())
+        {
+            <p>Không có sản phẩm nào trong danh mục này.</p>
+        }
+        else
+        {
+            foreach (var p in Model.Products)
+            {
+                var img = p.ProductImages.FirstOrDefault()?.ImageUrl ?? "default.png";
+                <div class="col-md-3 mb-4">
+                    <div class="card h-100">
+                        <img src="@Url.Content($"{img}")"
+                             class="card-img-top"
+                             alt="@p.ProductName"
+                             style="height: 200px; object-fit: cover;"
+                             onerror="this.onerror=null;this.src='/images/products/default.png';" />
+                        <div class="card-body text-center">
+                            <h5 class="card-title">@p.ProductName</h5>
+                            <p class="card-text">@p.Price.ToString("N0") ₫</p>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>

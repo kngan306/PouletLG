@@ -1,0 +1,266 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@using System.Security.Claims
+
+@{
+    var roleId = int.Parse(User.FindFirst(ClaimTypes.Role)?.Value ?? "0");
+    var area = ViewContext.RouteData.Values["area"]?.ToString();
+    var currentController = ViewContext.RouteData.Values["controller"]?.ToString();
+    var currentAction = ViewContext.RouteData.Values["action"]?.ToString();
+    var title = ViewData["Title"] as string ?? "WebLego";
+
+    bool isAdminLogin =
+        string.Equals(area, "Admin", StringComparison.OrdinalIgnoreCase)
+        && string.Equals(currentController, "Home", StringComparison.OrdinalIgnoreCase)
+        && string.Equals(currentAction, "Login", StringComparison.OrdinalIgnoreCase);
+
+    var userName = User.FindFirst("FullName")?.Value ?? "Chưa đăng nhập";
+    var userRole = User.FindFirst(ClaimTypes.Role)?.Value ?? "Không rõ quyền";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>@title - WebLego</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/WebLego.styles.css" asp-append-version="true" />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates&display=swap" rel="stylesheet" />
+
+    @RenderSection("Styles", required: false)
+
+    <style>
+        body {
+            font-family: 'Montserrat Alternates', sans-serif;
+            background-color: #f5f5f5;
+        }
+
+        .admin-sidebar {
+            width: 250px;
+            min-width: 250px;
+            background: #fff;
+            border-right: 1px solid #dee2e6;
+        }
+
+            .admin-sidebar .sidebar-header {
+                padding: 1rem;
+                border-bottom: 1px solid #dee2e6;
+                display: flex;
+                align-items: center;
+            }
+
+                .admin-sidebar .sidebar-header i {
+                    font-size: 1.5rem;
+                }
+
+                .admin-sidebar .sidebar-header .ms-2 {
+                    margin-left: 0.75rem;
+                }
+
+            .admin-sidebar .nav-link {
+                color: #000;
+                padding: .75rem 1rem;
+            }
+
+                .admin-sidebar .nav-link:hover {
+                    background-color: #f8f9fa;
+                    color: #000;
+                }
+
+                .admin-sidebar .nav-link.active {
+                    background-color: #e7f1ff;
+                    border-left: 3px solid #ffc107;
+                    color: #000;
+                    font-weight: 500;
+                }
+
+                .admin-sidebar .nav-link i {
+                    width: 20px;
+                    text-align: center;
+                    margin-right: 0.75rem;
+                    color: #000;
+                    transition: transform 0.2s;
+                }
+
+                .admin-sidebar .nav-link:hover i {
+                    transform: scale(1.2);
+                }
+    </style>
+</head>
+<body class="d-flex flex-column min-vh-100">
+    <header class="bg-white py-3 border-bottom">
+        <div class="container-fluid d-flex justify-content-between align-items-center px-4">
+            <!-- Logo bên trái sát mép -->
+            <div class="d-flex align-items-center">
+                <img src="/images/logo_lego.png" alt="PouletLG" height="70" class="me-3" />
+            </div>
+
+            <!-- Tài khoản hoặc Đăng nhập bên phải sát mép -->
+            <div class="d-flex align-items-center gap-4">
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <div class="dropdown">
+                        <a class="nav-link d-flex align-items-center gap-2" href="#" id="accountDropdown"
+                           data-bs-toggle="dropdown" aria-expanded="false" style="cursor:pointer;">
+                            <img src="/images/icon_account.png" height="30" />
+                            <img src="/images/ic_ar.png" height="5" />
+                        </a>
+
+                        <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="accountDropdown">
+                            <li>
+                                <form asp-area="" asp-controller="Auth" asp-action="Logout" method="post" class="px-3 m-0">
+                                    <button type="submit" class="btn btn-link dropdown-item d-flex align-items-center gap-2 p-0">
+                                        <img src="/images/ic_dx.png" height="15" /> Đăng xuất
+                                    </button>
+                                </form>
+                            </li>
+                        </ul>
+                    </div>
+                }
+                else
+                {
+                    <a asp-controller="Auth" asp-action="Login" class="nav-link text-dark fw-bold">ĐĂNG NHẬP</a>
+                }
+            </div>
+        </div>
+    </header>
+
+
+    <div class="flex-grow-1 d-flex">
+        @if (isAdminLogin && roleId != 4)
+        {
+            <div class="container my-5">
+                <h1 class="h3 text-center mb-4">@title</h1>
+                @RenderBody()
+            </div>
+        }
+        else if (string.Equals(area, "Admin", StringComparison.OrdinalIgnoreCase) && roleId != 4)
+        {
+            <aside class="admin-sidebar d-none d-md-block">
+                <nav class="nav flex-column">
+                    <a class="nav-link @(currentController == "Home" ? "active" : "")" asp-area="Admin" asp-controller="Home" asp-action="Index">
+                        <i class="fas fa-chart-line"></i> Tổng quan
+                    </a>
+                    <a class="nav-link @(currentController == "Category" ? "active" : "")" asp-area="Admin" asp-controller="Category" asp-action="Index">
+                        <i class="fas fa-tags"></i> Danh mục sản phẩm
+                    </a>
+                    <a class="nav-link @(currentController == "Product" ? "active" : "")" asp-area="Admin" asp-controller="Product" asp-action="Index">
+                        <i class="fas fa-cubes"></i> Sản phẩm
+                    </a>
+                    <a class="nav-link @(currentController == "Orders" ? "active" : "")" asp-area="Admin" asp-controller="Orders" asp-action="Index">
+                        <i class="fas fa-box-open"></i> Đơn hàng
+                    </a>
+                    <a class="nav-link @(currentController == "Return" ? "active" : "")" asp-area="Admin" asp-controller="Return" asp-action="Index">
+                        <i class="fas fa-undo-alt"></i> Đổi/trả hàng
+                    </a>
+                    <a class="nav-link @(currentController == "Review" ? "active" : "")" asp-area="Admin" asp-controller="Review" asp-action="Index">
+                        <i class="fas fa-star"></i> Đánh giá
+                    </a>
+                    <a class="nav-link @(currentController == "Account" ? "active" : "")" asp-area="Admin" asp-controller="Account" asp-action="Index">
+                        <i class="fas fa-users"></i> Người dùng
+                    </a>
+                    <a class="nav-link @(currentController == "Promotions" ? "active" : "")" asp-area="Admin" asp-controller="Promotions" asp-action="Index">
+                        <i class="fas fa-percent"></i> Khuyến mãi
+                    </a>
+                    <a class="nav-link @(currentController == "Banners" ? "active" : "")" asp-area="Admin" asp-controller="Banners" asp-action="Index">
+                        <i class="fas fa-image"></i> Banner
+                    </a>
+                    <a class="nav-link @(currentController == "ContactInformations" ? "active" : "")" asp-area="Admin" asp-controller="ContactInformations" asp-action="Index">
+                        <i class="fas fa-phone"></i> Liên hệ
+                    </a>
+                    <a class="nav-link @(currentController == "AboutUsSections" ? "active" : "")" asp-area="Admin" asp-controller="AboutUsSections" asp-action="Index">
+                        <i class="fas fa-info-circle"></i> Giới thiệu
+                    </a>
+                    <a class="nav-link @(currentController == "Contest" ? "active" : "")" asp-area="Admin" asp-controller="Contest" asp-action="Index">
+                        <i class="fas fa-trophy"></i> Cuộc thi
+                    </a>
+                    <a class="nav-link @(currentController == "Community" ? "active" : "")" asp-area="Admin" asp-controller="Community" asp-action="Index">
+                        <i class="fas fa-users-cog"></i> Cộng đồng
+                    </a>
+                </nav>
+            </aside>
+            <main class="flex-fill p-4">
+                <h2 class="text-center mb-4">@title</h2>
+                @RenderBody()
+            </main>
+        }
+        else
+        {
+            <div class="container my-5">
+                @RenderBody()
+            </div>
+        }
+    </div>
+
+
+    <footer class="text-white pt-5 pb-4 mt-auto" style="background-color:#201D48;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 mb-4">
+                    <h5 class="fw-bold">PouletLG.com</h5>
+                    <div class="d-flex align-items-center gap-2 mb-3">
+                        <div class="bg-white text-dark px-3 py-1 rounded-pill fw-semibold d-flex align-items-center gap-1">
+                            <i class="bi bi-geo-alt-fill"></i> TP. HCM
+                        </div>
+                    </div>
+                    <ul class="list-unstyled">
+                        <li>Gift Cards</li>
+                        <li>Tìm nguồn cảm hứng</li>
+                        <li>Danh mục Lego</li>
+                        <li>Tìm cửa hàng</li>
+                    </ul>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <h5 class="fw-bold">VỀ CHÚNG TÔI</h5>
+                    <ul class="list-unstyled">
+                        <li>Giới thiệu về tập đoàn Lego</li>
+                        <li>Tin tức về Lego®</li>
+                        <li>Tính bền vững</li>
+                        <li>Tuyên bố minh bạch về chuỗi cung ứng</li>
+                        <li>Chứng nhận sản phẩm Lego chính hãng</li>
+                        <li>Lego jobs</li>
+                        <li>Lego compliance Line</li>
+                    </ul>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <h5 class="fw-bold">HỖ TRỢ</h5>
+                    <ul class="list-unstyled">
+                        <li>Liên hệ với chúng tôi</li>
+                        <li>Hướng dẫn lắp ráp</li>
+                        <li>Linh kiện thay thế</li>
+                        <li>Giao hàng & Đổi trả</li>
+                        <li>Phương thức thanh toán</li>
+                        <li>Điều khoản & Điều kiện</li>
+                        <li>Thu hồi sản phẩm</li>
+                    </ul>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <h5 class="fw-bold">THEO DÕI CHÚNG TÔI TẠI</h5>
+                    <ul class="list-unstyled">
+                        <li class="d-flex align-items-center gap-2"><i class="bi bi-facebook fs-5"></i> Facebook</li>
+                        <li class="d-flex align-items-center gap-2"><i class="bi bi-instagram fs-5"></i> Instagram</li>
+                        <li class="d-flex align-items-center gap-2"><i class="bi bi-twitter-x fs-5"></i> X</li>
+                        <li class="d-flex align-items-center gap-2"><i class="bi bi-youtube fs-5"></i> YouTube</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="text-center pt-3 border-top border-secondary mt-4 small">
+                © 2024 Bản quyền thuộc về Công ty TNHH PouletLG. Tất cả các quyền được bảo lưu.
+            </div>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,310 @@
+﻿@model WebLego.Models.ViewModel.CheckoutViewModel
+<link href="~/css/checkout.css" rel="stylesheet" asp-append-version="true" />
+
+@{
+    ViewData["Title"] = "Thanh toán";
+    var expirationSeconds = ViewBag.ExpirationTime as double? ?? 0;
+    var orderId = TempData["OrderId"] as int?;
+    var originalPaymentMethod = ViewBag.OriginalPaymentMethod as string;
+    var originalAddressId = ViewBag.OriginalAddressId as int?;
+    var totalItemCost = Model.CartItems.Sum(i => i.Price * i.Quantity);
+}
+
+<div class="checkout-container">
+    <h2>Thanh toán</h2>
+
+    @if (expirationSeconds > 0)
+    {
+        <div class="alert alert-warning">
+            Đơn hàng sẽ tự hủy sau <span id="timer">@TimeSpan.FromSeconds(expirationSeconds).ToString(@"hh\:mm\:ss")</span>. Vui lòng hoàn tất thanh toán!
+        </div>
+
+        <script>
+            var timeLeft = @expirationSeconds;
+            var timer = setInterval(function () {
+                timeLeft--;
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    alert("Đơn hàng đã bị hủy do hết thời gian.");
+                    window.location.href = "@Url.Action("Index", "Order")";
+                } else {
+                    var time = new Date(timeLeft * 1000).toISOString().substr(11, 8);
+                    document.getElementById("timer").textContent = time;
+                }
+            }, 1000);
+        </script>
+    }
+
+    <form asp-action="PlaceOrder" method="post">
+        @foreach (var item in Model.CartItems)
+        {
+            <input type="hidden" name="selectedProductIds" value="@item.ProductId" />
+        }
+        <input type="hidden" name="total" value="@Model.TotalAmount" />
+        @if (orderId.HasValue)
+        {
+            <input type="hidden" name="orderId" value="@orderId" />
+        }
+
+        <!-- ĐỊA CHỈ NHẬN HÀNG -->
+        <div class="card mb-3">
+            <div class="card-header fw-bold">
+                <img src="~/images/icon_address.png" class="section-icon icon-address" alt="Address Icon"> Địa chỉ nhận hàng
+            </div>
+            <div class="card-body">
+                @if (Model.Addresses != null && Model.Addresses.Any())
+                {
+                    if (orderId.HasValue)
+                    {
+                        var originalAddress = Model.Addresses.FirstOrDefault(a => a.AddressId == originalAddressId);
+                        if (originalAddress != null)
+                        {
+                            <div class="address-details">
+                                <span class="address-name-phone"><strong>@originalAddress.FullName</strong> (+84) @originalAddress.Phone</span>
+                                <span class="address-specific">@originalAddress.SpecificAddress, @originalAddress.Ward, @originalAddress.District, @originalAddress.Province</span>
+                                <span class="text-muted"> (Không thể thay đổi)</span>
+                            </div>
+                            <input type="hidden" name="selectedAddressId" value="@originalAddressId" />
+                        }
+                        else
+                        {
+                            <p class="text-danger">Địa chỉ ban đầu không tìm thấy.</p>
+                        }
+                    }
+                    else
+                    {
+                        var defaultAddress = Model.Addresses.FirstOrDefault(a => a.IsDefault) ?? Model.Addresses.First();
+                        if (defaultAddress != null)
+                        {
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div class="address-details">
+                                    <span class="address-name-phone"><strong>@defaultAddress.FullName</strong> (+84) @defaultAddress.Phone</span>
+                                    <span class="address-specific">@defaultAddress.SpecificAddress, @defaultAddress.Ward, @defaultAddress.District, @defaultAddress.Province</span>
+                                    <span class="badge-default ms-2">Mặc định</span>
+                                </div>
+                                <button type="button" class="btn btn-outline-primary btn-change-address" data-bs-toggle="modal" data-bs-target="#changeAddressModal">Thay đổi</button>
+                            </div>
+                            <input type="hidden" name="selectedAddressId" value="@defaultAddress.AddressId" id="selectedAddressId" />
+                        }
+                    }
+                }
+                else
+                {
+                    <div class="text-danger">Bạn chưa có địa chỉ nào. Vui lòng thêm trong hồ sơ.</div>
+                }
+            </div>
+        </div>
+
+        <!-- Modal thay đổi địa chỉ -->
+        <div class="modal fade" id="changeAddressModal" tabindex="-1" aria-labelledby="changeAddressModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="changeAddressModalLabel">Chọn địa chỉ giao hàng</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        @if (Model.Addresses != null && Model.Addresses.Any())
+                        {
+                            foreach (var addr in Model.Addresses)
+                            {
+                                <div class="form-check address-wrapper">
+                                    <input class="form-check-input" type="radio" name="modalAddressId" value="@addr.AddressId" id="modal-address-@addr.AddressId" @(addr.IsDefault ? "checked" : "")>
+                                    <label class="form-check-label w-100" for="modal-address-@addr.AddressId">
+                                        <div class="address-details">
+                                            <span class="address-name-phone"><strong>@addr.FullName</strong> (+84) @addr.Phone</span>
+                                            <span class="address-specific">@addr.SpecificAddress, @addr.Ward, @addr.District, @addr.Province</span>
+                                            @if (addr.IsDefault)
+                                            {
+                                                <span class="badge-default ms-2">Mặc định</span>
+                                            }
+                                        </div>
+                                    </label>
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            <p class="text-danger">Không có địa chỉ nào để chọn.</p>
+                        }
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                        <button type="button" class="btn btn-custom-save" id="saveAddress">Lưu</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Script để xử lý thay đổi địa chỉ -->
+        <script>
+            document.getElementById('saveAddress').addEventListener('click', function () {
+                var selectedAddressId = document.querySelector('input[name="modalAddressId"]:checked').value;
+                document.getElementById('selectedAddressId').value = selectedAddressId;
+                var selectedAddressLabel = document.querySelector('label[for="modal-address-' + selectedAddressId + '"] .address-details').cloneNode(true);
+                var defaultAddressContainer = document.querySelector('.card-body .d-flex .address-details');
+                defaultAddressContainer.innerHTML = selectedAddressLabel.innerHTML;
+                bootstrap.Modal.getInstance(document.getElementById('changeAddressModal')).hide();
+            });
+        </script>
+
+        <!-- DANH SÁCH SẢN PHẨM -->
+        <div class="card mb-3">
+            <div class="card-header fw-bold">
+                <img src="~/images/icon_product.png" class="section-icon icon-product" alt="Product Icon"> Sản phẩm
+            </div>
+            <div class="card-body">
+                <table class="table checkout-table">
+                    <thead>
+                        <tr>
+                            <th scope="col"></th>
+                            <th scope="col">Tên sản phẩm</th>
+                            <th scope="col">Giá</th>
+                            <th scope="col">Số lượng</th>
+                            <th scope="col">Thành tiền</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.CartItems)
+                        {
+                            <tr>
+                                <td>
+                                    <img src="@item.ImageUrl" class="checkout-image" />
+                                </td>
+                                <td>@item.ProductName</td>
+                                <td>
+                                    @if (item.IsDiscounted)
+                                    {
+                                        <span class="text-decoration-line-through text-muted me-2">@item.OriginalPrice.ToString("N0")₫</span>
+                                        <span class="text-danger fw-bold">@item.Price.ToString("N0")₫</span>
+                                    }
+                                    else
+                                    {
+                                        <span>@item.Price.ToString("N0")₫</span>
+                                    }
+                                </td>
+                                <td>@item.Quantity</td>
+                                <td>@item.Total.ToString("N0")₫</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <div class="text-end">
+                    <strong>Tổng số tiền (@Model.CartItems.Count sản phẩm):</strong>
+                    <span class="text-danger fw-bold">@totalItemCost.ToString("N0")₫</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- MÃ GIẢM GIÁ -->
+        <div class="card mb-3">
+            <div class="card-header fw-bold">
+                <img src="~/images/icon_voucher.png" class="section-icon icon-voucher" alt="Voucher Icon"> Mã giảm giá
+            </div>
+            <div class="card-body">
+                @if (!string.IsNullOrEmpty(Model.DiscountCode) && Model.DiscountAmount > 0)
+                {
+                    <p><strong>Mã giảm giá: </strong><span style="font-weight: 500">@Model.DiscountCode</span> (Áp dụng tự động)</p>
+                    <p><strong>Số tiền giảm: </strong><span class="text-danger fw-bold">-@Model.DiscountAmount.ToString("N0")₫</span></p>
+                }
+                else
+                {
+                    <p>Không áp dụng mã giảm giá.</p>
+                }
+            </div>
+        </div>
+
+        <!-- PHƯƠNG THỨC THANH TOÁN & TỔNG THANH TOÁN -->
+        <div class="card mb-3 payment-total-card">
+            <div class="card-header fw-bold">
+                <img src="~/images/icon_payment.png" class="section-icon icon-payment" alt="Payment Icon"> Tổng thanh toán
+            </div>
+            <div class="card-body">
+                @if (orderId.HasValue)
+                {
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div class="payment-details">
+                            <strong>Phương thức thanh toán:</strong> @originalPaymentMethod (Không thể thay đổi)
+                        </div>
+                        <input type="hidden" name="paymentMethod" value="@originalPaymentMethod" />
+                    </div>
+                }
+                else
+                {
+                    var defaultPaymentMethod = "COD";
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div class="payment-details">
+                            <strong>Phương thức thanh toán:</strong> Thanh toán khi nhận hàng (COD)
+                        </div>
+                        <button type="button" class="btn btn-outline-primary btn-change-payment" data-bs-toggle="modal" data-bs-target="#changePaymentModal">Thay đổi</button>
+                    </div>
+                    <input type="hidden" name="paymentMethod" value="@defaultPaymentMethod" id="selectedPaymentMethod" />
+                }
+
+                <div class="payment-layout">
+                    <div class="payment-details-placeholder"></div>
+                    <div class="payment-breakdown">
+                        <p><strong>Tổng tiền hàng:</strong> @totalItemCost.ToString("N0")₫</p>
+                        @if (!string.IsNullOrEmpty(Model.DiscountCode) && Model.DiscountAmount > 0)
+                        {
+                            <p><strong>Mã giảm giá (@Model.DiscountCode):</strong> -@Model.DiscountAmount.ToString("N0")₫</p>
+                        }
+                        <p><strong>Phí vận chuyển:</strong> @Model.ShippingFee.ToString("N0")₫</p>
+                        <p class="total-amount"><strong>Tổng thanh toán:</strong> <span class="text-danger fs-5 fw-bold">@Model.TotalAmount.ToString("N0")₫</span></p>
+                        <button type="submit" class="btn-order">Đặt hàng</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal thay đổi phương thức thanh toán -->
+        <div class="modal fade" id="changePaymentModal" tabindex="-1" aria-labelledby="changePaymentModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="changePaymentModalLabel">Chọn phương thức thanh toán</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-check payment-option">
+                            <input class="form-check-input" type="radio" name="modalPaymentMethod" value="COD" id="paymentCOD" checked>
+                            <label class="form-check-label" for="paymentCOD">
+                                Thanh toán khi nhận hàng (COD)
+                            </label>
+                        </div>
+                        <div class="form-check payment-option">
+                            <input class="form-check-input" type="radio" name="modalPaymentMethod" value="VNPAY" id="paymentVNPAY">
+                            <label class="form-check-label" for="paymentVNPAY">
+                                Thanh toán qua VNPAY
+                            </label>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                        <button type="button" class="btn btn-custom-save" id="savePayment">Lưu</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Script để xử lý thay đổi phương thức thanh toán -->
+        <script>
+            document.getElementById('savePayment').addEventListener('click', function () {
+                var selectedPaymentMethod = document.querySelector('input[name="modalPaymentMethod"]:checked');
+                if (selectedPaymentMethod) {
+                    var value = selectedPaymentMethod.value;
+                    document.getElementById('selectedPaymentMethod').value = value;
+                    var paymentDetails = document.querySelector('.payment-details');
+                    if (paymentDetails) {
+                        paymentDetails.innerHTML = '<strong>Phương thức thanh toán:</strong> ' +
+                            (value === 'COD' ? 'Thanh toán khi nhận hàng (COD)' : 'Thanh toán qua VNPAY');
+                    }
+                }
+                var modal = bootstrap.Modal.getInstance(document.getElementById('changePaymentModal'));
+                if (modal) {
+                    modal.hide();
+                }
+            });
+        </script>
+    </form>
+</div>

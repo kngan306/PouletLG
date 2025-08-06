@@ -1,0 +1,215 @@
+﻿.order-layout {
+    background-color: rgba(245, 245, 245, 1);
+    margin-top: 40px;
+    margin-left: 15px;
+    max-width: 1440px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    overflow: hidden;
+}
+
+.page-container {
+    display: flex;
+    max-width: 1440px;
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+.header-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.order-title {
+    color: rgba(0, 0, 0, 1);
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0 20px 10px 0;
+    flex-grow: 0;
+}
+
+.content-wrapper {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+    width: 100%;
+}
+
+.sidebar-wrapper {
+    width: 300px;
+    margin-right: 20px;
+}
+
+.order-content {
+    width: calc(100% - 320px);
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
+.order-nav ul {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    background: #ffdb26;
+    padding: 0.75rem 1rem;
+    list-style: none;
+    border-radius: 5px;
+    margin-bottom: 1rem;
+}
+
+    .order-nav ul li a {
+        color: #000;
+        font-weight: 600;
+        font-size: 16px;
+        text-align: center;
+        text-decoration: none;
+    }
+
+    .order-nav ul li.active a {
+        color: #fff;
+        background: #f9a825;
+        padding: 0.5rem 1rem;
+        border-radius: 4px;
+    }
+
+.orders-list {
+    width: 100%;
+    margin: 0; /* Xóa căn giữa */
+}
+
+.order-card {
+    background-color: white;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    padding: 15px 20px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.order-header {
+    display: flex;
+    justify-content: space-between;
+    font-weight: 700;
+    font-size: 15px;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.order-items {
+    transition: background-color 0.3s ease;
+}
+
+    .order-items:hover {
+        background-color: #f5f5f5;
+        cursor: pointer;
+    }
+
+.order-item {
+    display: flex;
+    align-items: center;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+    padding: 0.5rem 0;
+}
+
+.item-image {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    margin-right: 1rem;
+}
+
+.item-info h3 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.item-info p {
+    margin: 0;
+    color: #777;
+    font-size: 13px;
+}
+
+.item-price {
+    margin-left: auto;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.order-footer {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.5rem;
+}
+
+.order-total{
+    font-size: 15px;
+    margin-bottom: 5px;
+}
+
+.order-total strong {
+    font-size: 16px;
+}
+
+.btn-feedback, .btn-retry, .btn-return {
+    background-color: #FECC29;
+    border: none;
+    color: black;
+    padding: 10px 12px;
+    font-weight: 600;
+    font-size: 15px;
+    border-radius: 4px;
+    text-decoration: none;
+    margin-left: 0.5rem;
+}
+
+    .btn-feedback:hover, .btn-retry:hover, .btn-return:hover {
+        background-color: #E0B522;
+        color: black;
+    }
+
+.btn-cancel {
+    background-color: #dc3545;
+    border: none;
+    color: white;
+    padding: 8px 12px;
+    font-weight: 600;
+    font-size: 15px;
+    border-radius: 4px;
+    text-decoration: none;
+    margin-left: 0.5rem;
+}
+
+    .btn-cancel:disabled {
+        background-color: #ccc;
+        cursor: not-allowed;
+    }
+
+.expiration-warning {
+    background-color: #fff3cd;
+    color: #856404;
+    font-size: 15px;
+    padding: 0.5rem;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.message-success {
+    color: green;
+    margin-top: 10px;
+}
+
+.message-error {
+    color: red;
+    margin-top: 10px;
+}

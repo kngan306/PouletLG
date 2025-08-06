@@ -1,0 +1,216 @@
+﻿@model WebLego.Models.ViewModel.CustomerInfoViewModel
+@{
+    ViewData["Title"] = "Thông tin tài khoản";
+}
+
+<link href="~/css/profile.css" rel="stylesheet" />
+
+<div class="profile-layout">
+    <div class="page-container">
+        <div class="header-row">
+            <h1 class="profile-title">Thông tin tài khoản</h1>
+        </div>
+        <div class="content-wrapper" style="margin-bottom: 40px">
+            <!-- Sidebar bên trái -->
+            <div class="sidebar-wrapper">
+                @Html.Partial("_AccountSidebar")
+            </div>
+
+            <!-- Nội dung thông tin bên phải -->
+            <div class="profile-content">
+                <div class="card p-4 shadow-sm">
+                    @if (TempData["SuccessMessage"] != null)
+                    {
+                        <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+                    }
+
+                    <!-- FORM CẬP NHẬT THÔNG TIN -->
+                    <form asp-action="Profile" method="post">
+                        @Html.AntiForgeryToken()
+
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                        <div class="name-email-container">
+                            <div class="mb-3">
+                                <label class="form-label">Họ tên</label>
+                                <input asp-for="FullName" class="form-control" />
+                                <span asp-validation-for="FullName" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Email</label>
+                                <input type="hidden" asp-for="Email" />
+                                <input asp-for="Email" class="form-control" readonly />
+                            </div>
+                        </div>
+
+                        <div class="phone-gender-dob-container">
+                            <div class="mb-3">
+                                <label class="form-label">Số điện thoại</label>
+                                <input asp-for="Phone" class="form-control" />
+                                <span asp-validation-for="Phone" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Giới tính</label>
+                                <select asp-for="Gender" class="form-select">
+                                    <option value="">-- Chọn giới tính --</option>
+                                    <option value="Nam">Nam</option>
+                                    <option value="Nữ">Nữ</option>
+                                    <option value="Khác">Khác</option>
+                                </select>
+                                <span asp-validation-for="Gender" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Ngày sinh</label>
+                                <input asp-for="DateOfBirth" class="form-control" type="date" />
+                                <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="rank-discount-container">
+                            <div class="mb-3">
+                                <label class="form-label">Hạng</label>
+                                <input asp-for="CustomerRank" class="form-control" readonly />
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Mã giảm giá</label>
+                                <input class="form-control" value="@(!string.IsNullOrWhiteSpace(Model.DiscountCode) ? Model.DiscountCode : "Không có")" readonly />
+                            </div>
+                        </div>
+
+                        <div class="button-container">
+                            <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#changePasswordModal">
+                                Đổi mật khẩu
+                            </button>
+                            <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
+                        </div>
+                    </form>
+
+                    @* <!-- FORM XÓA TÀI KHOẢN -->
+                    <div class="mt-3">
+                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteAccountModal">
+                    Xóa tài khoản
+                    </button>
+                    </div> *@
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal đổi mật khẩu -->
+<div class="modal fade" id="changePasswordModal" tabindex="-1" aria-labelledby="changePasswordLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form id="changePasswordForm">
+                <div class="modal-header">
+                    <h1 class="modal-title" id="changePasswordLabel">Đổi mật khẩu</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label>Mật khẩu cũ</label>
+                        <input type="password" name="OldPassword" class="form-control" required />
+                    </div>
+                    <div class="mb-3">
+                        <label>Mật khẩu mới</label>
+                        <input type="password" name="NewPassword" class="form-control" required />
+                    </div>
+                    <div class="mb-3">
+                        <label>Xác nhận mật khẩu mới</label>
+                        <input type="password" name="ConfirmPassword" class="form-control" required />
+                    </div>
+                    <div class="text-danger" id="passwordError"></div>
+                    <div class="text-success" id="passwordSuccess"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                    <button type="submit" class="btn btn-primary">Lưu</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@* <!-- Modal xác nhận xóa tài khoản -->
+<div class="modal fade" id="deleteAccountModal" tabindex="-1" aria-labelledby="deleteAccountLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form id="deleteAccountForm" method="post">
+                @Html.AntiForgeryToken()
+
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteAccountLabel">Xác nhận xóa tài khoản</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Nhập mật khẩu để xác nhận xóa tài khoản của bạn:</p>
+                    <input type="password" name="Password" class="form-control" placeholder="Mật khẩu" required />
+                    <div class="text-danger mt-2" id="deleteError"></div>
+                    <div class="text-success mt-2" id="deleteSuccess"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-danger">Xác nhận xóa</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div> *@
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        // Xử lý submit đổi mật khẩu
+        $("#changePasswordForm").submit(function (e) {
+            e.preventDefault();
+            const data = $(this).serialize();
+
+            $.post("/User/ChangePassword", data)
+                .done(function (response) {
+                    if (response.success) {
+                        $("#passwordSuccess").text(response.message);
+                        $("#passwordError").text('');
+                        setTimeout(() => location.reload(), 1500);
+                    } else {
+                        $("#passwordError").text(response.message);
+                        $("#passwordSuccess").text('');
+                    }
+                })
+                .fail(function () {
+                    $("#passwordError").text("Đã có lỗi xảy ra. Vui lòng thử lại.");
+                });
+        });
+
+        // // Xử lý submit xóa tài khoản
+        // $("#deleteAccountForm").submit(function (e) {
+        //     e.preventDefault();
+
+        //     const form = $(this);
+        //     const token = form.find('input[name="__RequestVerificationToken"]').val();
+        //     const password = form.find('input[name="Password"]').val();
+
+        //     $.ajax({
+        //         url: "/User/ConfirmDeleteAccount",
+        //         type: "POST",
+        //         data: {
+        //             __RequestVerificationToken: token,
+        //             Password: password
+        //         },
+        //         success: function (response) {
+        //             if (response.success) {
+        //                 $("#deleteSuccess").text(response.message);
+        //                 $("#deleteError").text('');
+        //                 setTimeout(() => window.location.href = '/', 1500);
+        //             } else {
+        //                 $("#deleteError").text(response.message);
+        //                 $("#deleteSuccess").text('');
+        //             }
+        //         },
+        //         error: function (xhr, status, error) {
+        //             console.error("AJAX Error:", status, error, xhr.responseText);
+        //             $("#deleteError").text("Lỗi khi gửi yêu cầu xóa tài khoản.");
+        //         }
+        //     });
+        // });
+    </script>
+}

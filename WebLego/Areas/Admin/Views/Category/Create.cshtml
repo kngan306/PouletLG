@@ -1,0 +1,69 @@
+﻿@model WebLego.Areas.Admin.Models.CategoryViewModel
+@{
+    ViewData["Title"] = "Tạo danh mục";
+
+    var roleId = int.Parse(User.FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value ?? "0");
+
+    if (roleId == 2)
+    {
+        Context.Response.Redirect("/Admin/Category/Index");
+        return;
+    }
+}
+
+<form asp-area="Admin"
+      asp-controller="Category"
+      asp-action="Create"
+      method="post"
+      enctype="multipart/form-data"
+      novalidate>
+    @Html.AntiForgeryToken()
+
+    <div asp-validation-summary="ModelOnly" class="alert alert-danger mb-3"></div>
+
+    <div class="mb-3">
+        <label asp-for="CategoryName" class="form-label">Tên danh mục</label>
+        <input asp-for="CategoryName" class="form-control" />
+        <span asp-validation-for="CategoryName" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Description" class="form-label">Mô tả chi tiết</label>
+        <textarea asp-for="Description" class="form-control" rows="4"></textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="ImageFile" class="form-label">Ảnh đại diện</label>
+        <input asp-for="ImageFile" type="file" class="form-control" accept="image/*" />
+        <span asp-validation-for="ImageFile" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="BackgroundColor" class="form-label">Màu nền</label>
+        <input asp-for="BackgroundColor" type="color" class="form-control form-control-color" />
+        <span asp-validation-for="BackgroundColor" class="text-danger"></span>
+    </div>
+
+    <div class="mb-4">
+        <label asp-for="ButtonColor" class="form-label">Màu nút</label>
+        <input asp-for="ButtonColor" type="color" class="form-control form-control-color" />
+        <span asp-validation-for="ButtonColor" class="text-danger"></span>
+    </div>
+
+    <div class="d-flex align-items-center">
+        <button type="submit" class="btn btn-primary me-2">
+            <i class="bi bi-plus-circle"></i> Tạo
+        </button>
+        <a asp-area="Admin"
+           asp-controller="Category"
+           asp-action="Index"
+           class="btn btn-secondary">
+            Hủy
+        </a>
+    </div>
+</form>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}

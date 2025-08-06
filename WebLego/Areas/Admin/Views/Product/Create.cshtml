@@ -1,0 +1,157 @@
+﻿@model WebLego.Areas.Admin.Models.ProductViewModel
+
+@{
+    ViewData["Title"] = "Tạo sản phẩm";
+
+    var roleId = int.Parse(User.FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value ?? "0");
+
+    if (roleId == 2)
+    {
+        Context.Response.Redirect("/Admin/Product/Index");
+        return;
+    }
+}
+
+<form asp-area="Admin"
+      asp-controller="Product"
+      asp-action="Create"
+      method="post"
+      enctype="multipart/form-data" novalidate>
+    @Html.AntiForgeryToken()
+
+    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+    <div class="mb-3">
+        <label asp-for="ProductName" class="form-label">Tên sản phẩm</label>
+        <input asp-for="ProductName" class="form-control" />
+        <span asp-validation-for="ProductName" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="ProductDes" class="form-label">Mô tả sản phẩm</label>
+        <textarea asp-for="ProductDes" class="form-control" rows="3"></textarea>
+        <span asp-validation-for="ProductDes" class="text-danger"></span>
+    </div>
+
+    <div class="row g-3 mb-3">
+        <div class="col-md-4">
+            <label asp-for="Price" class="form-label">Giá sản phẩm</label>
+            <input asp-for="Price" type="number" class="form-control" />
+            <span asp-validation-for="Price" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-4">
+            <label asp-for="DiscountPrice" class="form-label">Giá khuyến mãi</label>
+            <input asp-for="DiscountPrice" type="number" class="form-control" disabled />
+            <input type="hidden" asp-for="DiscountPrice" />
+            <span asp-validation-for="DiscountPrice" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-4">
+            <label asp-for="StockQuantity" class="form-label">Tồn kho</label>
+            <input asp-for="StockQuantity" type="number" class="form-control" />
+            <span asp-validation-for="StockQuantity" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="row g-3 mb-3">
+        <div class="col-md-4">
+            <label asp-for="AgeRange" class="form-label">Số tuổi</label>
+            <input asp-for="AgeRange" class="form-control" />
+            <span asp-validation-for="AgeRange" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-4">
+            <label asp-for="PieceCount" class="form-label">Số mảnh</label>
+            <input asp-for="PieceCount" type="number" class="form-control" />
+            <span asp-validation-for="PieceCount" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-4 d-flex align-items-center">
+            <div class="form-check">
+                <input asp-for="IsFeatured" class="form-check-input" type="checkbox" id="IsFeatured" />
+                <label asp-for="IsFeatured" class="form-check-label ms-2">Sản phẩm nổi bật</label>
+            </div>
+            <span asp-validation-for="IsFeatured" class="text-danger ms-3"></span>
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="ProductStatus" class="form-label">Trạng thái sản phẩm</label>
+        <select asp-for="ProductStatus" class="form-select">
+            <option value="Hoạt động">Hoạt động</option>
+            <option value="Không hoạt động">Không hoạt động</option>
+        </select>
+        <span asp-validation-for="ProductStatus" class="text-danger"></span>
+    </div>
+
+    <div class="row g-3 mb-4">
+        <div class="col-md-6">
+            <label asp-for="CategoryId" class="form-label">Danh mục</label>
+            <select asp-for="CategoryId" class="form-select" asp-items="Model.CategoriesSelectList">
+                <option value="">-- Chọn danh mục --</option>
+            </select>
+            <span asp-validation-for="CategoryId" class="text-danger"></span>
+        </div>
+
+        @* Nếu muốn dùng Promotion thì bỏ comment dưới *@
+        @* 
+        <div class="col-md-6">
+            <label asp-for="PromotionId" class="form-label">Khuyến mãi</label>
+            <select asp-for="PromotionId" class="form-select" asp-items="@(new SelectList(Model.AllPromotions, "PromotionId", "PromotionName"))">
+                <option value="">-- Không có khuyến mãi --</option>
+            </select>
+            <span asp-validation-for="PromotionId" class="text-danger"></span>
+        </div> 
+        *@
+    </div>
+
+    <div class="mb-4">
+        <label for="Images" class="form-label">Ảnh sản phẩm</label>
+        <input asp-for="Images" type="file" multiple class="form-control" id="Images" accept="image/*" />
+        <span asp-validation-for="Images" class="text-danger"></span>
+
+        <div id="imagePreview" class="mt-3 d-flex flex-wrap gap-2"></div>
+    </div>
+
+    <button type="submit" class="btn btn-primary me-2">Tạo</button>
+    <a asp-area="Admin"
+       asp-controller="Product"
+       asp-action="Index"
+       class="btn btn-secondary">Hủy</a>
+</form>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+
+    <script>
+        const imageInput = document.getElementById('Images');
+        const imagePreview = document.getElementById('imagePreview');
+
+        imageInput.addEventListener('change', function () {
+            imagePreview.innerHTML = ''; // Xóa preview cũ
+
+            const files = imageInput.files;
+
+            if (files.length === 0) return;
+
+            Array.from(files).forEach(file => {
+                if (!file.type.startsWith('image/')) return;
+
+                const reader = new FileReader();
+
+                reader.onload = function (e) {
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    img.style.height = '100px';
+                    img.style.border = '1px solid #ddd';
+                    img.style.padding = '2px';
+                    img.style.borderRadius = '4px';
+                    imagePreview.appendChild(img);
+                };
+
+                reader.readAsDataURL(file);
+            });
+        });
+    </script>
+}

@@ -1,0 +1,140 @@
+﻿@model IEnumerable<WebLego.DataSet.GdrService.Promotion>
+@{
+    ViewData["Title"] = "Danh sách chương trình khuyến mãi";
+    var roleId = int.Parse(User.FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value ?? "0");
+}
+
+<div class="container-fluid py-4">
+    <div class="card shadow-sm">
+        <div class="card-header bg-light d-flex justify-content-between align-items-center">
+            @if (roleId == 3)
+            {
+                <a asp-action="Create" class="btn btn-success btn-sm shadow-sm">
+                    <i class="bi bi-plus-circle me-2"></i>Tạo chương trình mới
+                </a>
+            }
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover align-middle text-center mb-0">
+                    <thead class="table-light text-uppercase small">
+                        <tr>
+                            <th style="width: 25%">Tên chương trình</th>
+                            <th style="width: 25%">Thời gian</th>
+                            <th style="width: 15%">Giảm (%)</th>
+                            <th style="width: 15%">Trạng thái</th>
+                            <th style="width: 20%">Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td class="text-start text-truncate" style="max-width: 200px;" title="@item.PromotionName">@item.PromotionName</td>
+                                <td class="text-nowrap">@item.StartDate.ToShortDateString() - @item.EndDate.ToShortDateString()</td>
+                                <td>@item.DiscountPercent%</td>
+                                <td>
+                                    @switch (item.Status)
+                                    {
+                                        case "Còn hạn":
+                                            <span class="badge bg-success rounded-pill">@item.Status</span>
+                                            break;
+                                        case "Sắp diễn ra":
+                                            <span class="badge bg-warning text-dark rounded-pill">@item.Status</span>
+                                            break;
+                                        default:
+                                            <span class="badge bg-danger rounded-pill">@item.Status</span>
+                                            break;
+                                    }
+                                </td>
+                                <td>
+                                    <a asp-action="Details" asp-route-id="@item.PromotionId" class="btn btn-sm btn-outline-primary" title="@(roleId == 3 ? "Sửa chương trình" : "Xem chi tiết chương trình")" aria-label="@(roleId == 3 ? "Sửa chương trình" : "Xem chi tiết chương trình")">
+                                        <i class="bi @(roleId == 3 ? "bi-pencil-square" : "bi-eye")"></i>
+                                    </a>
+                                    @if (roleId == 3)
+                                    {
+                                        <button type="button" class="btn btn-sm btn-outline-danger ms-1" data-bs-toggle="modal" data-bs-target="#deleteModal" data-promotion-id="@item.PromotionId" data-promotion-name="@item.PromotionName" title="Xóa chương trình" aria-label="Xóa chương trình @item.PromotionName">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <form id="deleteForm" method="post" asp-action="DeleteConfirmed" asp-controller="Promotions" asp-area="Admin">
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="id" id="deletePromotionId" />
+                <div class="modal-content shadow-sm">
+                    <div class="modal-header bg-danger text-white">
+                        <h5 class="modal-title" id="deleteModalLabel"><i class="bi bi-exclamation-triangle-fill me-2"></i>Xác nhận xóa</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Đóng"></button>
+                    </div>
+                    <div class="modal-body">
+                        Bạn có chắc muốn xóa chương trình <strong id="deletePromotionName" class="text-danger"></strong> không?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-dismiss="modal">Hủy</button>
+                        <button type="submit" class="btn btn-danger btn-sm">Xóa</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const deleteModal = document.getElementById('deleteModal');
+            deleteModal.addEventListener('show.bs.modal', (event) => {
+                const button = event.relatedTarget;
+                const promotionId = button.getAttribute('data-promotion-id');
+                const promotionName = button.getAttribute('data-promotion-name');
+
+                const modalName = deleteModal.querySelector('#deletePromotionName');
+                const inputId = deleteModal.querySelector('#deletePromotionId');
+
+                modalName.textContent = promotionName;
+                inputId.value = promotionId;
+            });
+        });
+    </script>
+    <style>
+        .card {
+            border-radius: 0.5rem;
+        }
+
+        .table {
+            border-radius: 0.375rem;
+            overflow: hidden;
+        }
+
+            .table th, .table td {
+                vertical-align: middle;
+            }
+
+        .badge {
+            font-size: 0.85rem;
+            padding: 0.5em 0.75em;
+        }
+
+        .btn {
+            border-radius: 0.375rem;
+        }
+
+        .text-truncate {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+    </style>
+}

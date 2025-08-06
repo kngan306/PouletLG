@@ -1,0 +1,13 @@
+﻿@{
+    ViewData["Title"] = "Truy cập bị từ chối";
+}
+
+<h1>Truy cập bị từ chối</h1>
+<p>Bạn không có quyền để truy cập trang này.</p>
+<p>
+    <a asp-area="Admin" asp-controller="Home" asp-action="Index" class="btn btn-primary">Quay lại trang quản trị</a>
+    @if (!string.IsNullOrEmpty(ViewData["ReturnUrl"] as string))
+    {
+        <a href="@ViewData["ReturnUrl"]" class="btn btn-secondary">Thử lại</a>
+    }
+</p>

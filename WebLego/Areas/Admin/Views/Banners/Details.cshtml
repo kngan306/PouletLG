@@ -1,0 +1,69 @@
+﻿@model WebLego.DataSet.GdrService.HomeBanner
+@{
+    ViewData["Title"] = "Chi tiết Banner";
+}
+
+<div class="container-fluid py-4">
+    <div class="card shadow-sm">
+        <div class="card-header bg-light d-flex justify-content-between align-items-center">
+            <a asp-action="Index" class="btn btn-outline-secondary btn-sm shadow-sm" aria-label="Quay lại danh sách banner">
+                <i class="bi bi-arrow-left me-2"></i>Quay lại
+            </a>
+        </div>
+        <div class="card-body">
+            <dl class="row g-3 mb-0">
+                <div class="col-md-6 col-sm-12">
+                    <dt class="fw-semibold text-muted">ID Banner</dt>
+                    <dd>@(Model.BannerId)</dd>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    <dt class="fw-semibold text-muted">Ngày Tạo</dt>
+                    <dd>@(Model.CreatedAt?.ToString("dd/MM/yyyy") ?? "-")</dd>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    <dt class="fw-semibold text-muted">Người Tạo</dt>
+                    <dd>@(Model.CreatedByNavigation?.FullName ?? "-")</dd>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    <dt class="fw-semibold text-muted">Trạng Thái</dt>
+                    <dd>
+                        <span class="badge @(Model.IsActive ?? false ? "bg-success" : "bg-danger") rounded-pill">
+                            @(Model.IsActive ?? false ? "Hoạt động" : "Không hoạt động")
+                        </span>
+                    </dd>
+                </div>
+                <div class="col-12">
+                    <dt class="fw-semibold text-muted">Ảnh Banner</dt>
+                    <dd>
+                        <img src="@(ViewBag.ImageExists ? Url.Content(Model.ImageUrl) : "/images/placeholder.png")" alt="Banner @Model.BannerId" class="img-fluid rounded shadow-sm" style="max-width: 400px; max-height: 200px; object-fit: cover;" />
+                    </dd>
+                </div>
+            </dl>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <style>
+        .card {
+            border-radius: 0.5rem;
+        }
+
+        .btn {
+            border-radius: 0.375rem;
+        }
+
+        .img-fluid {
+            border-radius: 0.25rem;
+        }
+
+        .badge {
+            font-size: 0.85rem;
+            padding: 0.5em 0.75em;
+        }
+
+        dt, dd {
+            margin-bottom: 0.5rem;
+        }
+    </style>
+}

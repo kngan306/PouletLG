@@ -1,0 +1,227 @@
+﻿.about-container {
+    margin: 0;
+}
+
+h2 {
+    font-size: 28px;
+    font-weight: 600;
+    color: black;
+    margin: 50px 0;
+    text-align: center;
+}
+
+.about-section {
+    margin-bottom: 80px;
+}
+
+    .about-section .row {
+        align-items: center;
+        --bs-gutter-x: 4rem; /* Tăng khoảng cách cột ngang */
+    }
+
+    .about-section .col-md-6 {
+        padding: 20px;
+    }
+
+.section-title {
+    font-size: 25px;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.section-description {
+    font-size: 16px;
+    line-height: 1.8;
+    color: black;
+    text-align: justify;
+}
+
+.section-image {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    object-fit: cover;
+    max-height: 400px;
+    transition: transform 0.3s, box-shadow 0.3s;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+    .section-image:hover {
+        transform: translateY(-3px);
+    }
+
+.about-section .col-md-6 {
+    padding: 20px;
+}
+.about-container {
+    margin: 0;
+}
+
+h2 {
+    font-size: 28px;
+    font-weight: 600;
+    color: black;
+    margin: 50px 0;
+    text-align: center;
+}
+
+.about-section {
+    margin-bottom: 80px;
+}
+
+    .about-section .row {
+        align-items: center;
+        --bs-gutter-x: 4rem; /* Tăng khoảng cách cột ngang */
+    }
+
+    .about-section .col-md-6 {
+        padding: 20px;
+    }
+
+.section-title {
+    font-size: 25px;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.section-description {
+    font-size: 16px;
+    line-height: 1.8;
+    color: black;
+    text-align: justify;
+}
+
+.section-image {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    object-fit: cover;
+    max-height: 400px;
+    transition: transform 0.3s, box-shadow 0.3s;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+    .section-image:hover {
+        transform: translateY(-3px);
+    }
+
+/* --- Responsive CSS --- */
+
+/* Mobile devices (max-width: 480px) */
+@media (max-width: 480px) {
+    h2 {
+        font-size: 22px;
+        margin: 30px 0;
+    }
+
+    .about-section {
+        margin-bottom: 40px;
+    }
+
+        .about-section .row {
+            flex-direction: column;
+            --bs-gutter-x: 1rem;
+            gap: 20px;
+        }
+
+        .about-section .col-md-6 {
+            padding: 10px 0;
+            width: 100% !important;
+        }
+
+    .section-title {
+        font-size: 20px;
+        margin-bottom: 15px;
+        text-align: center;
+    }
+
+    .section-description {
+        font-size: 14px;
+        line-height: 1.6;
+        text-align: center;
+        padding: 0 15px;
+    }
+
+    .section-image {
+        max-height: 250px;
+        border-radius: 6px;
+    }
+}
+
+/* Tablet devices (min-width: 481px and max-width: 768px) */
+@media (min-width: 481px) and (max-width: 768px) {
+    h2 {
+        font-size: 24px;
+        margin: 40px 0;
+    }
+
+    .about-section {
+        margin-bottom: 60px;
+    }
+
+        .about-section .row {
+            flex-direction: row;
+            --bs-gutter-x: 2rem;
+            gap: 15px;
+        }
+
+        .about-section .col-md-6 {
+            padding: 15px;
+            width: 50% !important;
+        }
+
+    .section-title {
+        font-size: 22px;
+        margin-bottom: 18px;
+    }
+
+    .section-description {
+        font-size: 15px;
+        line-height: 1.7;
+        text-align: justify;
+        padding: 0 10px;
+    }
+
+    .section-image {
+        max-height: 350px;
+        border-radius: 7px;
+    }
+}
+
+/* Small desktops (min-width: 769px and max-width: 1024px) */
+@media (min-width: 769px) and (max-width: 1024px) {
+    h2 {
+        font-size: 26px;
+        margin: 45px 0;
+    }
+
+    .about-section {
+        margin-bottom: 70px;
+    }
+
+        .about-section .row {
+            --bs-gutter-x: 3rem;
+            gap: 18px;
+        }
+
+        .about-section .col-md-6 {
+            padding: 18px;
+        }
+
+    .section-title {
+        font-size: 24px;
+        margin-bottom: 19px;
+    }
+
+    .section-description {
+        font-size: 15.5px;
+        line-height: 1.75;
+        text-align: justify;
+        padding: 0 10px;
+    }
+
+    .section-image {
+        max-height: 380px;
+        border-radius: 8px;
+    }
+}

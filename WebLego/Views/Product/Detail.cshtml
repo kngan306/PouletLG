@@ -1,0 +1,319 @@
+﻿@model WebLego.Models.ViewModel.ProductDetailViewModel
+@{
+    ViewData["Title"] = @Model.Product.ProductName;
+    var imageList = Model.Product.ProductImages?.ToList() ?? new List<WebLego.DataSet.GdrService.ProductImage>();
+    var now = DateTime.Now;
+}
+
+<link href="~/css/detailproduct.css" rel="stylesheet" />
+
+<div class="detail-page">
+    <div class="container">
+        <div class="card shadow rounded border-0">
+            <div class="card-body">
+                <div class="row">
+                    <!-- LEFT COLUMN -->
+                    <div class="col-md-5 d-flex flex-column align-items-center">
+                        <div id="productCarousel" class="carousel slide mb-3" data-bs-ride="carousel" data-bs-interval="3000">
+                            <div class="carousel-indicators">
+                                @for (int i = 0; i < imageList.Count; i++)
+                                {
+                                    <button type="button" data-bs-target="#productCarousel" data-bs-slide-to="@i" class="@(i == 0 ? "active" : "")" aria-current="@(i == 0 ? "true" : "false")" aria-label="Slide @(i + 1)"></button>
+                                }
+                            </div>
+                            <div class="carousel-inner">
+                                @for (int i = 0; i < imageList.Count; i++)
+                                {
+                                    var img = imageList[i];
+                                    <div class="carousel-item @(i == 0 ? "active" : "")">
+                                        <img src="@Url.Content(img.ImageUrl ?? "~/images/placeholder.png")" class="d-block w-100 main-carousel-img" alt="@Model.Product.ProductName" onclick="zoomImage(this)" />
+                                    </div>
+                                }
+                            </div>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Trước</span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#productCarousel" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Sau</span>
+                            </button>
+                        </div>
+                        <div class="thumbnail-row d-flex justify-content-center gap-2 flex-wrap mb-3">
+                            @for (int i = 0; i < imageList.Count; i++)
+                            {
+                                var img = imageList[i];
+                                <img src="@Url.Content(img.ImageUrl ?? "~/images/placeholder.png")" class="img-thumbnail thumbnail-img" data-bs-target="#productCarousel" data-bs-slide-to="@i" />
+                            }
+                        </div>
+                        <div class="d-flex align-items-center gap-4 mt-2">
+                            <div class="d-flex align-items-center gap-2">
+                                <img src="@Url.Content("~/images/icon_pieces.png")" alt="Số mảnh ghép" class="info-icon" />
+                                <span class="info-text"><strong>@(Model.Product.PieceCount?.ToString("N0") ?? "Chưa rõ")</strong></span>
+                            </div>
+                            <div class="d-flex align-items-center gap-2">
+                                <img src="@Url.Content("~/images/icon_agerange.png")" alt="Độ tuổi" class="info-icon" />
+                                <span class="info-text"><strong>@Model.Product.AgeRange</strong></span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- RIGHT COLUMN -->
+                    <div class="col-md-7 d-flex justify-content-center">
+                        <div class="border-dashed p-2 rounded-3 d-flex flex-column justify-content-between position-relative">
+                            <button class="favorite-btn @(Model.IsFavorite ? "active" : "")" onclick="toggleFavorite(@Model.Product.ProductId)" id="favorite-@Model.Product.ProductId">
+                                <img src="@(Model.IsFavorite ? Url.Content("~/images/icon_loved.png") : Url.Content("~/images/icon_heart.png"))" class="favorite-icon" id="icon-@Model.Product.ProductId" />
+                            </button>
+                            <div class="product-detail align-items-center text-center">
+                                <strong class="product-title">@Model.Product.ProductName</strong>
+                                @if (Model.Product.DiscountPrice.HasValue)
+                                {
+                                    <div class="price-container">
+                                        <span class="original-price text-decoration-line-through text-muted me-2">@Model.Product.Price.ToString("N0")₫</span>
+                                        <strong class="discounted-price text-danger">@Model.Product.DiscountPrice?.ToString("N0")₫</strong>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <strong class="regular-price">@Model.Product.Price.ToString("N0")₫</strong>
+                                }
+                                <form asp-controller="Cart" asp-action="AddToCartDT" method="post" class="cart-form">
+                                    <input type="hidden" name="productId" value="@Model.Product.ProductId" />
+                                    @if (Model.StockQuantity == 0)
+                                    {
+                                        <div class="stock-info text-danger fw-bold">
+                                            <p>Sản phẩm đã hết hàng</p>
+                                        </div>
+                                        <div class="action-buttons d-flex gap-2 justify-content-center mt-3">
+                                            <button type="submit" class="btn btn-outline-secondary" disabled>Thêm vào giỏ hàng</button>
+                                            <button type="submit" class="btn btn-secondary" disabled>Mua ngay</button>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="quantity-box mb-2">
+                                            <button type="button" class="btn-qty minus" onclick="changeQuantity(-1)">−</button>
+                                            <input type="number" name="quantity" id="quantityInput" value="1" min="1" max="@Model.StockQuantity" />
+                                            <button type="button" class="btn-qty plus" onclick="changeQuantity(1)">+</button>
+                                        </div>
+                                        <div class="stock-info text-muted">
+                                            <p>@Model.StockQuantity sản phẩm có sẵn</p>
+                                        </div>
+                                        <div class="action-buttons d-flex gap-2 justify-content-center mt-3">
+                                            <button type="submit" name="action" value="addtocart" class="btn btn-outline-fecc29">Thêm vào giỏ hàng</button>
+                                            <button type="submit" name="action" value="buynow" class="btn btn-fecc29">Mua ngay</button>
+                                        </div>
+                                    }
+                                </form>
+                                <div class="product-stats d-flex justify-content-between align-items-center mt-3 w-100">
+                                    <p class="rating mb-0 text-start ps-3">
+                                        <span class="text-warning">
+                                            @for (int j = 1; j <= 5; j++)
+                                            {
+                                                if (j <= Math.Floor(Model.Product.Rating ?? 0))
+                                                {
+                                                    <i class="bi bi-star-fill"></i>
+                                                }
+                                                else if (j - (Model.Product.Rating ?? 0) < 1)
+                                                {
+                                                    <i class="bi bi-star-half"></i>
+                                                }
+                                                else
+                                                {
+                                                    <i class="bi bi-star"></i>
+                                                }
+                                            }
+                                        </span>
+                                        <span class="text-muted">(@(Model.Product.Rating?.ToString("0.0") ?? "0.0"))</span>
+                                    </p>
+                                    <p class="sold mb-0 text-end pe-3">Đã bán: @(Model.Product.Sold ?? 0)</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- BOTTOM SECTION -->
+                <div class="product-tabs mt-5">
+                    <ul class="nav nav-tabs custom-tabs mb-3 justify-content-center" id="productDetailTab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link active" id="info-tab" data-bs-toggle="tab" href="#info" role="tab">Thông tin sản phẩm</a>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link" id="reviews-tab" data-bs-toggle="tab" href="#reviews" role="tab">Đánh giá sản phẩm (@(Model.Reviews?.Count(r => r.IsFlagged == false) ?? 0))</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="productDetailTabContent">
+                        <div class="tab-pane fade show active" id="info" role="tabpanel" aria-labelledby="info-tab">
+                            <p><strong>Danh mục:</strong> @Model.Product.Category?.CategoryName</p>
+                            <p><strong>Mô tả:</strong> @Model.Product.ProductDes</p>
+                        </div>
+                        <div class="tab-pane fade" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
+                            @if (Model.Reviews?.Any(r => r.IsFlagged == false) ?? false)
+                            {
+                                foreach (var review in Model.Reviews.Where(r => r.IsFlagged == false))
+                                {
+                                    <div class="review-item border-bottom py-2">
+                                        <strong>@(review.User?.FullName ?? "Ẩn danh")</strong> -
+                                        <span class="text-muted">
+                                            @(review.IsUpdated && review.UpdatedAt.HasValue
+                                                ? $"Cập nhật: {review.UpdatedAt.Value.ToString("dd/MM/yyyy HH:mm")}"
+                                                : $"Đã gửi: {review.CreatedAt?.ToString("dd/MM/yyyy HH:mm")}")
+                                        </span><br />
+                                        <span class="text-warning">
+                                            @for (int i = 1; i <= 5; i++)
+                                            {
+                                                <i class="bi @(i <= review.Rating ? "bi-star-fill" : "bi-star")"></i>
+                                            }
+                                        </span>
+                                        <p>@review.Comment</p>
+                                        @if (!string.IsNullOrEmpty(review.ImageUrl))
+                                        {
+                                            <img src="@Url.Content(review.ImageUrl)" alt="Review Image" class="review-image" style="width: 180px;" />
+                                        }
+                                        @if (!string.IsNullOrEmpty(review.AdminReply))
+                                        {
+                                            <div class="admin-reply mt-2">
+                                                <strong>Phản hồi từ người bán</strong> -
+                                                <span class="text-muted">
+                                                    @(review.AdminReplyAt.HasValue && review.CreatedAt.HasValue && review.AdminReplyAt.Value <= review.CreatedAt.Value.AddSeconds(10)
+                                                        ? $"Đã gửi: {review.AdminReplyAt.Value.ToString("dd/MM/yyyy HH:mm")}"
+                                                        : $"Cập nhật: {review.AdminReplyAt?.ToString("dd/MM/yyyy HH:mm")}")
+                                                </span>
+                                                <p>@review.AdminReply</p>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <p class="text-muted mt-2">Người bán chưa phản hồi</p>
+                                        }
+                                    </div>
+                                }
+                            }
+                            else
+                            {
+                                <p class="text-muted">Chưa có đánh giá nào cho sản phẩm này.</p>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Phần sản phẩm đề xuất -->
+@if (ViewBag.Recommended != null && (ViewBag.Recommended as List<WebLego.DataSet.GdrService.Product>)?.Count > 0)
+{
+    <div class="detail-container">
+        <h2 class="detail-heading">Có thể bạn cũng thích</h2>
+        <div class="rec-section">
+            <section class="rec-grid">
+                <div class="rec-row">
+                    @foreach (var p in ViewBag.Recommended as IEnumerable<WebLego.DataSet.GdrService.Product>)
+                    {
+                        var img = p.ProductImages.FirstOrDefault(i => i.IsMain == true)?.ImageUrl ?? "~/images/placeholder.png";
+                        var isFavorite = (ViewBag.FavoriteProductIds as List<int>)?.Contains(p.ProductId) ?? false;
+                        <article class="rec-card">
+                            <button class="rec-favorite-btn @(isFavorite ? "active" : "")" onclick="toggleFavorite(@p.ProductId)" id="favorite-@p.ProductId">
+                                <img src="@(isFavorite ? Url.Content("~/images/icon_loved.png") : Url.Content("~/images/icon_heart.png"))" class="rec-favorite-icon" id="icon-@p.ProductId" />
+                            </button>
+                            <a asp-controller="Product" asp-action="Detail" asp-route-id="@p.ProductId" class="rec-link">
+                                <div class="rec-image-wrapper">
+                                    <img src="@Url.Content(img)" class="rec-image" alt="@p.ProductName" />
+                                </div>
+                                <h2 class="rec-name">@p.ProductName</h2>
+                            </a>
+                            <p class="rec-card-text">
+                                <span class="text-warning">
+                                    @for (int j = 1; j <= 5; j++)
+                                    {
+                                        if (j <= Math.Floor(p.Rating ?? 0))
+                                        {
+                                            <i class="bi bi-star-fill"></i>
+                                        }
+                                        else if (j - (p.Rating ?? 0) < 1)
+                                        {
+                                            <i class="bi bi-star-half"></i>
+                                        }
+                                        else
+                                        {
+                                            <i class="bi bi-star"></i>
+                                        }
+                                    }
+                                </span>
+                                <span class="text-muted">(@(p.Rating?.ToString("0.0") ?? "0"))</span>
+                            </p>
+                            <p class="rec-price">
+                                @if (p.DiscountPrice.HasValue)
+                                {
+                                    <span class="text-decoration-line-through text-muted me-2">@p.Price.ToString("N0")<span class="currency">₫</span></span>
+                                    <span class="text-danger fw-bold">@p.DiscountPrice?.ToString("N0")<span class="currency">₫</span></span>
+                                }
+                                else
+                                {
+                                    <span>@p.Price.ToString("N0")<span class="currency">₫</span></span>
+                                }
+                            </p>
+                            <form asp-controller="Cart" asp-action="AddToCart" method="post">
+                                <input type="hidden" name="productId" value="@p.ProductId" />
+                                <button type="submit" class="rec-add-to-cart-btn" title="Thêm vào giỏ hàng">
+                                    <img src="~/images/icon_addtocart.png" class="rec-cart-icon rec-default-icon" />
+                                    <img src="~/images/icon_addtocart_hover.png" class="rec-cart-icon rec-hover-icon" />
+                                </button>
+                            </form>
+                        </article>
+                    }
+                </div>
+            </section>
+        </div>
+    </div>
+}
+
+<div class="modal fade" id="zoomModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content bg-transparent border-0">
+            <div class="modal-body p-0">
+                <img id="zoomedImage" src="" alt="Zoomed Image" />
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        function zoomImage(imgElement) {
+            const zoomedImage = document.getElementById('zoomedImage');
+            zoomedImage.src = imgElement.src;
+            const zoomModal = new bootstrap.Modal(document.getElementById('zoomModal'));
+            zoomModal.show();
+        }
+        function toggleFavorite(productId) {
+            $.post("/User/ToggleFavorite", { productId: productId }, function (response) {
+                if (response.success) {
+                    var icon = $("#icon-" + productId);
+                    var btn = $("#favorite-" + productId);
+                    if (response.isFavorite) {
+                        icon.attr("src", "@Url.Content("~/images/icon_loved.png")");
+                        btn.addClass("active");
+                    } else {
+                        icon.attr("src", "@Url.Content("~/images/icon_heart.png")");
+                        btn.removeClass("active");
+                    }
+                } else {
+                    alert(response.message);
+                    window.location.href = "/Auth/Login";
+                }
+            }).fail(function (xhr, status, error) {
+                console.log("Lỗi: " + error);
+            });
+        }
+        function changeQuantity(delta) {
+            const input = document.getElementById("quantityInput");
+            let current = parseInt(input.value);
+            const max = parseInt(input.max) || 1000;
+            if (isNaN(current)) current = 1;
+            current = Math.min(max, Math.max(1, current + delta));
+            input.value = current;
+        }
+    </script>
+}

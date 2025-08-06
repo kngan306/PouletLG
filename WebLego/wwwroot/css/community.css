@@ -1,0 +1,128 @@
+﻿/* Kiểu dáng cho thẻ h2 */
+h2 {
+    font-size: 20px;
+    font-weight: 600;
+    color: #333;
+    padding: 20px 0 15px 0px;
+    align-self: start;
+    margin: 20px 0 20px 0;
+    text-align: left;
+}
+
+.contest-info {
+}
+
+.card-header-contest {
+    background-color: #FECC29;
+    color: black;
+    border: none;
+    align-items: center;
+}
+
+    .card-header-contest h4 {
+        padding: 16px 22px;
+        margin: 0 auto;
+        font-weight: 600;
+        font-size: 18px;
+        align-items: center;
+    }
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1000;
+    display: none;
+    min-width: 10rem;
+    padding: 0.5rem 0;
+    margin: 0.125rem 0 0;
+    font-size: 1rem;
+    color: #212529;
+    text-align: left;
+    list-style: none;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 0.25rem;
+}
+
+    .dropdown-menu.show {
+        display: block;
+    }
+
+/* Tabs */
+.nav-tabs {
+    margin-top: 30px;
+}
+
+    .nav-tabs .nav-link {
+        color: #FECC29; /* Màu cho tab không chọn */
+        background-color: transparent;
+        border: none;
+        font-size: 16px;
+        font-weight: 600; /* Font-weight mặc định */
+    }
+
+        .nav-tabs .nav-link.active {
+            font-size: 16px;
+            color: #000;
+            background-color: #FECC29;
+            font-weight: 600; /* Font-weight đậm hơn cho tab đang chọn */
+        }
+
+/* Nút Gửi và Vote */
+.btn-yellow {
+    padding: 6px 14px;
+    border: none;
+    border-radius: 5px;
+    font-size: 15px;
+    font-weight: 500;
+    background-color: #FECC29;
+    text-align: center;
+    flex-shrink: 0;
+}
+
+    .btn-yellow:hover {
+        background-color: #e0b325;
+        color: #000;
+    }
+
+.vote-post {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 5px;
+    font-weight: 500;
+    background-color: #FECC29;
+    text-align: center;
+    flex-shrink: 0;
+    color: black;
+}
+
+    .vote-post:hover {
+        background-color: #e0b325;
+        color: black;
+    }
+
+/* Ảnh bài đăng */
+.post-image {
+    max-height: 300px;
+    height: auto;
+    margin-bottom: 30px;
+}
+
+/* Badge cuộc thi */
+.badge-default {
+    background-color: #FECC29;
+    color: black;
+    border-radius: 5px;
+    padding: 0.25rem 0.55rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-align: center;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 25px;
+    min-width: 70px;
+    margin-left: 10px;
+}

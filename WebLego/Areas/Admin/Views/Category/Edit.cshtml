@@ -1,0 +1,127 @@
+﻿@model WebLego.Areas.Admin.Models.CategoryViewModel
+@{
+    ViewData["Title"] = "Chỉnh sửa danh mục";
+
+    var roleId = int.Parse(User.FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value ?? "0");
+    var isReadOnly = roleId == 2;
+}
+
+<form asp-area="Admin"
+      asp-controller="Category"
+      asp-action="Edit"
+      method="post"
+      enctype="multipart/form-data"
+      novalidate>
+    @Html.AntiForgeryToken()
+
+    <input type="hidden" asp-for="CategoryId" />
+
+    <div asp-validation-summary="ModelOnly" class="alert alert-danger mb-3"></div>
+
+    <div class="mb-3">
+        <label asp-for="CategoryId" class="form-label">Mã danh mục</label>
+        <input asp-for="CategoryId" class="form-control" readonly />
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="CategoryName" class="form-label">Tên danh mục</label>
+        @if (isReadOnly)
+        {
+            <input asp-for="CategoryName" class="form-control" readonly />
+        }
+        else
+        {
+            <input asp-for="CategoryName" class="form-control" />
+        }
+        <span asp-validation-for="CategoryName" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Description" class="form-label">Mô tả chi tiết</label>
+        @if (isReadOnly)
+        {
+            <textarea asp-for="Description" class="form-control" rows="4" readonly></textarea>
+        }
+        else
+        {
+            <textarea asp-for="Description" class="form-control" rows="4"></textarea>
+        }
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Ảnh hiện tại</label><br />
+        @if (!string.IsNullOrEmpty(Model.ImagePath))
+        {
+            <img src="@Model.ImagePath" alt="Ảnh danh mục" class="img-thumbnail" style="max-width: 200px; max-height: 200px;" />
+        }
+        else
+        {
+            <p class="text-muted fst-italic">Chưa có ảnh đại diện</p>
+        }
+    </div>
+
+    @if (!isReadOnly)
+    {
+        <div class="mb-3">
+            <label asp-for="ImageFile" class="form-label">Thay ảnh mới (nếu có)</label>
+            <input asp-for="ImageFile" type="file" class="form-control" accept="image/*" />
+            <span asp-validation-for="ImageFile" class="text-danger"></span>
+        </div>
+    }
+
+    <div class="mb-3">
+        <label asp-for="BackgroundColor" class="form-label">Màu nền</label>
+        @if (isReadOnly)
+        {
+            <input asp-for="BackgroundColor" type="color" class="form-control form-control-color" readonly />
+        }
+        else
+        {
+            <input asp-for="BackgroundColor" type="color" class="form-control form-control-color" />
+        }
+        <span asp-validation-for="BackgroundColor" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="ButtonColor" class="form-label">Màu nút</label>
+        @if (isReadOnly)
+        {
+            <input asp-for="ButtonColor" type="color" class="form-control form-control-color" readonly />
+        }
+        else
+        {
+            <input asp-for="ButtonColor" type="color" class="form-control form-control-color" />
+        }
+        <span asp-validation-for="ButtonColor" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="CreatedBy" class="form-label">Người tạo</label>
+        <input asp-for="CreatedBy" class="form-control" readonly />
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="CreatedAt" class="form-label">Thời gian tạo</label>
+        <input asp-for="CreatedAt" class="form-control" readonly />
+    </div>
+
+    <div class="d-flex align-items-center">
+        @if (!isReadOnly)
+        {
+            <button type="submit" class="btn btn-primary me-2">
+                <i class="bi bi-save"></i> Lưu
+            </button>
+        }
+        <a asp-area="Admin"
+           asp-controller="Category"
+           asp-action="Index"
+           class="btn btn-secondary">
+            @(isReadOnly ? "Quay lại" : "Hủy")
+        </a>
+    </div>
+</form>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}

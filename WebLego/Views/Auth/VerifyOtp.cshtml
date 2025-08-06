@@ -1,0 +1,152 @@
+﻿@{
+    // ViewData["Title"] = "Xác thực OTP";
+    ViewData["NoLayout"] = true;
+}
+
+<div class="container d-flex justify-content-center align-items-center vh-100 flex-column">
+    <div class="text-center mb-3">
+        <img src="/images/logo_lego.png" alt="PouletLG" height="70" class="me-3" />
+    </div>
+    <h2 class="text-center mb-4">Xác thực mã OTP</h2>
+    <div class="card shadow p-4" style="max-width: 550px; width: 100%; z-index: 1;">
+        <form asp-action="VerifyOtp" method="post" id="otpForm">
+            <div class="input-wrapper mb-3">
+                <label>Nhập mã OTP</label>
+                <div class="otp-container">
+                    <input type="text" maxlength="1" pattern="[0-9]" inputmode="numeric" class="otp-input" name="otp0" required />
+                    <input type="text" maxlength="1" pattern="[0-9]" inputmode="numeric" class="otp-input" name="otp1" required />
+                    <input type="text" maxlength="1" pattern="[0-9]" inputmode="numeric" class="otp-input" name="otp2" required />
+                    <input type="text" maxlength="1" pattern="[0-9]" inputmode="numeric" class="otp-input" name="otp3" required />
+                    <input type="text" maxlength="1" pattern="[0-9]" inputmode="numeric" class="otp-input" name="otp4" required />
+                    <input type="text" maxlength="1" pattern="[0-9]" inputmode="numeric" class="otp-input" name="otp5" required />
+                </div>
+            </div>
+            <input type="hidden" name="otp" id="otpHidden" />
+
+            <div class="d-flex justify-content-center">
+                <button type="submit" class="btn custom-login-btn">Xác nhận</button>
+            </div>
+        </form>
+    </div>
+</div>
+<style>
+    body {
+        height: 100vh;
+        background: linear-gradient(135deg, #f6b17a 0%, #7077a1 100%);
+        padding: 10px 0;
+    }
+
+    .input-wrapper {
+        margin-top: 10px;
+        text-align: center;
+    }
+
+        .input-wrapper label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+    .otp-container {
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+        max-width: 360px;
+        margin: 0 auto;
+    }
+
+    .otp-input {
+        width: 40px;
+        height: 50px;
+        font-size: 28px;
+        font-weight: 600;
+        border-radius: 5px;
+        border: 2px solid;
+        border-image-slice: 1;
+        border-width: 2px;
+        border-image-source: linear-gradient(90deg, #FECC29 22%, #F5AC50 63%);
+        background-color: transparent;
+        text-align: center;
+        outline: none;
+        transition: border-color 0.3s ease;
+    }
+
+        .otp-input:focus {
+            border-image-source: linear-gradient(90deg, #FFD84D 10%, #F5AC50 90%);
+            box-shadow: 0 0 8px 2px rgba(254, 204, 41, 0.6);
+        }
+
+
+    .custom-input {
+        width: 100%;
+        border: none;
+        padding: 10px;
+        border-radius: 5px;
+        background-color: white;
+        outline: none;
+    }
+
+        .custom-input:focus {
+            box-shadow: none;
+        }
+
+    .custom-login-btn {
+        background-color: #FECC29;
+        border: none;
+        border-radius: 50px;
+        color: black;
+        font-weight: 600;
+        width: 250px;
+        height: 40px;
+    }
+
+        .custom-login-btn:hover {
+            background-color: #f5c400;
+            color: black;
+        }
+
+    input.form-control:focus,
+    select.form-control:focus,
+    textarea.form-control:focus {
+        box-shadow: none !important;
+        outline: none !important;
+        border-color: transparent !important;
+    }
+</style>
+<script>
+    const inputs = document.querySelectorAll('.otp-input');
+
+    inputs.forEach((input, index) => {
+      input.addEventListener('input', (e) => {
+        const value = e.target.value;
+        if (value.length > 1) {
+          e.target.value = value.charAt(0);
+        }
+        if (value.match(/[^0-9]/)) {
+          e.target.value = '';
+          return;
+        }
+        if (value !== '' && index < inputs.length - 1) {
+          inputs[index + 1].focus();
+        }
+        updateHiddenInput();
+      });
+
+      input.addEventListener('keydown', (e) => {
+        if (e.key === "Backspace" && input.value === '' && index > 0) {
+          inputs[index - 1].focus();
+        }
+      });
+    });
+
+    function updateHiddenInput() {
+      const otpValue = Array.from(inputs).map(i => i.value).join('');
+      document.getElementById('otpHidden').value = otpValue;
+    }
+
+    // Khi submit form, hidden input 'otp' sẽ chứa chuỗi 6 số.
+    document.getElementById('otpForm').addEventListener('submit', function(e) {
+      updateHiddenInput();
+    });
+</script>
+@Html.ValidationSummary()

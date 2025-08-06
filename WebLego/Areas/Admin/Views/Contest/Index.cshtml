@@ -1,0 +1,112 @@
+﻿@model List<WebLego.Areas.Admin.Models.ContestViewModel>
+@{
+    ViewData["Title"] = "Quản lý cuộc thi";
+}
+
+<div class="container-fluid py-4">
+    <div class="card shadow-sm rounded-4">
+        <div class="card-header bg-white border-bottom d-flex flex-wrap justify-content-between align-items-center">
+            @if (Model.Any() && Model.First().IsManager)
+            {
+                <a asp-action="Create" class="btn btn-success btn-sm rounded-pill">
+                    <i class="bi bi-plus-circle me-1"></i> Thêm cuộc thi
+                </a>
+            }
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered align-middle table-hover text-center mb-0 rounded overflow-hidden">
+                    <thead class="table-light text-uppercase small">
+                        <tr>
+                            <th>ID</th>
+@*                             <th>Người tạo</th>
+ *@                            <th>Tiêu đề</th>
+@*                             <th>Mô tả</th>
+ *@                            <th>Ngày bắt đầu</th>
+                            <th>Ngày kết thúc</th>
+                            <th>Chiến thắng</th>
+                            <th>Đơn hàng</th>
+                            <th>Trạng thái</th>
+                            <th>Hành động</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (!Model.Any())
+                        {
+                            <tr><td colspan="10" class="py-4 text-muted">Không có cuộc thi nào.</td></tr>
+                        }
+                        else
+                        {
+                            @foreach (var contest in Model)
+                            {
+                                <tr>
+                                    <td>@contest.ContestId</td>
+@*                                     <td class="text-truncate" title="@contest.UserName">@(contest.UserName ?? "-")</td>
+ *@                                    <td class="text-truncate text-start" title="@contest.Title">@(contest.Title ?? "-")</td>
+@*                                     <td class="text-truncate text-start" title="@contest.Description">@(contest.Description ?? "-")</td>
+ *@                                    <td>@contest.StartDate.ToString("dd/MM/yyyy")</td>
+                                    <td>@contest.EndDate.ToString("dd/MM/yyyy")</td>
+                                    <td class="text-truncate" title="@contest.WinnerFullName">@(string.IsNullOrEmpty(contest.WinnerFullName) ? "Chưa có" : contest.WinnerFullName)</td>
+                                    <td>@(contest.OrderId.HasValue ? contest.OrderId : "Chưa tạo")</td>
+                                    <td>
+                                        <span class="badge rounded-pill px-3 py-2 @(contest.Status == "Sắp diễn ra" ? "bg-warning text-dark" : contest.Status == "Đang diễn ra" ? "bg-success" : "bg-secondary")">
+                                            @contest.Status
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <a asp-action="Edit" asp-route-id="@contest.ContestId" class="btn btn-warning btn-sm rounded-circle" title="Sửa">
+                                            <i class="bi bi-pencil"></i>
+                                        </a>
+                                        @if (contest.IsManager)
+                                        {
+                                            <button type="button" class="btn btn-danger btn-sm rounded-circle ms-1" data-bs-toggle="modal" data-bs-target="#deleteModal_@contest.ContestId" title="Xóa">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
+                                        }
+                                    </td>
+                                </tr>
+
+                                <!-- Delete Modal -->
+                                @if (contest.IsManager)
+                                {
+                                    <div class="modal fade" id="deleteModal_@contest.ContestId" tabindex="-1" aria-labelledby="deleteModalLabel_@contest.ContestId" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered">
+                                            <form asp-action="Delete" asp-route-id="@contest.ContestId" method="post">
+                                                @Html.AntiForgeryToken()
+                                                <div class="modal-content rounded-3">
+                                                    <div class="modal-header bg-danger text-white">
+                                                        <h5 class="modal-title"><i class="bi bi-exclamation-triangle me-2"></i>Xác nhận xóa</h5>
+                                                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        Bạn có chắc muốn xóa cuộc thi <strong>@(contest.Title ?? "N/A")</strong>?
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-dismiss="modal">Hủy</button>
+                                                        <button type="submit" class="btn btn-danger btn-sm">Xóa</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <style>
+        .text-truncate {
+            max-width: 180px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+    </style>
+}

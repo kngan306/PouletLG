@@ -1,0 +1,556 @@
+﻿@model WebLego.Models.ViewModel.CommunityViewModel
+@{
+    ViewData["Title"] = "Cộng đồng";
+}
+
+<link href="~/css/community.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+
+<h2>Cộng đồng LEGO của PouletLG</h2>
+
+<div class="community-container">
+
+    <!-- Hiển thị thông báo -->
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            @TempData["SuccessMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            @TempData["ErrorMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    <!-- Hiển thị thông tin cuộc thi theo trạng thái -->
+    @if (ViewBag.ActiveContest != null)
+    {
+        <div class="card mb-4 contest-info">
+            <div class="card-header-contest">
+                <h4>Cuộc thi (@ViewBag.Status): @ViewBag.ActiveContest.Title</h4>
+            </div>
+            <div class="card-body">
+                <div class="text-center mb-3">
+                    @if (!string.IsNullOrEmpty(ViewBag.ContestImage))
+                    {
+                        <img src="@Url.Content(ViewBag.ContestImage)" class="img-fluid" alt="Ảnh cuộc thi" style="max-height: 250px; width: 100%; object-fit: cover;" />
+                    }
+                    else
+                    {
+                        <img src="/images/placeholder.png" class="img-fluid" alt="Hình ảnh mặc định" style="max-height: 250px; width: 100%; object-fit: cover;" />
+                    }
+                </div>
+                <div class="row align-items-center">
+                    <div class="col-md-8">
+                        <p style="font-size: 15px; text-align: justify"><strong>Mô tả:</strong> @ViewBag.ActiveContest.Description</p>
+                        <p style="font-size: 15px; text-align: justify"><strong>Thời gian:</strong> @ViewBag.ActiveContest.StartDate.ToString("dd/MM/yyyy") - @ViewBag.ActiveContest.EndDate.ToString("dd/MM/yyyy")</p>
+                        <p style="font-size: 15px; text-align: justify"><strong>Phần thưởng:</strong> @ViewBag.ProductName</p>
+                        <p style="font-size: 15px; text-align: justify"><strong>Trị giá:</strong> @((ViewBag.ProductPrice != null ? (ViewBag.ProductPrice is decimal ? (decimal)ViewBag.ProductPrice : ((decimal?)ViewBag.ProductPrice).Value).ToString("N0") : "Chưa xác định") + " ₫")</p>
+                    </div>
+                    <div class="col-md-4">
+                        @if (!string.IsNullOrEmpty(ViewBag.RewardImage))
+                        {
+                            <img src="@Url.Content(ViewBag.RewardImage)" class="img-fluid" alt="Ảnh phần thưởng" style="width: 350px;" />
+                        }
+                        else
+                        {
+                            <img src="/images/placeholder.png" class="img-fluid" alt="Hình ảnh mặc định" style="width: 350px;" />
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+    <!-- Bộ lọc trạng thái -->
+    <div class="mb-3">
+        <form asp-action="Index" method="get">
+            <select name="status" class="form-select" onchange="this.form.submit()">
+                <option value="Đang diễn ra" selected="@(ViewBag.Status == "Đang diễn ra")">Đang diễn ra</option>
+                <option value="Sắp diễn ra" selected="@(ViewBag.Status == "Sắp diễn ra")">Sắp diễn ra</option>
+                <option value="Đã kết thúc" selected="@(ViewBag.Status == "Đã kết thúc")">Đã kết thúc</option>
+            </select>
+            <input type="hidden" name="tab" value="@Model.Tab" />
+        </form>
+    </div>
+
+    <!-- Tabs -->
+    <ul class="nav nav-tabs mb-4">
+        <li class="nav-item">
+            <a class="nav-link @(Model.Tab == "general" ? "active" : "")" href="@Url.Action("Index", "Community", new { tab = "general", status = ViewBag.Status })">Bài đăng chung</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link @(Model.Tab == "contest" ? "active" : "")" href="@Url.Action("Index", "Community", new { tab = "contest", status = ViewBag.Status })">Cuộc thi</a>
+        </li>
+    </ul>
+
+    <!-- Form đăng bài mới (chỉ bài thường) -->
+    @if (Model.Tab == "general")
+    {
+        <div class="card mb-4">
+            <div class="card-body">
+                <form id="createPostForm" enctype="multipart/form-data">
+                    @Html.AntiForgeryToken()
+                    <div class="mb-3">
+                        <textarea style="font-size: 15px;" name="Description" class="form-control" rows="4" placeholder="Bạn đang nghĩ gì?"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" style="font-size: 15px;">Tải ảnh (tùy chọn):</label>
+                        <input type="file" name="image" class="form-control" accept=".jpg,.jpeg,.png" style="font-size: 15px;" />
+                        <div id="imagePreview" class="mt-2"></div>
+                    </div>
+                    <button type="submit" class="btn btn-yellow">Đăng bài</button>
+                </form>
+            </div>
+        </div>
+    }
+
+    <!-- Danh sách bài đăng -->
+    <div id="postList">
+        @foreach (var post in Model.Posts.Where(p => Model.Tab == "general" ? !p.ContestId.HasValue : p.ContestId.HasValue))
+        {
+            <div class="card mb-3 post-card" data-post-id="@post.PostId">
+                <div class="card-header">
+                    <strong style="font-size: 16px; margin-right: 5px">@post.UserName</strong>
+                    <span class="text-muted small">@post.CreatedAt.ToString("dd/MM/yyyy HH:mm")</span>
+                    @if (post.ContestId.HasValue)
+                    {
+                        <span class="badge badge-default">Cuộc thi: @post.ContestTitle</span>
+                    }
+                    @if (post.IsOwner)
+                    {
+                        <div class="dropdown float-end">
+                            <a href="#" class="dropdown-toggle" id="dropdownMenuButton-@post.PostId" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-three-dots"></i>
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton-@post.PostId">
+                                @if (!post.ContestId.HasValue)
+                                {
+                                    <li><a class="dropdown-item edit-post" href="#" data-post-id="@post.PostId">Sửa</a></li>
+                                }
+                                <li><a class="dropdown-item delete-post" href="#" data-post-id="@post.PostId">Xóa</a></li>
+                            </ul>
+                        </div>
+                    }
+                    @if (ViewBag.IsAdmin)
+                    {
+                        <button class="btn btn-sm btn-danger float-end flag-post ms-2" data-post-id="@post.PostId">Gắn cờ</button>
+                    }
+                </div>
+                <div class="card-body">
+                    @if (!string.IsNullOrEmpty(post.Description))
+                    {
+                        <p style="font-size: 15px; text-align: justify">@post.Description</p>
+                    }
+                    @if (!string.IsNullOrEmpty(post.ImageUrl))
+                    {
+                        <img src="@post.ImageUrl" class="img-fluid post-image" alt="Hình ảnh bài đăng" />
+                    }
+                    @if (post.ContestId.HasValue && !string.IsNullOrEmpty(post.ProductName))
+                    {
+                        <p style="font-size: 15px;"><strong>Sản phẩm:</strong> @post.ProductName</p>
+                        <p style="font-size: 15px;"><strong>Điểm vote:</strong> <span class="vote-count">@post.VoteCount</span></p>
+                        @if (!post.IsVoted && post.UserId != Context.Session.GetInt32("UserId"))
+                        {
+                            <button class="btn btn-sm btn-primary vote-post" data-post-id="@post.PostId">Vote</button>
+                        }
+                    }
+                </div>
+                <div class="card-footer">
+                    <p style="font-size: 15px;"><strong>Bình luận (@post.CommentCount):</strong></p>
+                    <div class="comments-list">
+                        @foreach (var comment in post.Comments.Where(c => !c.IsFlagged))
+                        {
+                            <div class="comment mb-2" data-comment-id="@comment.CommentId">
+                                <strong style="font-size: 15px;">@comment.UserName</strong>
+                                <span class="text-muted small">@comment.CreatedAt.ToString("dd/MM/yyyy HH:mm")</span>
+                                @if (comment.UserId == (Context.Session.GetInt32("UserId") ?? 0))
+                                {
+                                    <div class="dropdown float-end">
+                                        <a href="#" class="dropdown-toggle comment-toggle" id="commentDropdown-@comment.CommentId" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <i class="bi bi-three-dots"></i>
+                                        </a>
+                                        <ul class="dropdown-menu" aria-labelledby="commentDropdown-@comment.CommentId">
+                                            <li><a class="dropdown-item edit-comment" href="#" data-comment-id="@comment.CommentId">Sửa</a></li>
+                                            <li><a class="dropdown-item delete-comment" href="#" data-comment-id="@comment.CommentId">Xóa</a></li>
+                                        </ul>
+                                    </div>
+                                }
+                                @if (ViewBag.IsAdmin)
+                                {
+                                    <button class="btn btn-sm btn-danger float-end flag-comment ms-2" data-comment-id="@comment.CommentId">Gắn cờ</button>
+                                }
+                                <p style="font-size: 15px;">@comment.CommentText</p>
+                            </div>
+                        }
+                    </div>
+                    <form class="comment-form" data-post-id="@post.PostId">
+                        @Html.AntiForgeryToken()
+                        <div class="input-group">
+                            <input style="font-size: 14px;" type="text" name="commentText" class="form-control" placeholder="Viết bình luận..." />
+                            <button type="submit" class="btn btn-yellow">Gửi</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        }
+    </div>
+
+    <!-- Modal chỉnh sửa bài đăng -->
+    <div class="modal fade" id="editPostModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Chỉnh sửa bài đăng</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editPostForm" enctype="multipart/form-data">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="postId" id="editPostId" />
+                        <div class="mb-3">
+                            <textarea name="description" id="editDescription" class="form-control" rows="4"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Hình ảnh hiện tại:</label>
+                            <div id="currentImage"></div>
+                            <label class="form-label">Tải ảnh mới (tùy chọn):</label>
+                            <input type="file" name="image" class="form-control" accept=".jpg,.jpeg,.png" />
+                            <div id="editImagePreview" class="mt-2"></div>
+                        </div>
+                        <button type="submit" class="btn btn-yellow">Cập nhật</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal chỉnh sửa bình luận -->
+    <div class="modal fade" id="editCommentModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Chỉnh sửa bình luận</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editCommentForm">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="commentId" id="editCommentId" />
+                        <div class="mb-3">
+                            <textarea name="commentText" id="editCommentText" class="form-control" rows="2"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-yellow">Cập nhật</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function () {
+            console.log('jQuery loaded and document ready');
+
+        // Kiểm tra Bootstrap dropdown
+            if (!$.fn.dropdown) {
+                console.error('Bootstrap dropdown not loaded');
+            } else {
+                console.log('Bootstrap dropdown loaded successfully');
+            }
+
+            // Thêm sự kiện cho dropdown toggle
+            $('.dropdown-toggle').on('click', function (e) {
+                e.preventDefault();
+                console.log('Dropdown toggle clicked for post:', $(this).closest('.post-card').data('post-id'));
+                var dropdown = $(this).next('.dropdown-menu');
+                if (dropdown.length) {
+                    console.log('Dropdown menu found, attempting to show');
+                    dropdown.toggleClass('show'); // Thử kích hoạt thủ công
+                } else {
+                    console.error('Dropdown menu not found');
+                }
+            });
+
+            // Thêm sự kiện cho dropdown toggle của bình luận
+            $('.comment-toggle').on('click', function (e) {
+                e.preventDefault();
+                console.log('Comment dropdown toggle clicked for comment:', $(this).closest('.comment').data('comment-id'));
+                var dropdown = $(this).next('.dropdown-menu');
+                if (dropdown.length) {
+                    console.log('Comment dropdown menu found, attempting to show');
+                    dropdown.toggleClass('show');
+                    // Kiểm tra lại Bootstrap toggle
+                    if (!$(this).hasClass('show')) {
+                        $(this).dropdown('toggle');
+                    }
+                } else {
+                    console.error('Comment dropdown menu not found');
+                }
+            });
+
+            // Xem trước ảnh khi tải
+            $('input[type="file"]').on('change', function () {
+                console.log('File input changed');
+                var preview = $(this).siblings('.mt-2');
+                preview.empty();
+                if (this.files && this.files[0]) {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        $('<img>').attr('src', e.target.result).addClass('img-fluid').css('max-height', '100px').appendTo(preview);
+                    };
+                    reader.readAsDataURL(this.files[0]);
+                }
+            });
+
+            // Đăng bài mới
+            $('#createPostForm').on('submit', function (e) {
+                e.preventDefault();
+                console.log('Form submitted');
+                var formData = new FormData(this);
+                $.ajax({
+                    url: '@Url.Action("CreatePost", "Community")',
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function (response) {
+                        console.log('AJAX success:', response);
+                        alert(response.message);
+                        if (response.success) {
+                            window.location.reload();
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.log('AJAX error:', xhr.responseJSON, status, error);
+                        var errorMessage = xhr.responseJSON ? xhr.responseJSON.message : 'Đã có lỗi xảy ra. Vui lòng thử lại.';
+                        alert('Lỗi: ' + errorMessage + ' (Mã: ' + xhr.status + ')');
+                    }
+                });
+            });
+
+            // Chỉnh sửa bài đăng
+            $('.edit-post').on('click', function (e) {
+                e.preventDefault();
+                var postId = $(this).data('post-id');
+                console.log('Edit post clicked, postId:', postId);
+                var $post = $(this).closest('.post-card');
+                $('#editPostId').val(postId);
+                $('#editDescription').val($post.find('.card-body p').first().text() || '');
+                var imageUrl = $post.find('.post-image').attr('src');
+                $('#currentImage').empty();
+                if (imageUrl) {
+                    $('<img>').attr('src', imageUrl).addClass('img-fluid').css('max-height', '100px').appendTo('#currentImage');
+                }
+                $('#editPostModal').modal('show');
+            });
+
+            $('#editPostForm').on('submit', function (e) {
+                e.preventDefault();
+                console.log('Edit form submitted');
+                var formData = new FormData(this);
+                $.ajax({
+                    url: '@Url.Action("EditPost", "Community")',
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function (response) {
+                        console.log('Edit AJAX success:', response);
+                        alert(response.message);
+                        if (response.success) {
+                            window.location.reload();
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.log('Edit AJAX error:', xhr.responseJSON, status, error);
+                        alert('Đã có lỗi xảy ra. Vui lòng thử lại.');
+                    }
+                });
+            });
+
+            // Xóa bài đăng
+            $('.delete-post').on('click', function (e) {
+                e.preventDefault();
+                var postId = $(this).data('post-id');
+                console.log('Delete post clicked, postId:', postId);
+                if (confirm('Bạn có chắc chắn muốn xóa bài đăng này?')) {
+                    $.post('@Url.Action("DeletePost", "Community")', {
+                        postId: postId,
+                        __RequestVerificationToken: $('input[name="__RequestVerificationToken"]').val()
+                    }, function (response) {
+                        console.log('Delete AJAX success:', response);
+                        alert(response.message);
+                        if (response.success) {
+                            window.location.reload();
+                        }
+                    }).fail(function (xhr, status, error) {
+                        console.log('Delete AJAX error:', xhr.responseJSON, status, error);
+                    });
+                }
+            });
+
+            // Đăng bình luận
+            $('.comment-form').on('submit', function (e) {
+            e.preventDefault();
+            var form = $(this);
+            var postId = form.data('post-id');
+            console.log('Comment form submitted, postId:', postId);
+            var formData = new FormData(this);
+            formData.append('postId', postId);
+            $.ajax({
+                url: '@Url.Action("CreateComment", "Community")',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    console.log('Comment AJAX success:', response);
+                    if (response.success && !response.isFlagged) { // Kiểm tra trạng thái IsFlagged
+                        form.find('input[name="commentText"]').val('');
+                        var commentHtml = `
+                            <div class="comment mb-2" data-comment-id="${response.commentId}">
+                                <strong>${response.userName}</strong>
+                                <span class="text-muted small">${response.createdAt}</span>
+                                <p>${formData.get('commentText')}</p>
+                            </div>`;
+                        form.siblings('.comments-list').append(commentHtml);
+                        form.closest('.card-footer').find('p strong').text(`Bình luận (${parseInt(form.closest('.card-footer').find('p strong').text().match(/\d+/)[0]) + 1}):`);
+                    } else {
+                        alert(response.message);
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.log('Comment AJAX error:', xhr.responseJSON, status, error);
+                    alert('Đã có lỗi xảy ra. Vui lòng thử lại.');
+                }
+            });
+        });
+
+            // Chỉnh sửa bình luận
+            $('.edit-comment').on('click', function (e) {
+                e.preventDefault();
+                var commentId = $(this).data('comment-id');
+                console.log('Edit comment clicked, commentId:', commentId);
+                var $comment = $(this).closest('.comment');
+                $('#editCommentId').val(commentId);
+                $('#editCommentText').val($comment.find('p').text());
+                $('#editCommentModal').modal('show');
+            });
+
+            $('#editCommentForm').on('submit', function (e) {
+                e.preventDefault();
+                console.log('Edit comment form submitted');
+                var formData = $(this).serialize();
+                $.ajax({
+                    url: '@Url.Action("EditComment", "Community")',
+                    type: 'POST',
+                    data: formData,
+                    success: function (response) {
+                        console.log('Edit comment AJAX success:', response);
+                        alert(response.message);
+                        if (response.success) {
+                            window.location.reload();
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.log('Edit comment AJAX error:', xhr.responseJSON, status, error);
+                        alert('Đã có lỗi xảy ra. Vui lòng thử lại.');
+                    }
+                });
+            });
+
+            // Xóa bình luận
+            $('.delete-comment').on('click', function (e) {
+                e.preventDefault();
+                var commentId = $(this).data('comment-id');
+                console.log('Delete comment clicked, commentId:', commentId);
+                if (confirm('Bạn có chắc chắn muốn xóa bình luận này?')) {
+                    $.post('@Url.Action("DeleteComment", "Community")', {
+                        commentId: commentId,
+                        __RequestVerificationToken: $('input[name="__RequestVerificationToken"]').val()
+                    }, function (response) {
+                        console.log('Delete comment AJAX success:', response);
+                        alert(response.message);
+                        if (response.success) {
+                            window.location.reload();
+                        }
+                    }).fail(function (xhr, status, error) {
+                        console.log('Delete comment AJAX error:', xhr.responseJSON, status, error);
+                    });
+                }
+            });
+
+            // Vote bài đăng
+            $('.vote-post').on('click', function () {
+                var postId = $(this).data('post-id');
+                console.log('Vote post:', postId);
+                $.post('@Url.Action("VotePost", "Community")', {
+                    postId: postId,
+                    __RequestVerificationToken: $('input[name="__RequestVerificationToken"]').val()
+                }, function (response) {
+                    console.log('Vote AJAX success:', response);
+                    alert(response.message);
+                    if (response.success) {
+                        $(`.post-card[data-post-id="${postId}"] .vote-count`).text(response.voteCount);
+                        $(`.post-card[data-post-id="${postId}"] .vote-post`).prop('disabled', true).text('Đã vote');
+                    }
+                });
+            });
+
+            // Gắn cờ bài đăng
+            $('.flag-post').on('click', function () {
+                if (confirm('Bạn có chắc chắn muốn gắn cờ bài đăng này?')) {
+                    var postId = $(this).data('post-id');
+                    console.log('Flag post:', postId);
+                    $.post('@Url.Action("FlagPost", "Community")', {
+                        postId: postId,
+                        __RequestVerificationToken: $('input[name="__RequestVerificationToken"]').val()
+                    }, function (response) {
+                        console.log('Flag post AJAX success:', response);
+                        alert(response.message);
+                        if (response.success) {
+                            window.location.reload();
+                        }
+                    });
+                }
+            });
+
+            // Gắn cờ bình luận
+            $('.flag-comment').on('click', function () {
+            if (confirm('Bạn có chắc chắn muốn gắn cờ bình luận này?')) {
+                var commentId = $(this).data('comment-id');
+                var $comment = $(this).closest('.comment');
+                var postId = $comment.closest('.post-card').data('post-id');
+                console.log('Flag comment:', commentId, 'for post:', postId);
+                $.post('@Url.Action("FlagComment", "Community")', {
+                    commentId: commentId,
+                    __RequestVerificationToken: $('input[name="__RequestVerificationToken"]').val()
+                }, function (response) {
+                    console.log('Flag comment AJAX success:', response);
+                    alert(response.message);
+                    if (response.success) {
+                        // Ẩn bình luận khỏi giao diện
+                        $comment.remove();
+                        // Cập nhật số lượng bình luận
+                        var $postCard = $(`.post-card[data-post-id="${postId}"]`);
+                        var currentCount = parseInt($postCard.find('.card-footer p strong').text().match(/\d+/)[0]);
+                        $postCard.find('.card-footer p strong').text(`Bình luận (${currentCount - 1}):`);
+                    }
+                }).fail(function (xhr, status, error) {
+                    console.log('Flag comment AJAX error:', xhr.responseJSON, status, error);
+                    alert('Đã có lỗi xảy ra. Vui lòng thử lại.');
+                });
+            }
+        });
+        });
+    </script>
+}

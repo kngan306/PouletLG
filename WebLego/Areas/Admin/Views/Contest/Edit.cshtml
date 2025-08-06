@@ -1,0 +1,534 @@
+﻿@model WebLego.Areas.Admin.Models.ContestViewModel
+@{
+    ViewData["Title"] = "Sửa cuộc thi";
+}
+
+<div class="container mt-5">
+    <a href="@Url.Action("Index")" class="btn btn-outline-secondary mb-4">
+        <i class="bi bi-arrow-left"></i> Quay lại
+    </a>
+
+    <form asp-action="Edit" method="post" enctype="multipart/form-data" id="editContestForm" novalidate>
+        <input type="hidden" asp-for="ContestId" />
+
+        <div class="row g-4">
+            <div class="col-md-6">
+                <label asp-for="Title" class="form-label fw-semibold">Tiêu đề</label>
+                @if (Model.IsManager)
+                {
+                    <input asp-for="Title" class="form-control" required />
+                }
+                else
+                {
+                    <input asp-for="Title" class="form-control" readonly />
+                }
+                <span asp-validation-for="Title" class="text-danger small"></span>
+            </div>
+
+            <div class="col-md-6">
+                <label asp-for="Description" class="form-label fw-semibold">Mô tả</label>
+                @if (Model.IsManager)
+                {
+                    <textarea asp-for="Description" class="form-control" rows="3" required></textarea>
+                }
+                else
+                {
+                    <textarea asp-for="Description" class="form-control" rows="3" readonly></textarea>
+                }
+                <span asp-validation-for="Description" class="text-danger small"></span>
+            </div>
+
+            <div class="col-md-6">
+                <label asp-for="StartDate" class="form-label fw-semibold">Ngày bắt đầu</label>
+                @if (Model.IsManager)
+                {
+                    <input asp-for="StartDate" type="datetime-local" class="form-control" required />
+                }
+                else
+                {
+                    <input asp-for="StartDate" type="datetime-local" class="form-control" readonly />
+                }
+                <span asp-validation-for="StartDate" class="text-danger small"></span>
+            </div>
+
+            <div class="col-md-6">
+                <label asp-for="EndDate" class="form-label fw-semibold">Ngày kết thúc</label>
+                @if (Model.IsManager)
+                {
+                    <input asp-for="EndDate" type="datetime-local" class="form-control" required />
+                }
+                else
+                {
+                    <input asp-for="EndDate" type="datetime-local" class="form-control" readonly />
+                }
+                <span asp-validation-for="EndDate" class="text-danger small"></span>
+            </div>
+
+            <div class="col-md-6">
+                <label asp-for="RewardProductId" class="form-label fw-semibold">Sản phẩm phần thưởng</label>
+                @if (Model.IsManager)
+                {
+                    <select asp-for="RewardProductId" class="form-select" required>
+                        <option value="">Chọn sản phẩm</option>
+                        @foreach (var product in ViewBag.Products)
+                        {
+                            <option value="@product.ProductId" selected="@(Model.RewardProductId == product.ProductId)">@product.ProductName</option>
+                        }
+                    </select>
+                }
+                else
+                {
+                    <select asp-for="RewardProductId" class="form-select" disabled>
+                        <option value="">Chọn sản phẩm</option>
+                        @foreach (var product in ViewBag.Products)
+                        {
+                            <option value="@product.ProductId" selected="@(Model.RewardProductId == product.ProductId)">@product.ProductName</option>
+                        }
+                    </select>
+                }
+                <span asp-validation-for="RewardProductId" class="text-danger small"></span>
+            </div>
+
+            <div class="col-md-6">
+                <label asp-for="ImageFile" class="form-label fw-semibold">Tải lên hình ảnh</label>
+                @if (Model.IsManager)
+                {
+                    <input asp-for="ImageFile" type="file" class="form-control" accept="image/*" />
+                }
+                else
+                {
+                    <input asp-for="ImageFile" type="file" class="form-control" accept="image/*" disabled />
+                }
+                <span asp-validation-for="ImageFile" class="text-danger small"></span>
+                @if (!string.IsNullOrEmpty(Model.ImageUrl))
+                {
+                    <img src="@Model.ImageUrl" alt="Hình ảnh hiện tại" class="img-thumbnail mt-2" style="max-width: 200px;" />
+                }
+            </div>
+
+            <div class="col-md-6">
+                <label asp-for="IsActive" class="form-label fw-semibold">Trạng thái hoạt động</label>
+                @if (Model.IsManager)
+                {
+                    <select asp-for="IsActive" class="form-select">
+                        <option value="true" selected="@(Model.IsActive)">Đang hoạt động</option>
+                        <option value="false" selected="@(!Model.IsActive)">Không hoạt động</option>
+                    </select>
+                }
+                else
+                {
+                    <select asp-for="IsActive" class="form-select" disabled>
+                        <option value="true" selected="@(Model.IsActive)">Đang hoạt động</option>
+                        <option value="false" selected="@(!Model.IsActive)">Không hoạt động</option>
+                    </select>
+                }
+                <span asp-validation-for="IsActive" class="text-danger small"></span>
+            </div>
+
+            <div class="col-md-6">
+                <label asp-for="ContestStatus" class="form-label fw-semibold">Trạng thái cuộc thi</label>
+                <input asp-for="ContestStatus" class="form-control" readonly />
+                <span asp-validation-for="ContestStatus" class="text-danger small"></span>
+            </div>
+
+            <div class="col-12 d-flex justify-content-between align-items-center mt-4">
+                @if (Model.IsManager)
+                {
+                    <button type="submit" class="btn btn-primary px-4">Lưu thay đổi</button>
+                }
+                <button type="button" class="btn btn-info px-4" data-bs-toggle="modal" data-bs-target="#statsModal">
+                    <i class="bi bi-bar-chart-line-fill me-2"></i> Thống kê
+                </button>
+            </div>
+        </div>
+    </form>
+
+    <!-- Modal Thông báo lỗi -->
+    <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-danger">
+                <div class="modal-header bg-danger text-white">
+                    <h5 class="modal-title" id="errorModalLabel"><i class="bi bi-exclamation-triangle-fill"></i> Thông báo lỗi</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Đóng"></button>
+                </div>
+                <div class="modal-body">
+                    <p id="errorMessage" class="mb-0"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Đóng</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Thông báo thành công -->
+    <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-success">
+                <div class="modal-header bg-success text-white">
+                    <h5 class="modal-title" id="successModalLabel"><i class="bi bi-check-circle-fill"></i> Thành công</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Đóng"></button>
+                </div>
+                <div class="modal-body">
+                    <p id="successMessage" class="mb-0"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" onclick="window.location.href='@Url.Action("Index", "Contest", new { area = "Admin" })'">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Thống kê -->
+    <div class="modal fade" id="statsModal" tabindex="-1" aria-labelledby="statsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="statsModalLabel">Thống kê cuộc thi: <strong>@Model.Title</strong></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+                </div>
+                <div class="modal-body">
+                    <p><strong>Số người tham gia:</strong> <span id="participantCount"></span></p>
+                    <p><strong>Người chiến thắng:</strong> <span id="winnerName"></span><input type="hidden" id="winnerUserId" /></p>
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover align-middle">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Tên người dùng</th>
+                                    <th>Ngày đăng bài</th>
+                                    <th>Số lượt bình chọn</th>
+                                </tr>
+                            </thead>
+                            <tbody id="postsTable"></tbody>
+                        </table>
+                    </div>
+                    <div class="d-flex justify-content-end mt-3">
+                        <button type="button" class="btn btn-primary" id="createOrderBtn"
+                                data-bs-toggle="modal" data-bs-target="#createOrderModal" data-bs-dismiss="modal" disabled>
+                            <i class="bi bi-cart-check-fill me-2"></i> Tạo đơn thưởng
+                        </button>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Tạo đơn thưởng -->
+    <div class="modal fade" id="createOrderModal" tabindex="-1" aria-labelledby="createOrderModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="createOrderModalLabel">Tạo đơn hàng phần thưởng</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="errorMessage" class="alert alert-danger d-none"></div>
+                    <div id="orderConfirmSection" class="d-none">
+                        <div class="card mb-3">
+                            <div class="card-header fw-bold d-flex align-items-center gap-2">
+                                <i class="bi bi-geo-alt-fill"></i> Thông tin người nhận
+                            </div>
+                            <div class="card-body">
+                                <p><strong>Tên:</strong> <span id="winnerFullName"></span></p>
+                                <p><strong>Email:</strong> <span id="winnerEmail"></span></p>
+                                <p><strong>Số điện thoại:</strong> <span id="winnerPhone"></span></p>
+                                <p><strong>Địa chỉ:</strong> <span id="winnerAddress"></span></p>
+                                <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#changeAddressModal">Thay đổi địa chỉ</button>
+                            </div>
+                        </div>
+
+                        <div class="card mb-3">
+                            <div class="card-header fw-bold d-flex align-items-center gap-2">
+                                <i class="bi bi-gift-fill"></i> Thông tin phần thưởng
+                            </div>
+                            <div class="card-body p-0">
+                                <table class="table table-borderless mb-0">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>Sản phẩm</th>
+                                            <th>Giá</th>
+                                            <th>Số lượng</th>
+                                            <th>Thành tiền</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><span id="productName"></span></td>
+                                            <td>0₫</td>
+                                            <td>1</td>
+                                            <td>0₫</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="card mb-3">
+                            <div class="card-header fw-bold d-flex align-items-center gap-2">
+                                <i class="bi bi-cash-stack"></i> Tổng thanh toán
+                            </div>
+                            <div class="card-body">
+                                <div class="d-flex flex-column gap-1">
+                                    <p><strong>Tổng tiền hàng:</strong> 0₫</p>
+                                    <p><strong>Phí vận chuyển:</strong> 30,000₫</p>
+                                    <p class="total-amount fs-5 fw-bold text-danger"><strong>Tổng thanh toán:</strong> 30,000₫</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <form id="createOrderForm" asp-area="Admin" asp-controller="Contest" asp-action="CreateRewardOrder" method="post" class="d-none">
+                        <input type="hidden" name="contestId" value="@Model.ContestId" />
+                        <input type="hidden" name="userId" id="formWinnerUserId" />
+                        <input type="hidden" name="rewardProductId" value="@Model.RewardProductId" />
+                        <input type="hidden" name="addressId" id="selectedAddressId" />
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                    <button type="button" class="btn btn-primary" id="submitOrderBtn" disabled>
+                        <i class="bi bi-check2-circle me-1"></i> Tạo đơn hàng
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Thay đổi địa chỉ -->
+    <div class="modal fade" id="changeAddressModal" tabindex="-1" aria-labelledby="changeAddressModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="changeAddressModalLabel">Chọn địa chỉ giao hàng</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="addressList" class="list-group"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                    <button type="button" class="btn btn-primary" id="saveAddress">Lưu</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#editContestForm').submit(function (e) {
+                e.preventDefault();
+                var formData = new FormData(this);
+
+                $.ajax({
+                    url: '@Url.Action("Edit", "Contest", new { area = "Admin" })',
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function (response) {
+                        if (response.success) {
+                            $('#successMessage').text(response.message);
+                            $('#successModal').modal('show');
+                        } else {
+                            $('#errorMessage').text(response.message);
+                            $('#errorModal').modal('show');
+                        }
+                    },
+                    error: function (xhr) {
+                        $('#errorMessage').text(xhr.responseJSON?.message || 'Đã có lỗi xảy ra khi chỉnh sửa cuộc thi.');
+                        $('#errorModal').modal('show');
+                    }
+                });
+            });
+
+            $('#statsModal').on('show.bs.modal', function () {
+                console.log('Opening statsModal - Initial Contest Status: @Model.ContestStatus, OrderId: @Json.Serialize(Model.OrderId)');
+                $.ajax({
+                    url: '@Url.Action("GetContestStats", "Contest", new { area = "Admin", id = Model.ContestId })',
+                    method: 'GET',
+                    success: function (data) {
+                        console.log('GetContestStats response:', data);
+                        if (data.success) {
+                            $('#participantCount').text(data.participantCount);
+                            $('#postsTable').empty();
+                            data.posts.forEach(function (post) {
+                                $('#postsTable').append(
+                                    `<tr>
+                                        <td>${post.userName}</td>
+                                        <td>${new Date(post.createdAt).toLocaleString()}</td>
+                                        <td>${post.voteCount}</td>
+                                    </tr>`
+                                );
+                            });
+                            $('#winnerName').text(data.winnerName || 'Không xác định');
+                            $('#winnerUserId').val(data.winnerUserId || '');
+                            if (data.contestStatus === 'Đã kết thúc') {
+                                if (data.hasWinner && !data.orderId) {
+                                    $('#createOrderBtn').prop('disabled', false);
+                                    $('#winnerName').text(data.winnerName);
+                                } else {
+                                    $('#createOrderBtn').prop('disabled', true);
+                                    if (!data.hasWinner) {
+                                        $('#winnerName').text(data.winnerName);
+                                    } else if (data.orderId) {
+                                        $('#winnerName').text(data.winnerName + ' (Đã tạo đơn hàng #' + data.orderId + ')');
+                                    }
+                                }
+                            } else {
+                                $('#createOrderBtn').prop('disabled', true);
+                                $('#winnerName').text('Cuộc thi chưa kết thúc');
+                            }
+                        } else {
+                            $('#participantCount').text('0');
+                            $('#winnerName').text('Chưa có');
+                            $('#postsTable').empty();
+                            $('#createOrderBtn').prop('disabled', true);
+                            alert(data.message);
+                        }
+                    },
+                    error: function (xhr) {
+                        console.error('Error fetching contest stats:', xhr);
+                        $('#participantCount').text('0');
+                        $('#winnerName').text('Chưa có');
+                        $('#postsTable').empty();
+                        $('#createOrderBtn').prop('disabled', true);
+                        alert('Không thể tải thống kê.');
+                    }
+                });
+            });
+
+            $('#createOrderModal').on('show.bs.modal', function () {
+                $('#orderConfirmSection').hide();
+                $('#errorMessage').hide();
+                $('#submitOrderBtn').prop('disabled', true);
+
+                $.ajax({
+                    url: '@Url.Action("GetContestStats", "Contest", new { area = "Admin", id = Model.ContestId })',
+                    method: 'GET',
+                    success: function (data) {
+                        console.log('GetContestStats for createOrderModal:', data);
+                        if (data.success && data.contestStatus === 'Đã kết thúc' && data.hasWinner && !data.orderId) {
+                            $('#formWinnerUserId').val(data.winnerUserId);
+                            $('#winnerName').text(data.winnerName || 'Không xác định');
+                            $('#productName').text(data.productName || 'Không xác định');
+                            $('#winnerEmail').text(data.winnerEmail || 'Không xác định');
+
+                            $.ajax({
+                                url: '@Url.Action("GetUserAddresses", "Contest", new { area = "Admin" })',
+                                method: 'GET',
+                                data: { userId: data.winnerUserId },
+                                success: function (addresses) {
+                                    console.log('Addresses:', addresses);
+                                    if (addresses.length === 0) {
+                                        $('#errorMessage').text('Người chiến thắng không có địa chỉ giao hàng.');
+                                        $('#errorMessage').show();
+                                        $('#orderConfirmSection').hide();
+                                        $('#submitOrderBtn').prop('disabled', true);
+                                    } else {
+                                        const defaultAddress = addresses.find(a => a.isDefault) || addresses[0];
+                                        $('#winnerFullName').text(defaultAddress.fullName || 'Không xác định');
+                                        $('#winnerPhone').text(defaultAddress.phone ? `(+84) ${defaultAddress.phone}` : 'Không xác định');
+                                        $('#winnerAddress').text(`${defaultAddress.specificAddress}, ${defaultAddress.ward}, ${defaultAddress.district}, ${defaultAddress.province}`);
+                                        $('#selectedAddressId').val(defaultAddress.addressId);
+                                        $('#orderConfirmSection').show();
+                                        $('#submitOrderBtn').prop('disabled', false);
+
+                                        $('#addressList').empty();
+                                        addresses.forEach(function (addr) {
+                                            $('#addressList').append(
+                                                `<div class="form-check address-wrapper">
+                                                    <input class="form-check-input" type="radio" name="modalAddressId" value="${addr.addressId}" id="modal-address-${addr.addressId}" ${addr.isDefault ? 'checked' : ''}>
+                                                    <label class="form-check-label w-100" for="modal-address-${addr.addressId}">
+                                                        <div class="address-details">
+                                                            <span class="address-name-phone"><strong>${addr.fullName}</strong> (+84) ${addr.phone}</span>
+                                                            <span class="address-specific">${addr.specificAddress}, ${addr.ward}, ${addr.district}, ${addr.province}</span>
+                                                            ${addr.isDefault ? '<span class="badge-default ms-2">Mặc định</span>' : ''}
+                                                        </div>
+                                                    </label>
+                                                </div>`
+                                            );
+                                        });
+                                    }
+                                },
+                                error: function (xhr) {
+                                    console.error('Error fetching addresses:', xhr);
+                                    $('#errorMessage').text('Không thể tải danh sách địa chỉ.');
+                                    $('#errorMessage').show();
+                                    $('#orderConfirmSection').hide();
+                                    $('#submitOrderBtn').prop('disabled', true);
+                                }
+                            });
+                        } else {
+                            $('#errorMessage').text(data.contestStatus !== 'Đã kết thúc' ? 'Cuộc thi chưa kết thúc.' : (data.orderId ? 'Đơn hàng đã được tạo.' : data.winnerName));
+                            $('#errorMessage').show();
+                            $('#orderConfirmSection').hide();
+                            $('#submitOrderBtn').prop('disabled', true);
+                        }
+                    },
+                    error: function (xhr) {
+                        console.error('Error fetching contest stats:', xhr);
+                        $('#errorMessage').text('Không thể tải thông tin người chiến thắng.');
+                        $('#errorMessage').show();
+                        $('#orderConfirmSection').hide();
+                        $('#submitOrderBtn').prop('disabled', true);
+                    }
+                });
+            });
+
+            $('#saveAddress').on('click', function () {
+                const selectedAddressId = $('input[name="modalAddressId"]:checked').val();
+                if (selectedAddressId) {
+                    $.ajax({
+                        url: '@Url.Action("GetUserAddresses", "Contest", new { area = "Admin" })',
+                        method: 'GET',
+                        data: { userId: $('#formWinnerUserId').val() },
+                        success: function (addresses) {
+                            const selectedAddress = addresses.find(a => a.addressId == selectedAddressId);
+                            if (selectedAddress) {
+                                $('#winnerFullName').text(selectedAddress.fullName || 'Không xác định');
+                                $('#winnerPhone').text(selectedAddress.phone ? `(+84) ${selectedAddress.phone}` : 'Không xác định');
+                                $('#winnerAddress').text(`${selectedAddress.specificAddress}, ${selectedAddress.ward}, ${selectedAddress.district}, ${selectedAddress.province}`);
+                                $('#selectedAddressId').val(selectedAddress.addressId);
+                                $('#orderConfirmSection').show();
+                                $('#submitOrderBtn').prop('disabled', false);
+                            }
+                            $('#changeAddressModal').modal('hide');
+                        },
+                        error: function () {
+                            $('#errorMessage').text('Không thể tải thông tin địa chỉ.');
+                            $('#errorMessage').show();
+                        }
+                    });
+                }
+            });
+
+            $('#submitOrderBtn').on('click', function () {
+                $.ajax({
+                    url: '@Url.Action("CreateRewardOrder", "Contest", new { area = "Admin" })',
+                    method: 'POST',
+                    data: $('#createOrderForm').serialize(),
+                    success: function (response) {
+                        if (response.success) {
+                            $('#createOrderModal').modal('hide');
+                            $('#successMessage').text(response.message);
+                            $('#successModal').modal('show');
+                        } else {
+                            $('#errorMessage').text(response.message);
+                            $('#errorMessage').show();
+                        }
+                    },
+                    error: function (xhr) {
+                        $('#errorMessage').text(xhr.responseJSON?.message || 'Không thể tạo đơn hàng.');
+                        $('#errorMessage').show();
+                    }
+                });
+            });
+        });
+    </script>
+}

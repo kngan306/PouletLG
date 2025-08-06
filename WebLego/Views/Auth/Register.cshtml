@@ -1,0 +1,228 @@
+﻿@model WebLego.Models.ViewModel.RegisterViewModel
+@{
+    ViewData["NoLayout"] = true;
+}
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
+<div class="container d-flex justify-content-center align-items-center flex-column">
+    <div class="text-center mb-3">
+        <img src="/images/logo_lego.png" alt="PouletLG" height="70" class="me-3" />
+    </div>
+    <h2 class="text-center mb-2">Tạo tài khoản mới</h2>
+    <div class="google-login-wrapper mb-2">
+        <a class="btn google-login-btn d-flex align-items-center justify-content-between" href="@Url.Action("GoogleLogin", "Auth")">
+            <span class="d-flex align-items-center">
+                <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
+                     alt="Google" width="30" height="30" class="me-2" />
+            </span>
+        </a>
+    </div>
+
+    <div class="card shadow p-4" style="max-width: 550px; width: 100%; z-index: 1;">
+        <form asp-action="Register" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="input-wrapper mb-3">
+                <label asp-for="FullName"></label>
+                <div class="gradient-border">
+                    <input asp-for="FullName" class="form-control" placeholder="Nhập đầy đủ họ và tên..."/>
+                </div>
+                <span asp-validation-for="FullName" class="text-danger"></span>
+            </div>
+
+            <div class="input-wrapper mb-3">
+                <label asp-for="Email"></label>
+                <div class="gradient-border">
+                    <input asp-for="Email" class="form-control" placeholder="Nhập email..."/>
+                </div>
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+
+            <div class="input-wrapper mb-3">
+                <label asp-for="Phone"></label>
+                <div class="gradient-border">
+                    <input asp-for="Phone" class="form-control" placeholder="Nhập số điện thoại..."/>
+                </div>
+                <span asp-validation-for="Phone" class="text-danger"></span>
+            </div>
+
+            <div class="input-wrapper mb-3">
+                <label asp-for="UserPassword"></label>
+                <div class="gradient-border d-flex align-items-center">
+                    <input asp-for="UserPassword" type="password" class="form-control border-0 p-2 custom-input" id="passwordInput" placeholder="Nhập mật khẩu..."/>
+                    <span id="togglePassword" style="cursor: pointer; padding: 0 10px;">
+                        <i class="fas fa-eye" id="eyeIcon"></i>
+                    </span>
+                </div>
+                <span asp-validation-for="UserPassword" class="text-danger"></span>
+            </div>
+
+            <div class="input-wrapper mb-3">
+                <label asp-for="ConfirmPassword" class="form-label"></label>
+                <div class="gradient-border d-flex align-items-center">
+                    <input asp-for="ConfirmPassword" type="password" class="form-control border-0 p-2 custom-input" id="confirmPasswordInput" placeholder="Xác nhận lại mật khẩu"/>
+                    <span id="toggleConfirmPassword" style="cursor: pointer; padding: 0 10px;">
+                        <i class="fas fa-eye" id="eyeIconConfirm"></i>
+                    </span>
+                </div>
+                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+            </div>
+            <div class="input-wrapper mb-3">
+                <label asp-for="Gender"></label>
+                <div class="gradient-border">
+                    <select asp-for="Gender" class="form-control">
+                        <option value="">-- Chọn giới tính --</option>
+                        <option value="Nam">Nam</option>
+                        <option value="Nữ">Nữ</option>
+                        <option value="Khác">Khác</option>
+                    </select>
+                </div>
+                <span asp-validation-for="Gender" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label>Sinh nhật</label>
+                <div class="row dob-group">
+                    <div class="input-wrapper mb-3 col">
+                        <label>Ngày sinh</label>
+                        <div class="gradient-border">
+                            <select name="NgaySinh" class="form-control" required>
+                                <option value="">-- Ngày --</option>
+                                @for (int i = 1; i <= 31; i++)
+                                {
+                                    <option value="@i">@i</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="input-wrapper mb-3 col">
+                        <label>Tháng sinh</label>
+                        <div class="gradient-border">
+                            <select name="ThangSinh" class="form-control" required>
+                                <option value="">-- Tháng --</option>
+                                @for (int i = 1; i <= 12; i++)
+                                {
+                                    <option value="@i">@i</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="input-wrapper mb-3 col">
+                        <label>Năm sinh</label>
+                        <div class="gradient-border">
+                            <select name="NamSinh" class="form-control" required>
+                                <option value="">-- Năm --</option>
+                                @{
+                                    int currentYear = DateTime.Now.Year;
+                                    for (int year = currentYear; year >= 1950; year--)
+                                    {
+                                        <option value="@year">@year</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-center">
+                <button type="submit" class="btn custom-login-btn">Đăng ký</button>
+            </div>
+        </form>
+    </div>
+    <div class="text-center mt-3">
+        <span>Bạn đã có tài khoản? </span>
+        <a href="@Url.Action("Login", "Auth")" style="color: black; font-weight: 600; text-decoration: underline;">
+            Đăng nhập!
+        </a>
+    </div>
+</div>
+
+<style>
+    body {
+        min-height: 100vh;
+        background: linear-gradient(135deg, #f6b17a 0%, #7077a1 100%);
+        padding: 40px 0;
+        margin: 0;
+    }
+
+
+    .gradient-border {
+        padding: 2px;
+        border-radius: 5px;
+        background: linear-gradient(90deg, #FECC29 22%, #F5AC50 63%);
+    }
+
+    .custom-input {
+        width: 100%;
+        border: none;
+        padding: 10px;
+        border-radius: 5px;
+        background-color: white;
+        outline: none;
+    }
+
+        .custom-input:focus {
+            box-shadow: none;
+        }
+
+    .custom-login-btn {
+        background-color: #FECC29;
+        border: none;
+        border-radius: 50px;
+        color: black;
+        font-weight: 600;
+        width: 150px;
+        height: 40px;
+    }
+
+        .custom-login-btn:hover {
+            background-color: #f5c400;
+            color: black;
+        }
+
+    #togglePassword, #togglePassword i {
+        background-color: transparent !important;
+        box-shadow: none !important;
+    }
+
+    input.form-control:focus,
+    select.form-control:focus,
+    textarea.form-control:focus {
+        box-shadow: none !important;
+        outline: none !important;
+        border-color: transparent !important;
+    }
+
+    input.form-control:focus,
+    select.form-control:focus,
+    textarea.form-control:focus {
+        box-shadow: none !important;
+        outline: none !important;
+        border-color: transparent !important;
+    }
+</style>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>  
+             document.getElementById("togglePassword").addEventListener("click", function () {
+            const passwordInput = document.getElementById("passwordInput");
+            const eyeIcon = this.querySelector("i");
+            const type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
+            passwordInput.setAttribute("type", type);
+            eyeIcon.classList.toggle("fa-eye");
+            eyeIcon.classList.toggle("fa-eye-slash");
+        });
+
+        document.getElementById("toggleConfirmPassword").addEventListener("click", function () {
+            const passwordInput = document.getElementById("confirmPasswordInput");
+            const eyeIcon = this.querySelector("i");
+            const type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
+            passwordInput.setAttribute("type", type);
+            eyeIcon.classList.toggle("fa-eye");
+            eyeIcon.classList.toggle("fa-eye-slash");
+        });
+    </script>
+}

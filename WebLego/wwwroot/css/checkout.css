@@ -1,0 +1,317 @@
+﻿/* Kiểu dáng cho thẻ h2 (tương tự Cart view) */
+h2 {
+    font-size: 20px;
+    font-weight: 600;
+    color: #333;
+    padding: 0px 0 15px 0;
+    margin: 20px 0;
+    text-align: left;
+    align-self: start;
+}
+
+/* Container bọc nội dung (tương tự .cart-container trong Cart view) */
+.checkout-container {
+    width: 100%;
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 20px 10px;
+    box-sizing: border-box;
+}
+
+/* Kiểu dáng cho các icon */
+.section-icon {
+    vertical-align: middle;
+    margin-right: 8px;
+}
+
+.icon-address {
+    width: 22px;
+    height: 24px;
+}
+
+.icon-product {
+    width: 22px;
+    height: 23px;
+}
+
+.icon-voucher {
+    width: 24px;
+    height: 19px;
+}
+
+.icon-payment {
+    width: 26px;
+    height: 26px;
+}
+
+/* Kiểu dáng cho badge mặc định */
+.badge-default {
+    background-color: #FECC29;
+    color: black;
+    border-radius: 5px;
+    padding: 0.25rem 0.75rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-align: center;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 25px;
+    min-width: 70px;
+}
+
+/* Kiểu dáng cho nút thay đổi địa chỉ */
+.btn-change-address {
+    font-size: 0.875rem;
+    padding: 0.25rem 0.75rem;
+    border: 1px solid #FECC29;
+    color: #FECC29;
+    background-color: transparent;
+    border-radius: 6px;
+}
+
+    .btn-change-address:hover {
+        background-color: #FECC29;
+        color: black;
+    }
+
+/* Kiểu dáng cho nút thay đổi thanh toán */
+.btn-change-payment {
+    font-size: 0.875rem;
+    padding: 0.25rem 0.75rem;
+    border: 1px solid #FECC29;
+    color: #FECC29;
+    background-color: transparent;
+    border-radius: 6px;
+}
+
+    .btn-change-payment:hover {
+        background-color: #FECC29;
+        color: black;
+    }
+
+/* Kiểu dáng cho modal */
+.modal-dialog.modal-lg {
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.modal-dialog-centered {
+    display: flex;
+    align-items: center;
+    min-height: calc(100% - 1rem);
+}
+
+/* Kiểu dáng cho nút đặt hàng */
+.btn-order {
+    font-size: 16px;
+    padding: 10px 22px;
+    border: none;
+    border-radius: 10px;
+    font-weight: 500;
+    background-color: #FECC29;
+    text-align: center;
+    flex-shrink: 0;
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+    .btn-order:hover {
+        background-color: #E0B522;
+        color: black;
+    }
+
+/* Kiểu dáng cho bảng sản phẩm */
+.checkout-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 0;
+}
+
+    .checkout-table th {
+        background-color: #FECC29;
+        color: black;
+        border: none;
+        padding: 15px;
+        text-align: center;
+        font-weight: 600;
+        font-size: 16px;
+        box-sizing: border-box;
+        white-space: nowrap;
+    }
+
+    .checkout-table td {
+        padding: 15px;
+        background-color: white;
+        border-bottom: 1px solid #ddd;
+        text-align: center;
+        vertical-align: middle;
+        font-weight: 400;
+        font-size: 15px;
+        box-sizing: border-box;
+    }
+
+.checkout-image {
+    width: 120px;
+    height: 120px;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto;
+}
+
+/* Kích thước cố định cho từng cột */
+.checkout-table th:first-child,
+.checkout-table td:first-child {
+    width: 100px;
+}
+
+.checkout-table th:nth-child(2),
+.checkout-table td:nth-child(2) {
+    width: 250px;
+    text-align: left;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.checkout-table th:nth-child(3),
+.checkout-table td:nth-child(3) {
+    width: 120px;
+}
+
+.checkout-table th:nth-child(4),
+.checkout-table td:nth-child(4) {
+    width: 150px;
+}
+
+.checkout-table th:nth-child(5),
+.checkout-table td:nth-child(5) {
+    width: 120px;
+}
+
+/* Đảm bảo card có nền trắng và khoảng cách */
+.card {
+    background-color: white;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+}
+
+/* Kiểu dáng cho card-header */
+.card-header {
+    background-color: #f8f9fa;
+    padding: 15px;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+/* Kiểu dáng cho card-body */
+.card-body {
+    padding: 20px;
+}
+
+/* Kiểu dáng cho address wrapper */
+.address-wrapper {
+    margin-bottom: 15px;
+}
+
+.address-details {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.address-name-phone {
+    margin-right: 30px;
+    font-weight: 500;
+}
+
+.address-specific {
+    flex: 1;
+}
+
+/* Kiểu dáng cho payment option */
+.payment-option {
+    margin-bottom: 15px;
+}
+
+/* Đảm bảo căn chỉnh text-end */
+.text-end {
+    text-align: right;
+    margin-top: 20px;
+    margin-bottom: 5px;
+}
+
+/* Kiểu dáng cho alert */
+.alert {
+    margin: 20px 0;
+    padding: 15px;
+}
+
+/* Tăng độ đặc trưng để tránh bị ghi đè */
+.checkout-container .card,
+.checkout-container .checkout-table,
+.checkout-container .checkout-table th,
+.checkout-container .checkout-table td,
+.checkout-container h2 {
+    box-sizing: border-box;
+}
+
+/* Kiểu dáng cho nút trong modal-footer */
+.modal-footer {
+    display: flex;
+    justify-content: space-between;
+}
+
+.btn-custom-save {
+    font-size: 15px;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    font-weight: 500;
+    background-color: #FECC29;
+    color: black;
+    text-align: center;
+    flex-shrink: 0;
+}
+
+    .btn-custom-save:hover {
+        background-color: #E0B522;
+        color: black;
+    }
+
+.btn-secondary {
+    font-size: 15px;
+    padding: 8px 15px;
+}
+
+/* Kiểu dáng cho payment & total card */
+.payment-total-card .payment-details {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.payment-layout {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-top: 20px;
+}
+
+.payment-breakdown {
+    text-align: right;
+}
+
+    .payment-breakdown p {
+        margin: 5px 0;
+        margin-bottom: 10px;
+    }
+
+.payment-total-card .total-amount {
+    margin-top: 15px;
+    border-top: 1px solid #ddd;
+    padding-top: 15px;
+}
+
+.payment-details-placeholder {
+    flex-grow: 1;
+}

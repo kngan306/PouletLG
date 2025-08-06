@@ -1,0 +1,347 @@
+﻿@model IEnumerable<WebLego.Models.ViewModel.CartItemViewModel>
+@{
+    var productList = Model.ToList();
+    var suggestions = ViewBag.Recommended as List<WebLego.DataSet.GdrService.Product>;
+    var now = DateTime.Now;
+    var favoriteProductIds = ViewBag.FavoriteProductIds as List<int> ?? new List<int>();
+}
+
+<link href="~/css/product.css" rel="stylesheet" />
+<link href="~/css/cart.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+
+<h2>@(ViewData["CartTitle"] ?? "Giỏ hàng của bạn")</h2>
+
+<!-- Modal cho thông báo lỗi -->
+<div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="errorModalLabel">Lỗi</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="modalErrorMessage">
+                <!-- Nội dung lỗi sẽ được điền bởi JavaScript -->
+            </div>
+            // <div class="modal-footer">
+            //     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+            // </div>
+        </div>
+    </div>
+</div>
+
+@if (ViewBag.ErrorMessage != null)
+{
+    <div class="alert alert-danger">@ViewBag.ErrorMessage</div>
+}
+
+@if (!productList.Any())
+{
+    <div class="text-center">
+        <p>Giỏ hàng của bạn đang trống!</p>
+        <a asp-action="Index" asp-controller="Product" class="btn btn-primary">Tiếp tục mua sắm</a>
+    </div>
+
+
+}
+else
+{
+    <form method="post" asp-action="RemoveSelected" id="removeForm">
+        <table class="table cart-table">
+            <thead>
+                <tr class="cart-header">
+                    <th class="checkbox-col"><input type="checkbox" id="selectAll" /></th>
+                    <th class="image-col">Hình ảnh</th>
+                    <th class="name-col">Tên sản phẩm</th>
+                    <th class="price-col">Giá</th>
+                    <th class="quantity-col">Số lượng</th>
+                    <th class="total-col">Tổng</th>
+                    <th class="action-col">Hành động</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in productList)
+                {
+                    var isOutOfStock = item.StockQuantity == 0;
+                    <tr class="cart-item @(isOutOfStock ? "out-of-stock" : "")">
+                        <td class="checkbox-col">
+                            <input type="checkbox"
+                                   name="selectedProductIds"
+                                   value="@item.ProductId"
+                                   class="item-checkbox"
+                                   data-price="@item.Total"
+                                   data-quantity="@item.Quantity"
+                                   data-savings="@item.Savings"
+                            @(isOutOfStock ? "disabled" : "") />
+                        </td>
+                        <td class="image-col"><img src="@item.ImageUrl" class="cart-image" /></td>
+                        <td class="name-col">
+                            @item.ProductName
+                            @if (isOutOfStock)
+                            {
+                                <div class="out-of-stock-warning" style="color: red; font-size: smaller; margin-top: 4px;">
+                                    Sản phẩm hiện đã hết hàng!
+                                </div>
+                            }
+                            else if (item.StockQuantity < 10)
+                            {
+                                <div class="low-stock-warning" style="color: red; font-size: smaller; margin-top: 4px;">
+                                    Chỉ còn @item.StockQuantity sản phẩm!
+                                </div>
+                            }
+                        </td>
+                        <td class="price-col">
+                            @if (item.IsDiscounted)
+                            {
+                                <span class="text-decoration-line-through text-muted me-2">@item.OriginalPrice.ToString("N0")₫</span>
+                                <span class="text-danger fw-bold">@item.Price.ToString("N0")₫</span>
+                            }
+                            else
+                            {
+                                <span>@item.Price.ToString("N0")₫</span>
+                            }
+                        </td>
+                        <td class="quantity-col">
+                            <div class="quantity-control">
+                                <button type="submit" class="btn btn-sm btn-outline-secondary" form="form-decrease-@item.ProductId" @(isOutOfStock ? "disabled" : "")>-</button>
+                                <span class="quantity-display">@item.Quantity</span>
+                                <button type="submit" class="btn btn-sm btn-outline-secondary" form="form-increase-@item.ProductId" @(isOutOfStock ? "disabled" : "")>+</button>
+                            </div>
+                        </td>
+                        <td class="total-col">@item.Total.ToString("N0")₫</td>
+                        <td class="action-col">
+                            <button type="submit" class="btn btn-icon-delete" form="form-remove-@item.ProductId" title="Xóa">
+                                <img src="~/images/icon_delete.png" class="delete-icon" />
+                            </button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </form>
+
+    <div class="cart-footer">
+        <button id="removeSelectedBtn" class="btn btn-danger" style="display: none;">Xóa các sản phẩm đã chọn</button>
+        <div class="cart-footer-right">
+            <p id="totalAmount">Tổng cộng (0 sản phẩm): 0₫</p>
+            <p id="savingsAmount" style="display: none; color: green;">Tiết kiệm: 0₫</p>
+            <form id="checkoutForm" asp-controller="Order" asp-action="Checkout" method="post" class="d-inline">
+                <button type="submit" class="btn-order" disabled id="btnCheckout">Đặt hàng</button>
+            </form>
+        </div>
+    </div>
+
+    @foreach (var item in productList)
+    {
+        <form method="post" asp-action="IncreaseQuantity" id="form-increase-@item.ProductId">
+            <input type="hidden" name="productId" value="@item.ProductId" />
+        </form>
+        <form method="post" asp-action="DecreaseQuantity" id="form-decrease-@item.ProductId">
+            <input type="hidden" name="productId" value="@item.ProductId" />
+        </form>
+        <form method="post" asp-action="RemoveFromCart" id="form-remove-@item.ProductId">
+            <input type="hidden" name="productId" value="@item.ProductId" />
+        </form>
+    }
+
+    @if (suggestions != null && suggestions.Any())
+    {
+        <h2>Có thể bạn cũng thích</h2>
+        <div class="cart-container">
+            <section class="products-grid">
+                <div class="product-row">
+                    @foreach (var p in suggestions)
+                    {
+                        var img = p.ProductImages.FirstOrDefault(i => i.IsMain == true)?.ImageUrl ?? "~/images/placeholder.png";
+                        var isFavorite = favoriteProductIds.Contains(p.ProductId);
+                        <article class="product-card">
+                            <button class="favorite-btn @(isFavorite ? "active" : "")" onclick="toggleFavorite(@p.ProductId)" id="favorite-@p.ProductId">
+                                <img src="@(isFavorite ? Url.Content("~/images/icon_loved.png") : Url.Content("~/images/icon_heart.png"))" class="favorite-icon" id="icon-@p.ProductId" />
+                            </button>
+                            <a asp-controller="Product" asp-action="Detail" asp-route-id="@p.ProductId" class="product-link">
+                                <div class="product-image-wrapper">
+                                    <img src="@Url.Content(img)" class="product-image" />
+                                </div>
+                                <h2 class="product-name">@p.ProductName</h2>
+                            </a>
+                            <p class="card-text">
+                                <span class="text-warning">
+                                    @for (int j = 1; j <= 5; j++)
+                                    {
+                                        if (j <= Math.Floor(p.Rating ?? 0))
+                                        {
+                                            <i class="bi bi-star-fill"></i>
+                                        }
+                                        else if (j - (p.Rating ?? 0) < 1)
+                                        {
+                                            <i class="bi bi-star-half"></i>
+                                        }
+                                        else
+                                        {
+                                            <i class="bi bi-star"></i>
+                                        }
+                                    }
+                                </span>
+                                <span class="text-muted">(@(p.Rating?.ToString("0.0") ?? "0.0"))</span>
+                            </p>
+                            <p class="product-price">
+                                @if (p.DiscountPrice.HasValue)
+                                {
+                                    <span class="text-decoration-line-through text-muted me-2">@p.Price.ToString("N0")<span class="currency">₫</span></span>
+                                    <span class="text-danger fw-bold">@p.DiscountPrice?.ToString("N0")<span class="currency">₫</span></span>
+                                }
+                                else
+                                {
+                                    <span>@p.Price.ToString("N0")<span class="currency">₫</span></span>
+                                }
+                            </p>
+                            <form asp-controller="Cart" asp-action="AddToCart" method="post">
+                                <input type="hidden" name="productId" value="@p.ProductId" />
+                                <button type="submit" class="add-to-cart-btn" title="Thêm vào giỏ hàng">
+                                    <img src="~/images/icon_addtocart.png" class="cart-icon default-icon" />
+                                    <img src="~/images/icon_addtocart_hover.png" class="cart-icon hover-icon" />
+                                </button>
+                            </form>
+                        </article>
+                    }
+                </div>
+            </section>
+        </div>
+    }
+}
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const selectAllCheckbox = document.getElementById('selectAll');
+        const itemCheckboxes = document.querySelectorAll('.item-checkbox');
+        const totalAmountDisplay = document.getElementById('totalAmount');
+        const savingsAmountDisplay = document.getElementById('savingsAmount');
+        const removeSelectedBtn = document.getElementById('removeSelectedBtn');
+        const checkoutForm = document.getElementById('checkoutForm');
+        const btnCheckout = document.getElementById('btnCheckout');
+        const stockQuantities = @Json.Serialize(productList.ToDictionary(p => p.ProductId.ToString(), p => p.StockQuantity));
+        const modalErrorMessage = document.getElementById('modalErrorMessage');
+        const errorModal = new bootstrap.Modal(document.getElementById('errorModal'));
+
+        function updateTotalSelected() {
+            let total = 0;
+            let count = 0;
+            let totalSavings = 0;
+
+            itemCheckboxes.forEach(cb => {
+                if (cb.checked) {
+                    total += parseFloat(cb.dataset.price) || 0;
+                    count += parseInt(cb.dataset.quantity) || 0;
+                    totalSavings += (parseFloat(cb.dataset.savings) || 0) * (parseInt(cb.dataset.quantity) || 0);
+                }
+            });
+
+            totalAmountDisplay.innerText = `Tổng cộng (${count} sản phẩm): ${total.toLocaleString('vi-VN')}₫`;
+
+            if (totalSavings > 0) {
+                savingsAmountDisplay.innerText = `Tiết kiệm: ${totalSavings.toLocaleString('vi-VN')}₫`;
+                savingsAmountDisplay.style.display = 'block';
+            } else {
+                savingsAmountDisplay.style.display = 'none';
+            }
+
+            removeSelectedBtn.style.display = count > 0 ? 'inline-block' : 'none';
+            btnCheckout.disabled = count === 0;
+        }
+
+        selectAllCheckbox.addEventListener('change', function () {
+            itemCheckboxes.forEach(cb => {
+                if (!cb.disabled) {
+                    cb.checked = this.checked;
+                }
+            });
+            updateTotalSelected();
+        });
+
+        itemCheckboxes.forEach(cb => {
+            cb.addEventListener('change', updateTotalSelected);
+        });
+
+        checkoutForm.addEventListener('submit', function (e) {
+            const existingInputs = checkoutForm.querySelectorAll('input[name="selectedProductIds"]');
+            existingInputs.forEach(i => i.remove());
+
+            const selected = Array.from(itemCheckboxes).filter(cb => cb.checked);
+
+            if (selected.length === 0) {
+                alert('Vui lòng chọn ít nhất một sản phẩm để đặt hàng.');
+                e.preventDefault();
+                return;
+            }
+
+            selected.forEach(cb => {
+                const input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = 'selectedProductIds';
+                input.value = cb.value;
+                checkoutForm.appendChild(input);
+
+                const quantityInput = document.createElement('input');
+                quantityInput.type = 'hidden';
+                quantityInput.name = 'quantities';
+                quantityInput.value = cb.dataset.quantity;
+                checkoutForm.appendChild(quantityInput);
+            });
+
+            // Validate stock before submitting
+            let isValid = true;
+            let errorMessages = [];
+            selected.forEach(cb => {
+                const quantity = parseInt(cb.dataset.quantity);
+                const stockQuantity = stockQuantities[cb.value];
+                if (quantity > stockQuantity) {
+                    isValid = false;
+                    errorMessages.push(`Sản phẩm ${cb.closest('tr').querySelector('.name-col').textContent.trim()} Vượt quá số lượng ${quantity} bạn đã đặt.`);
+                }
+            });
+
+            if (!isValid) {
+                modalErrorMessage.innerHTML = errorMessages.join('<br>');
+                errorModal.show();
+                e.preventDefault();
+            }
+        });
+
+        removeSelectedBtn.addEventListener('click', function () {
+            const selected = Array.from(itemCheckboxes).filter(cb => cb.checked);
+            if (selected.length === 0) {
+                alert('Vui lòng chọn ít nhất một sản phẩm để xóa.');
+                return;
+            }
+            if (confirm('Bạn có chắc muốn xóa các sản phẩm đã chọn?')) {
+                document.getElementById('removeForm').submit();
+            }
+        });
+
+        updateTotalSelected();
+
+        function toggleFavorite(productId) {
+            $.post("/User/ToggleFavorite", { productId: productId }, function (response) {
+                if (response.success) {
+                    var icon = $("#icon-" + productId);
+                    var btn = $("#favorite-" + productId);
+                    if (response.isFavorite) {
+                        icon.attr("src", "@Url.Content("~/images/icon_loved.png")");
+                        btn.addClass("active");
+                    } else {
+                        icon.attr("src", "@Url.Content("~/images/icon_heart.png")");
+                        btn.removeClass("active");
+                    }
+                } else {
+                    alert(response.message);
+                    window.location.href = "/Auth/Login";
+                }
+            }).fail(function (xhr, status, error) {
+                console.log("Lỗi: " + error);
+            });
+        }
+    </script>
+}

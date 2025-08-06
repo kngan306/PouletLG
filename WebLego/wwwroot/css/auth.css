@@ -1,0 +1,206 @@
+﻿body.auth-bg {
+    min-height: 100vh;
+    margin: 0;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: linear-gradient(135deg, #f7b26a 0%, #a18cd1 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.auth-container {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 32px rgba(0,0,0,0.08);
+    padding: 32px 28px 20px 28px;
+    width: 370px;
+    max-width: 95vw;
+    text-align: center;
+    position: relative;
+}
+
+.auth-logo {
+    width: 160px;
+    margin-bottom: 2px;
+}
+
+.auth-title-logo {
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin-bottom: 8px;
+    color: #222;
+}
+
+h2 {
+    margin: 0 0 16px 0;
+    font-size: 1.6rem;
+    font-weight: bold;
+}
+
+.auth-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 18px;
+    margin-top: 32px;
+}
+
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+    .auth-form label {
+        text-align: left;
+        font-size: 0.98rem;
+        margin-bottom: 2px;
+        color: #444;
+    }
+
+    .auth-form input[type="text"],
+    .auth-form input[type="email"],
+    .auth-form input[type="password"] {
+        border: 1.5px solid #a48ad4;
+        border-radius: 8px;
+        padding: 8px;
+        width: 100%;
+        box-sizing: border-box;
+        margin-bottom: 0;
+    }
+
+    .auth-form input:focus {
+        border: 2px solid #f7b26a;
+    }
+
+.input-icon {
+    position: relative;
+}
+
+    .input-icon input {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+.toggle-pw {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 22px;
+    height: 22px;
+    background: url('https://cdn-icons-png.flaticon.com/512/709/709612.png') no-repeat center/contain;
+    cursor: pointer;
+    opacity: 0.6;
+}
+
+.dob-group {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+    .dob-group input {
+        width: 33%;
+        text-align: center;
+    }
+
+.auth-btn {
+    background: linear-gradient(90deg, #f7b26a, #a18cd1);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 0;
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin-top: 8px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+    .auth-btn:hover {
+        background: linear-gradient(90deg, #a18cd1, #f7b26a);
+    }
+
+.auth-footer {
+    margin-top: 10px;
+    font-size: 0.98rem;
+    color: #333;
+    text-align: center;
+}
+
+    .auth-footer a {
+        color: #222;
+        text-decoration: underline;
+    }
+
+/* SOCIAL BUTTONS (Facebook, Google) */
+.auth-social-bottom {
+    margin-top: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+    .auth-social-bottom .social-btn {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 0 12px;
+        height: 44px;
+        background: #fff;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        font-size: 0.96rem;
+        color: #333;
+        font-weight: 500;
+        justify-content: space-between;
+        position: relative;
+        cursor: pointer;
+    }
+
+.icon-circle {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.fb .icon-circle {
+    background-color: #1877f2;
+}
+
+    .fb .icon-circle img {
+        filter: brightness(0) invert(1);
+    }
+
+.gg .icon-circle {
+    border: 1px solid #ccc;
+}
+
+.social-btn img {
+    width: 18px;
+    height: 18px;
+}
+
+.btn-text {
+    flex-grow: 1;
+    text-align: left;
+}
+
+.arrow {
+    font-size: 1.4rem;
+    color: #888;
+}
+
+.dob-group input {
+    border: 1px solid #a48ad4 !important; /* Màu viền đồng nhất */
+    border-radius: 6px;
+    box-sizing: border-box;
+}

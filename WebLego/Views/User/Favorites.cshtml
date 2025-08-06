@@ -1,0 +1,106 @@
+﻿@model IEnumerable<WebLego.DataSet.GdrService.Product>
+@{
+    var now = DateTime.Now; // Lấy thời gian hiện tại để kiểm tra khuyến mãi
+}
+
+<link href="~/css/product.css" rel="stylesheet" />
+
+<div class="products-page">
+    <div class="page-container">
+        <div class="header-row">
+            <h1 class="search-results-title">
+                Danh sách yêu thích
+            </h1>
+        </div>
+        <div class="content-wrapper" style="margin-bottom: 40px">
+            @Html.Partial("_AccountSidebar")
+            @if (!Model.Any())
+            {
+                <div class="text-center">
+                    <p>Bạn chưa có sản phẩm yêu thích nào. Hãy lướt xem thêm các sản phẩm của chúng tôi và yêu thích những sản phẩm cho riêng bạn!</p>
+                    <a asp-action="Index" asp-controller="Product">Xem thêm sản phẩm</a>
+                </div>
+            }
+            else
+            {
+                var products = Model.ToList();
+                <section class="products-grid">
+                    @for (var i = 0; i < products.Count; i += 3)
+                    {
+                        var rowProducts = products.Skip(i).Take(3).ToList();
+                        <div class="product-row">
+                            @foreach (var product in rowProducts)
+                            {
+                                var img = product.ProductImages.FirstOrDefault(i => i.IsMain == true)?.ImageUrl ?? "~/images/placeholder.png";
+                                <article class="product-card">
+                                    <button class="favorite-btn" onclick="removeFavorite(@product.ProductId)">
+                                        <img src="~/images/icon_loved.png" class="favorite-icon" />
+                                    </button>
+                                    <a asp-controller="Product" asp-action="Detail" asp-route-id="@product.ProductId" class="product-link">
+                                        <div class="product-image-wrapper">
+                                            <img src="@Url.Content(img)" class="product-image" />
+                                        </div>
+                                        <h2 class="product-name">@product.ProductName</h2>
+                                    </a>
+                                    <p class="card-text">
+                                        <span class="text-warning">
+                                            @for (int j = 1; j <= 5; j++)
+                                            {
+                                                if (j <= Math.Floor(product.Rating ?? 0))
+                                                {
+                                                    <i class="bi bi-star-fill"></i>
+                                                }
+                                                else if (j - (product.Rating ?? 0) < 1)
+                                                {
+                                                    <i class="bi bi-star-half"></i>
+                                                }
+                                                else
+                                                {
+                                                    <i class="bi bi-star"></i>
+                                                }
+                                            }
+                                        </span>
+                                        <span class="text-muted">(@(product.Rating?.ToString("0.0") ?? "0.0"))</span>
+                                    </p>
+                                    <p class="product-price">
+@*                                         @if (product.DiscountPrice.HasValue && product.PromotionStartDate <= now && product.PromotionEndDate >= now)
+                                        {
+                                            <span class="text-decoration-line-through text-muted me-2">@product.Price.ToString("N0")<span class="currency">₫</span></span>
+                                            <span class="text-danger fw-bold">@product.DiscountPrice?.ToString("N0")<span class="currency">₫</span></span>
+                                        }
+                                        else
+                                        {
+                                            <span>@product.Price.ToString("N0")<span class="currency">₫</span></span>
+                                        } *@
+                                        <span>@product.Price.ToString("N0")<span class="currency">₫</span></span>
+
+                                    </p>
+                                    <form asp-controller="Cart" asp-action="AddToCart" method="post">
+                                        <input type="hidden" name="productId" value="@product.ProductId" />
+                                        <button type="submit" class="add-to-cart-btn" title="Thêm vào giỏ hàng">
+                                            <img src="~/images/icon_addtocart.png" class="cart-icon default-icon" />
+                                            <img src="~/images/icon_addtocart_hover.png" class="cart-icon hover-icon" />
+                                        </button>
+                                    </form>
+                                </article>
+                            }
+                        </div>
+                    }
+                </section>
+            }
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        function removeFavorite(productId) {
+            $.post("/User/ToggleFavorite", { productId: productId }, function (response) {
+                if (response.success) {
+                    location.reload();
+                }
+            });
+        }
+    </script>
+}

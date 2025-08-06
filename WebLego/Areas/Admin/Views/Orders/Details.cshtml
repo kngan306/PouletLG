@@ -1,0 +1,83 @@
+﻿@model WebLego.Areas.Admin.Models.OrderViewModel
+
+@{
+    ViewData["Title"] = $"Chi tiết đơn hàng #{Model.OrderId}";
+}
+
+<div class="card mb-4">
+    <div class="card-header bg-primary text-white">
+        Thông tin khách hàng
+    </div>
+    <div class="card-body">
+        <p><strong>Họ tên:</strong> @Model.CustomerName</p>
+        <p><strong>Email:</strong> @Model.CustomerEmail</p>
+        <p><strong>Địa chỉ giao hàng:</strong> @Model.FullAddress</p>
+    </div>
+</div>
+
+<div class="card mb-4">
+    <div class="card-header bg-success text-white">
+        Thông tin đơn hàng
+    </div>
+    <div class="card-body">
+        <p><strong>Ngày đặt:</strong> @Model.OrderDate?.ToString("dd/MM/yyyy HH:mm")</p>
+        <p><strong>Trạng thái đơn hàng:</strong> @Model.OrderStatus</p>
+        <p><strong>Trạng thái thanh toán:</strong> @Model.PaymentStatus</p>
+        @if (!string.IsNullOrEmpty(Model.ShipperName))
+        {
+            <p><strong>Nhân viên giao hàng:</strong> @Model.ShipperName</p>
+        }
+    </div>
+</div>
+
+<div class="card mb-4">
+    <div class="card-header bg-info text-white">
+        Danh sách sản phẩm
+    </div>
+    <div class="card-body">
+        <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Tên sản phẩm</th>
+                    <th>Số lượng</th>
+                    <th>Đơn giá</th>
+                    <th>Thành tiền</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.OrderDetails)
+                {
+                    <tr>
+                        <td>@item.ProductName</td>
+                        <td>@item.Quantity</td>
+                        <td class="price-col">
+                            @if (item.IsDiscounted)
+                            {
+                                <span class="text-decoration-line-through text-muted me-2">@item.OriginalPrice.ToString("N0")₫</span>
+                                <span class="text-danger fw-bold">@item.UnitPrice.ToString("N0")₫</span>
+                            }
+                            else
+                            {
+                                <span>@item.UnitPrice.ToString("N0")₫</span>
+                            }
+                        </td>
+                        <td>@item.TotalAmount.ToString("N0") ₫</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header bg-warning">
+        Tổng kết
+    </div>
+    <div class="card-body">
+        <p><strong>Phí vận chuyển:</strong> @Model.ShippingFee?.ToString("N0") ₫</p>
+        <p><strong>Giảm giá:</strong> @Model.Discount?.ToString("N0") ₫</p>
+        <h4><strong>Tổng cộng:</strong> @Model.TotalAmount?.ToString("N0") ₫</h4>
+    </div>
+</div>
+
+<a asp-area="Admin" asp-controller="Orders" asp-action="Index" class="btn btn-secondary mt-3">Quay lại danh sách</a>

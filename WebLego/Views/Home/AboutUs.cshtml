@@ -1,0 +1,34 @@
+﻿@model List<WebLego.DataSet.GdrService.AboutUsSection>
+
+@{
+    ViewData["Title"] = "Giới thiệu";
+}
+<link rel="stylesheet" href="~/css/aboutus.css" />
+
+<div class="container about-container">
+    <h2>Giới thiệu về chúng tôi</h2>
+    <div class="about-content">
+        @if (!Model.Any())
+        {
+            <p class="text-center">Chưa có nội dung giới thiệu nào.</p>
+        }
+        else
+        {
+            @foreach (var item in Model.Where(s => s.IsActive == true).OrderBy(s => s.DisplayOrder))
+            {
+                <section class="about-section @(item.DisplayOrder % 2 == 1 ? "left-text" : "right-text")">
+                    <div class="row align-items-center">
+                        <div class="col-md-6 @(item.DisplayOrder % 2 == 1 ? "order-md-1" : "order-md-2")">
+                            <h3 class="section-title">@item.Title</h3>
+                            <p class="section-description">@item.Description</p>
+                        </div>
+                        <div class="col-md-6 @(item.DisplayOrder % 2 == 1 ? "order-md-2" : "order-md-1")">
+                            <img src="@Url.Content(item.ImageUrl)" class="section-image" alt="@item.Title" onerror="this.onerror=null;this.src='/images/placeholder.png';" />
+                        </div>
+                    </div>
+                </section>
+            }
+        }
+    </div>
+
+</div>

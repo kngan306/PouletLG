@@ -1,0 +1,201 @@
+﻿@model WebLego.Areas.Admin.Models.ProductViewModel
+
+@{
+    ViewData["Title"] = "Chỉnh sửa sản phẩm";
+
+    var roleId = int.Parse(User.FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value ?? "0");
+    var isReadOnly = roleId == 2;
+}
+
+<form asp-area="Admin"
+      asp-controller="Product"
+      asp-action="Edit"
+      method="post"
+      enctype="multipart/form-data" novalidate>
+    @Html.AntiForgeryToken()
+
+    <input type="hidden" asp-for="ProductId" />
+
+    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+    <div class="mb-3">
+        <label asp-for="ProductName" class="form-label">Tên sản phẩm</label>
+        @if (isReadOnly)
+        {
+            <input asp-for="ProductName" class="form-control" readonly />
+        }
+        else
+        {
+            <input asp-for="ProductName" class="form-control" />
+        }
+        <span asp-validation-for="ProductName" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="ProductDes" class="form-label">Mô tả sản phẩm</label>
+        @if (isReadOnly)
+        {
+            <textarea asp-for="ProductDes" class="form-control" rows="3" readonly></textarea>
+        }
+        else
+        {
+            <textarea asp-for="ProductDes" class="form-control" rows="3"></textarea>
+        }
+        <span asp-validation-for="ProductDes" class="text-danger"></span>
+    </div>
+
+    <div class="row g-3 mb-3">
+        <div class="col-md-4">
+            <label asp-for="Price" class="form-label">Giá sản phẩm</label>
+            @if (isReadOnly)
+            {
+                <input asp-for="Price" type="number" class="form-control" readonly />
+            }
+            else
+            {
+                <input asp-for="Price" type="number" class="form-control" />
+            }
+            <span asp-validation-for="Price" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-4">
+            <label asp-for="DiscountPrice" class="form-label">Giá khuyến mãi</label>
+            <input asp-for="DiscountPrice" type="number" class="form-control" disabled />
+            <input type="hidden" asp-for="DiscountPrice" />
+            <span asp-validation-for="DiscountPrice" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-4">
+            <label asp-for="StockQuantity" class="form-label">Tồn kho</label>
+            @if (isReadOnly)
+            {
+                <input asp-for="StockQuantity" type="number" class="form-control" readonly />
+            }
+            else
+            {
+                <input asp-for="StockQuantity" type="number" class="form-control" />
+            }
+            <span asp-validation-for="StockQuantity" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="row g-3 mb-3">
+        <div class="col-md-4">
+            <label asp-for="AgeRange" class="form-label">Số tuổi</label>
+            @if (isReadOnly)
+            {
+                <input asp-for="AgeRange" class="form-control" readonly />
+            }
+            else
+            {
+                <input asp-for="AgeRange" class="form-control" />
+            }
+            <span asp-validation-for="AgeRange" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-4">
+            <label asp-for="PieceCount" class="form-label">Số mảng</label>
+            @if (isReadOnly)
+            {
+                <input asp-for="PieceCount" type="number" class="form-control" readonly />
+            }
+            else
+            {
+                <input asp-for="PieceCount" type="number" class="form-control" />
+            }
+            <span asp-validation-for="PieceCount" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-4 d-flex align-items-center">
+            <div class="form-check">
+                <label asp-for="IsFeatured">Sản phẩm nổi bật</label><br />
+                @if (isReadOnly)
+                {
+                    <input asp-for="IsFeatured" type="checkbox" disabled="disabled" />
+                }
+                else
+                {
+                    <input asp-for="IsFeatured" type="checkbox" />
+                }
+            </div>
+            <span asp-validation-for="IsFeatured" class="text-danger ms-2"></span>
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="ProductStatus" class="form-label">Trạng thái sản phẩm</label>
+        @if (isReadOnly)
+        {
+            <select asp-for="ProductStatus" class="form-control" disabled="disabled">
+                <option value="Hoạt động" selected="@((Model.ProductStatus == "Hoạt động") ? "selected" : null)">Hoạt động</option>
+                <option value="Không hoạt động" selected="@((Model.ProductStatus == "Không hoạt động") ? "selected" : null)">Không hoạt động</option>
+            </select>
+        }
+        else
+        {
+            <select asp-for="ProductStatus" class="form-control">
+                <option value="Hoạt động" selected="@((Model.ProductStatus == "Hoạt động") ? "selected" : null)">Hoạt động</option>
+                <option value="Không hoạt động" selected="@((Model.ProductStatus == "Không hoạt động") ? "selected" : null)">Không hoạt động</option>
+            </select>
+        }
+        <span asp-validation-for="ProductStatus" class="text-danger"></span>
+    </div>
+
+    <div class="row g-3 mb-4">
+        <div class="col-md-6">
+            <label for="CategoryId" class="form-label">Danh mục</label>
+            @if (isReadOnly)
+            {
+                <select asp-for="CategoryId" class="form-select" disabled asp-items="Model.CategoriesSelectList">
+                    <option value="">-- Chọn danh mục --</option>
+                </select>
+            }
+            else
+            {
+                <select asp-for="CategoryId" class="form-select" asp-items="Model.CategoriesSelectList">
+                    <option value="">-- Chọn danh mục --</option>
+                </select>
+            }
+            <span asp-validation-for="CategoryId" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-6">
+            <label class="form-label">Khuyến mãi</label>
+            <input type="text" class="form-control" value="@Model.PromotionName" readonly />
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Ảnh sản phẩm hiện tại</label><br />
+        @if (Model.ExistingImageUrls != null && Model.ExistingImageUrls.Count > 0)
+        {
+            foreach (var url in Model.ExistingImageUrls)
+            {
+                <img src="@url" alt="Ảnh sản phẩm" class="img-thumbnail me-2 mb-2" style="max-height: 100px;" />
+            }
+        }
+        else
+        {
+            <p>Chưa có ảnh sản phẩm</p>
+        }
+    </div>
+
+    @if (!isReadOnly)
+    {
+        <div class="mb-4">
+            <label class="form-label">Thêm ảnh mới</label>
+            <input asp-for="Images" type="file" multiple class="form-control" />
+            <span asp-validation-for="Images" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary me-2">Lưu</button>
+    }
+    <a asp-area="Admin"
+       asp-controller="Product"
+       asp-action="Index"
+       class="btn btn-secondary">@((isReadOnly) ? "Quay lại" : "Hủy")</a>
+</form>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}

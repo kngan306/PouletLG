@@ -1,0 +1,277 @@
+﻿@model WebLego.Areas.Admin.Models.DashboardViewModel
+@{
+    ViewData["Title"] = "Thống kê báo cáo";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+
+    <!-- BỘ LỌC -->
+    <div class="card mb-4 shadow-sm border-0">
+        <div class="card-header bg-light fw-bold">Bộ lọc thống kê</div>
+        <div class="card-body">
+            <form asp-action="Index" method="get" id="filterForm">
+                <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-3">
+                    <div>
+                        <label class="form-label">Từ ngày</label>
+                        <input type="date" name="startDate" id="startDate" class="form-control"
+                               value="@Model.StartDate.ToString("yyyy-MM-dd")" />
+                    </div>
+                    <div>
+                        <label class="form-label">Đến ngày</label>
+                        <input type="date" name="endDate" id="endDate" class="form-control"
+                               value="@Model.EndDate.ToString("yyyy-MM-dd")" />
+                    </div>
+                    <div>
+                        <label class="form-label">Lọc nhanh</label>
+                        <select name="filterType" id="filterType" class="form-select">
+                            <!option value="" @(string.IsNullOrEmpty(Model.FilterType) ? "selected" : "")>--Chọn--</!option>
+                            <!option value="Year" @(Model.FilterType == "Year" ? "selected" : "")>Năm</!option>
+                            <!option value="Quarter1" @(Model.FilterType == "Quarter1" ? "selected" : "")>Quý 1</!option>
+                            <!option value="Quarter2" @(Model.FilterType == "Quarter2" ? "selected" : "")>Quý 2</!option>
+                            <!option value="Quarter3" @(Model.FilterType == "Quarter3" ? "selected" : "")>Quý 3</!option>
+                            <!option value="Quarter4" @(Model.FilterType == "Quarter4" ? "selected" : "")>Quý 4</!option>
+                            <!option value="Month" @(Model.FilterType == "Month" ? "selected" : "")>Tháng</!option>
+                            <!option value="Week" @(Model.FilterType == "Week" ? "selected" : "")>7 ngày qua</!option>
+                        </select>
+                    </div>
+                    <div class="align-self-end">
+                        <button type="submit" class="btn btn-primary w-100 mb-2"><i class="bi bi-funnel-fill"></i> Áp dụng</button>
+                        <a href="@Url.Action("Index")" class="btn btn-outline-secondary w-100">Đặt lại</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- THỐNG KÊ -->
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        <div class="col">
+            <div class="card h-100 shadow-sm border-0 text-center">
+                <div class="card-body">
+                    <div class="mb-2">
+                        <i class="bi bi-cash-coin text-success" style="font-size: 2rem;"></i>
+                    </div>
+                    <h6 class="text-muted">Tổng doanh thu</h6>
+                    <h4 class="text-success fw-bold">@Model.TotalRevenue.ToString("N0") VNĐ</h4>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card h-100 shadow-sm border-0 text-center">
+                <div class="card-body">
+                    <div class="mb-2">
+                        <i class="bi bi-bag-check text-primary" style="font-size: 2rem;"></i>
+                    </div>
+                    <h6 class="text-muted">Tổng số đơn</h6>
+                    <h4 class="fw-bold">@Model.TotalOrders</h4>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card h-100 shadow-sm border-0 text-center">
+                <div class="card-body">
+                    <div class="mb-2">
+                        <i class="bi bi-star-fill text-warning" style="font-size: 2rem;"></i>
+                    </div>
+                    <h6 class="text-muted">Tỷ lệ đánh giá TB</h6>
+                    <h4 class="fw-bold">@Model.AverageRating.ToString("F1")/5</h4>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card h-100 shadow-sm border-0 text-center">
+                <div class="card-body">
+                    <div class="mb-2">
+                        <i class="bi bi-box-seam text-info" style="font-size: 2rem;"></i>
+                    </div>
+                    <h6 class="text-muted">Sản phẩm bán chạy</h6>
+                    <h5 class="fw-bold">@Model.BestSellingProduct</h5>
+                    <p class="text-muted small">(@Model.BestSellingQuantity)</p>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card h-100 shadow-sm border-0 text-center">
+                <div class="card-body">
+                    <div class="mb-2">
+                        <i class="bi bi-exclamation-circle text-danger" style="font-size: 2rem;"></i>
+                    </div>
+                    <h6 class="text-muted">Tồn kho thấp</h6>
+                    <h5 class="fw-bold">@Model.LowestStockProduct</h5>
+                    <p class="text-muted small">(@Model.LowestStockQuantity)</p>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card h-100 shadow-sm border-0 text-center">
+                <div class="card-body">
+                    <div class="mb-2">
+                        <i class="bi bi-arrow-repeat text-secondary" style="font-size: 2rem;"></i>
+                    </div>
+                    <h6 class="text-muted">Yêu cầu đổi/trả</h6>
+                    <h4 class="fw-bold text-danger">@Model.ReturnRequests</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- BIỂU ĐỒ -->
+    <div class="row mt-4">
+        <div class="col-md-6 mb-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-header bg-light fw-semibold">Doanh thu theo thời gian</div>
+                <div class="card-body">
+                    <canvas id="revenueChart" style="min-height: 300px; width: 100% !important;"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 mb-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-header bg-light fw-semibold">Sản phẩm theo danh mục</div>
+                <div class="card-body">
+                    <canvas id="categoryChart" style="min-height: 300px; width: 100% !important;"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 mb-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-header bg-light fw-semibold">Trạng thái đơn hàng</div>
+                <div class="card-body">
+                    <canvas id="statusChart" style="min-height: 300px; width: 100% !important;"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        document.getElementById('filterType').addEventListener('change', function () {
+            const filterType = this.value;
+            const startDateInput = document.getElementById('startDate');
+            const endDateInput = document.getElementById('endDate');
+            const today = new Date();
+            const currentYear = today.getFullYear();
+            let startDate, endDate;
+
+            switch (filterType) {
+                case 'Week':
+                    startDate = new Date(currentYear, today.getMonth(), today.getDate() - 7);
+                    endDate = today;
+                    break;
+                case 'Month':
+                    startDate = new Date(currentYear, today.getMonth(), 1);
+                    endDate = new Date(currentYear, today.getMonth() + 1, 0);
+                    break;
+                case 'Quarter1':
+                    startDate = new Date(currentYear, 0, 1);
+                    endDate = new Date(currentYear, 2, 31);
+                    break;
+                case 'Quarter2':
+                    startDate = new Date(currentYear, 3, 1);
+                    endDate = new Date(currentYear, 5, 30);
+                    break;
+                case 'Quarter3':
+                    startDate = new Date(currentYear, 6, 1);
+                    endDate = new Date(currentYear, 8, 30);
+                    break;
+                case 'Quarter4':
+                    startDate = new Date(currentYear, 9, 1);
+                    endDate = new Date(currentYear, 11, 31);
+                    break;
+                case 'Year':
+                    startDate = new Date(currentYear, 0, 1);
+                    endDate = new Date(currentYear, 11, 31);
+                    break;
+                default:
+                    return;
+            }
+
+            startDateInput.value = startDate.toISOString().split('T')[0];
+            endDateInput.value = endDate.toISOString().split('T')[0];
+        });
+
+        const revenueCtx = document.getElementById('revenueChart').getContext('2d');
+        new Chart(revenueCtx, {
+            type: 'bar',
+            data: {
+                labels: @Html.Raw(Json.Serialize(Model.RevenueByMonth.Select(r => r.Period))),
+                datasets: [{
+                    label: 'Doanh thu (VNĐ)',
+                    data: @Html.Raw(Json.Serialize(Model.RevenueByMonth.Select(r => r.Revenue))),
+                    backgroundColor: 'rgba(75, 192, 192, 0.5)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function (value) {
+                                return value.toLocaleString('vi-VN') + ' VNĐ';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        const categoryCtx = document.getElementById('categoryChart').getContext('2d');
+        new Chart(categoryCtx, {
+            type: 'pie',
+            data: {
+                labels: @Html.Raw(Json.Serialize(Model.SalesByCategory.Select(c => c.CategoryName))),
+                datasets: [{
+                    data: @Html.Raw(Json.Serialize(Model.SalesByCategory.Select(c => c.Quantity))),
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.5)',
+                        'rgba(54, 162, 235, 0.5)',
+                        'rgba(255, 206, 86, 0.5)',
+                        'rgba(75, 192, 192, 0.5)',
+                        'rgba(153, 102, 255, 0.5)',
+                        'rgba(255, 159, 64, 0.5)'
+                    ]
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            boxWidth: 20
+                        }
+                    }
+                }
+            }
+        });
+
+        const statusCtx = document.getElementById('statusChart').getContext('2d');
+        new Chart(statusCtx, {
+            type: 'bar',
+            data: {
+                labels: @Html.Raw(Json.Serialize(Model.OrdersByStatus.Select(s => s.Status))),
+                datasets: [{
+                    label: 'Số lượng đơn hàng',
+                    data: @Html.Raw(Json.Serialize(Model.OrdersByStatus.Select(s => s.Count))),
+                    backgroundColor: 'rgba(153, 102, 255, 0.5)',
+                    borderColor: 'rgba(153, 102, 255, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+}

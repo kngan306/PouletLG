@@ -1,0 +1,154 @@
+﻿@model List<WebLego.Models.ViewModel.OrderViewModel>
+@{
+    ViewData["Title"] = "Đơn hàng của tôi";
+    var statusFilter = ViewBag.StatusFilter as string ?? "all";
+}
+
+<link href="~/css/order.css" rel="stylesheet" />
+
+<div class="order-layout">
+    <div class="page-container">
+        <div class="header-row">
+            <h1 class="order-title">Đơn hàng của tôi</h1>
+        </div>
+        <div class="content-wrapper" style="margin-bottom: 40px">
+            <div class="sidebar-wrapper">
+                @Html.Partial("_AccountSidebar")
+            </div>
+            <div class="order-content">
+                <nav class="order-nav">
+                    <ul>
+                        <li class="@(statusFilter == "all" ? "active" : "")">
+                            <a asp-action="Index" asp-route-statusFilter="all">Tất cả</a>
+                        </li>
+                        <li class="@(statusFilter == "chờ thanh toán" ? "active" : "")">
+                            <a asp-action="Index" asp-route-statusFilter="chờ thanh toán">Chờ thanh toán</a>
+                        </li>
+                        <li class="@(statusFilter == "đang xử lý" ? "active" : "")">
+                            <a asp-action="Index" asp-route-statusFilter="đang xử lý">Đang xử lý</a>
+                        </li>
+                        <li class="@(statusFilter == "đang giao hàng" ? "active" : "")">
+                            <a asp-action="Index" asp-route-statusFilter="đang giao hàng">Đang giao hàng</a>
+                        </li>
+                        <li class="@(statusFilter == "hoàn thành" ? "active" : "")">
+                            <a asp-action="Index" asp-route-statusFilter="hoàn thành">Hoàn thành</a>
+                        </li>
+                        <li class="@(statusFilter == "đã hủy" ? "active" : "")">
+                            <a asp-action="Index" asp-route-statusFilter="đã hủy">Đã hủy</a>
+                        </li>
+                        <li class="@(statusFilter == "đổi/ trả hàng" ? "active" : "")">
+                            <a asp-action="Index" asp-route-statusFilter="đổi/ trả hàng">Đổi/ Trả hàng</a>
+                        </li>
+                    </ul>
+                </nav>
+
+                <div class="orders-list">
+                    @if (Model == null || !Model.Any())
+                    {
+                        <p>Bạn chưa có đơn hàng nào.</p>
+                    }
+                    else
+                    {
+                        @if (!string.IsNullOrEmpty(TempData["Message"] as string))
+                        {
+                            <p class="message-success">@TempData["Message"]</p>
+                        }
+                        @if (!string.IsNullOrEmpty(TempData["Error"] as string))
+                        {
+                            <p class="message-error">@TempData["Error"]</p>
+                        }
+                        foreach (var order in Model)
+                        {
+                            <div class="order-card">
+                                @if ((order.OrderStatus == "Chờ thanh toán" && order.ExpirationDate.HasValue) ||
+                               (order.OrderStatus == "Đã hủy" && order.ExpirationDate.HasValue && order.ExpirationDate.Value < DateTime.Now))
+                                {
+                                    var expirationSeconds = order.ExpirationDate.HasValue ? (order.ExpirationDate.Value - DateTime.Now).TotalSeconds : 0;
+                                    if (order.OrderStatus == "Chờ thanh toán" && expirationSeconds > 0)
+                                    {
+                                        <div class="expiration-warning">
+                                            Đơn hàng sẽ tự hủy sau <span id="timer-@order.OrderId">@TimeSpan.FromSeconds(expirationSeconds).ToString(@"hh\:mm\:ss")</span>. Vui lòng hoàn tất thanh toán!
+                                        </div>
+
+                                        <script>
+                                            (function (orderId) {
+                                                var timeLeft = @expirationSeconds;
+                                                var timer = setInterval(function () {
+                                                    timeLeft--;
+                                                    if (timeLeft <= 0) {
+                                                        clearInterval(timer);
+                                                        alert("Đơn hàng #" + orderId + " đã bị hủy do hết thời gian.");
+                                                        window.location.reload();
+                                                    } else {
+                                                        var time = new Date(timeLeft * 1000).toISOString().substr(11, 8);
+                                                        document.getElementById("timer-" + orderId).textContent = time;
+                                                    }
+                                                }, 1000);
+                                            })(@order.OrderId);
+                                        </script>
+                                    }
+                                    else if (order.OrderStatus == "Đã hủy" && order.ExpirationDate.Value < DateTime.Now)
+                                    {
+                                        <div class="expiration-warning">
+                                            Đơn hàng đã bị hủy do hết thời gian thanh toán.
+                                        </div>
+                                    }
+                                }
+                                <div class="order-header">
+                                    <span>Phương thức thanh toán: @order.PaymentMethod</span>
+                                    <span class="order-status">Trạng thái: @order.OrderStatus</span>
+                                </div>
+                                <div class="order-items" style="cursor: pointer" onclick="window.location.href='@Url.Action("Detail", "Order", new { orderId = order.OrderId })'">
+                                    @foreach (var item in order.Items)
+                                    {
+                                        <div class="order-item">
+                                            <img src="@item.ImageUrl" alt="@item.ProductName" class="item-image" />
+                                            <div class="item-info">
+                                                <h3>@item.ProductName</h3>
+                                                <p>Số lượng: @item.Quantity</p>
+                                            </div>
+                                            <div class="item-price">
+                                                @if (item.IsDiscounted)
+                                                {
+                                                    <span class="text-decoration-line-through text-muted me-2">@item.OriginalPrice.ToString("N0")₫</span>
+                                                    <span class="text-danger fw-bold">@item.DiscountPrice?.ToString("N0")₫</span>
+                                                }
+                                                else
+                                                {
+                                                    <span>@item.OriginalPrice.ToString("N0")₫</span>
+                                                }
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                                <div class="order-footer">
+                                    <div class="order-total">
+                                        Thành tiền: <strong>@order.TotalAmount.ToString("N0")₫</strong>
+                                    </div>
+                                    <div class="order-actions">
+                                        @if (order.OrderStatus == "Chờ thanh toán" && order.ExpirationDate.HasValue && order.ExpirationDate.Value > DateTime.Now)
+                                        {
+                                            <a asp-action="RetryPayment" asp-route-orderId="@order.OrderId" class="btn-retry">Thanh toán lại</a>
+                                        }
+                                        @if (order.OrderStatus == "Hoàn thành")
+                                        {
+                                            <a href="#" class="btn-feedback">Đánh giá</a>
+                                            <a href="#" class="btn-return">Đổi/Trả hàng</a>
+                                        }
+                                        @if (order.OrderStatus != "Hoàn thành" && order.OrderStatus != "Đã hủy" && order.OrderStatus != "Đổi/ Trả hàng")
+                                        {
+                                            <form asp-action="CancelOrder" method="post" style="display:inline;">
+                                                <input type="hidden" name="orderId" value="@order.OrderId" />
+                                                <button type="submit" class="btn-cancel" @(order.OrderStatus != "Chờ thanh toán" && order.OrderStatus != "Đang xử lý" ? "disabled" : "") onclick="return confirm('Bạn có chắc chắn muốn hủy đơn hàng này?')">Hủy đơn hàng</button>
+                                            </form>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

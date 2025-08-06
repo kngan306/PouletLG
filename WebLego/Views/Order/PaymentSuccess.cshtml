@@ -1,0 +1,40 @@
+﻿@{
+    ViewData["Title"] = "Thanh toán thành công";
+}
+
+<style>
+    .success-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 60vh;
+        padding-top: 40px;
+        text-align: center;
+    }
+
+    .btn-back {
+        padding: 10px 22px;
+        border: none;
+        border-radius: 10px;
+        font-weight: 500;
+        background-color: #FECC29;
+        text-align: center;
+        flex-shrink: 0;
+        color: black;
+        text-decoration: none;
+        margin-top: 20px;
+        transition: background-color 0.2s ease;
+    }
+
+    .btn-back:hover {
+        background-color: #E0B522;
+        color: black;
+    }
+</style>
+
+<div class="success-container">
+    <h2>Thanh toán thành công</h2>
+    <p>Cảm ơn bạn đã đặt hàng! Đơn hàng của bạn đang được xử lý.</p>
+    <a asp-action="Index" asp-controller="Order" class="btn-back">Xem đơn hàng</a>
+</div>

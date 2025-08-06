@@ -1,0 +1,231 @@
+﻿@model IEnumerable<WebLego.DataSet.GdrService.Product>
+@{
+    ViewData["Title"] = ViewBag.IsPromotion ? "Khuyến mãi" : (ViewBag.CurrentCategory ?? "Tất cả sản phẩm");
+    var now = DateTime.Now;
+}
+
+<link href="~/css/product.css" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
+<div class="products-page">
+    <div class="page-container">
+        <div class="header-row">
+            <h1 class="search-results-title">
+                @if (!string.IsNullOrEmpty(ViewBag.SearchTerm))
+                {
+                    @:Kết quả tìm kiếm: @ViewBag.SearchTerm
+                    <a href="@Url.Action("Index", "Product", new { id = ViewBag.CurrentCategoryId, isPromotion = ViewBag.IsPromotion, minPrice = Context.Request.Query["minPrice"], maxPrice = Context.Request.Query["maxPrice"], page = 1 })" class="btn btn-link">Xóa tìm kiếm</a>
+                }
+                else
+                {
+                    @ViewData["Title"]
+                }
+            </h1>
+
+            @if (ViewBag.IsPromotion && ViewBag.PromoEndDate != null)
+            {
+                <div class="countdown-container">
+                    <span class="countdown-label fw-bold">Khuyến mãi kết thúc sau:</span>
+                    <span id="countdown" class="fw-bold text-danger fs-5 ms-2"></span>
+                </div>
+            }
+        </div>
+
+        <div class="content-wrapper">
+            @Html.Partial("_ProductFilterSidebar")
+
+            @if (Model.Any())
+            {
+                var products = Model.ToList();
+                var favoriteProductIds = ViewBag.FavoriteProductIds as List<int> ?? new List<int>();
+
+                <section class="products-grid">
+                    @for (var i = 0; i < products.Count; i += 3)
+                    {
+                        var rowProducts = products.Skip(i).Take(3).ToList();
+                        <div class="product-row">
+                            @foreach (var p in rowProducts)
+                            {
+                                var img = p.ProductImages.FirstOrDefault(img => img.IsMain == true)?.ImageUrl ?? "~/images/placeholder.png";
+                                var isFavorite = favoriteProductIds.Contains(p.ProductId);
+
+                                <article class="product-card">
+                                    <button class="favorite-btn @(isFavorite ? "active" : "")" onclick="toggleFavorite(@p.ProductId)" id="favorite-@p.ProductId" type="button">
+                                        <img src="@(isFavorite ? Url.Content("~/images/icon_loved.png") : Url.Content("~/images/icon_heart.png"))" class="favorite-icon" id="icon-@p.ProductId" />
+                                    </button>
+
+                                    <a asp-controller="Product" asp-action="Detail" asp-route-id="@p.ProductId" class="product-link">
+                                        <div class="product-image-wrapper">
+                                            <img src="@Url.Content(img)" class="product-image" alt="@p.ProductName" />
+                                        </div>
+                                        <h2 class="product-name">@p.ProductName</h2>
+                                    </a>
+
+                                    <p class="card-text">
+                                        <span class="text-warning">
+                                            @for (int j = 1; j <= 5; j++)
+                                            {
+                                                if (j <= Math.Floor(p.Rating ?? 0))
+                                                {
+                                                    <i class="bi bi-star-fill"></i>
+                                                }
+                                                else if (j - (p.Rating ?? 0) < 1)
+                                                {
+                                                    <i class="bi bi-star-half"></i>
+                                                }
+                                                else
+                                                {
+                                                    <i class="bi bi-star"></i>
+                                                }
+                                            }
+                                        </span>
+                                        <span class="text-muted">(@(p.Rating?.ToString("0.0") ?? "0.0"))</span>
+                                    </p>
+
+                                    <p class="product-price">
+                                        @if (p.DiscountPrice.HasValue)
+                                        {
+                                            <span class="text-decoration-line-through text-muted me-2">@p.Price.ToString("N0")<span class="currency">₫</span></span>
+                                            <span class="text-danger fw-bold">@p.DiscountPrice.Value.ToString("N0")<span class="currency">₫</span></span>
+                                        }
+                                        else
+                                        {
+                                            <span>@p.Price.ToString("N0")<span class="currency">₫</span></span>
+                                        }
+                                    </p>
+
+                                    @if (p.StockQuantity == 0)
+                                    {
+                                        <p class="text-danger fw-bold small mt-3">Sản phẩm đã hết hàng</p>
+                                    }
+                                    else
+                                    {
+                                        <form asp-controller="Cart" asp-action="AddToCart" method="post" style="display:inline;">
+                                            <input type="hidden" name="productId" value="@p.ProductId" />
+                                            <button type="submit" class="add-to-cart-btn" title="Thêm vào giỏ hàng">
+                                                <img src="~/images/icon_addtocart.png" class="cart-icon default-icon" alt="Thêm vào giỏ" />
+                                                <img src="~/images/icon_addtocart_hover.png" class="cart-icon hover-icon" alt="Thêm vào giỏ khi hover" />
+                                            </button>
+                                        </form>
+                                    }
+                                </article>
+                            }
+                        </div>
+                    }
+                </section>
+            }
+            else
+            {
+                <p class="text-center">Không có sản phẩm nào phù hợp.</p>
+            }
+        </div>
+
+        <div class="text-center mt-4">
+            @for (int i = 1; i <= (int)ViewBag.TotalPages; i++)
+            {
+                <a asp-controller="Product" asp-action="Index"
+                   asp-route-id="@ViewBag.CurrentCategoryId"
+                   asp-route-minPrice="@Context.Request.Query["minPrice"]"
+                   asp-route-maxPrice="@Context.Request.Query["maxPrice"]"
+                   asp-route-isPromotion="@ViewBag.IsPromotion.ToString().ToLower()"
+                   asp-route-search="@ViewBag.SearchTerm"
+                   asp-route-page="@i"
+                   class="btn @(i == ViewBag.CurrentPage ? "btn-primary" : "btn-outline-secondary") m-1">
+                    @i
+                </a>
+            }
+        </div>
+    </div>
+</div>
+
+<style>
+    .countdown-container {
+        margin-top: 10px;
+    }
+
+    .countdown-label {
+        font-size: 1.1rem;
+    }
+</style>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        function toggleFavorite(productId) {
+            $.post("/User/ToggleFavorite", { productId: productId }, function (response) {
+                if (response.success) {
+                    var icon = $("#icon-" + productId);
+                    var btn = $("#favorite-" + productId);
+                    if (response.isFavorite) {
+                        icon.attr("src", "@Url.Content("~/images/icon_loved.png")");
+                        btn.addClass("active");
+                    } else {
+                        icon.attr("src", "@Url.Content("~/images/icon_heart.png")");
+                        btn.removeClass("active");
+                    }
+                } else {
+                    alert(response.message);
+                    window.location.href = "/Auth/Login";
+                }
+            }).fail(function (xhr, status, error) {
+                console.log("Lỗi: " + error);
+            });
+        }
+
+        $(document).ready(function () {
+            var favoriteProductIds = @Html.Raw(Json.Serialize(ViewBag.FavoriteProductIds));
+            console.log("Favorite Product IDs:", favoriteProductIds);
+
+            const countdownEl = document.getElementById("countdown");
+            if (countdownEl) {
+                const promoEndDateStr = "@ViewBag.PromoEndDate?.ToString("yyyy-MM-ddTHH:mm:ss")";
+                const promoEndDate = new Date(promoEndDateStr);
+                console.log("promoEndDate:", promoEndDate, "Is Valid:", !isNaN(promoEndDate));
+                if (!isNaN(promoEndDate)) {
+                    function updateCountdown() {
+                        const now = new Date();
+                        const distance = promoEndDate - now;
+
+                        if (distance <= 0) {
+                            countdownEl.innerText = "Đã kết thúc";
+                            return;
+                        }
+
+                        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                        countdownEl.innerText = `${days} ngày ${hours} giờ ${minutes} phút ${seconds} giây`;
+                    }
+
+                    updateCountdown();
+                    setInterval(updateCountdown, 1000);
+                } else {
+                    console.log("Invalid promoEndDate, countdown not started.");
+                }
+            } else {
+                console.log("Countdown element not found.");
+            }
+
+            // Xử lý nút Reset
+            $(document).on("click", "#resetFilter", function () {
+                console.log("Reset button clicked");
+                $("#minPrice").val("");
+                $("#maxPrice").val("");
+                var form = $("#priceFilterForm");
+                form.find("input[name='minPrice']").val("");
+                form.find("input[name='maxPrice']").val("");
+                form.submit();
+            });
+
+            // Gỡ lỗi thêm để kiểm tra DOM
+            console.log("DOM ready, checking elements:");
+            console.log("resetFilter exists:", $("#resetFilter").length > 0);
+            console.log("priceFilterForm exists:", $("#priceFilterForm").length > 0);
+            console.log("minPrice exists:", $("#minPrice").length > 0);
+            console.log("maxPrice exists:", $("#maxPrice").length > 0);
+            console.log("Current URL params:", window.location.search);
+        });
+    </script>
+}

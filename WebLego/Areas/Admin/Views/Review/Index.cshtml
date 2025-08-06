@@ -1,0 +1,153 @@
+﻿@model List<WebLego.Areas.Admin.Models.ReviewViewModel>
+
+@{
+    ViewData["Title"] = "Quản lý đánh giá";
+    var roleId = int.Parse(User.FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value ?? "0");
+}
+
+@* <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" /> *@
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<div class="container py-4">
+
+    <!-- Bộ lọc -->
+    <form asp-action="Index" method="get" class="mb-4">
+        <div class="row g-3 align-items-end">
+            <div class="col-md-3">
+                <label class="form-label">Trạng thái đánh giá</label>
+                <select name="reviewStatus" class="form-select">
+                    <option value="">Tất cả</option>
+                    <option value="Chưa phản hồi" selected="@(ViewBag.ReviewStatus == "Chưa phản hồi")">Chưa phản hồi</option>
+                    <option value="Đã phản hồi" selected="@(ViewBag.ReviewStatus == "Đã phản hồi")">Đã phản hồi</option>
+                    <option value="Bị ẩn" selected="@(ViewBag.ReviewStatus == "Bị ẩn")">Bị ẩn</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label class="form-label">Từ ngày</label>
+                <input type="date" name="startDate" class="form-control" value="@ViewBag.StartDate" />
+            </div>
+            <div class="col-md-3">
+                <label class="form-label">Đến ngày</label>
+                <input type="date" name="endDate" class="form-control" value="@ViewBag.EndDate" />
+            </div>
+            <div class="col-md-3">
+                <label class="form-label">Gắn cờ</label>
+                <select name="isFlagged" class="form-select">
+                    <option value="">Tất cả</option>
+                    <option value="true" selected="@(ViewBag.IsFlagged == true)">Đã gắn cờ</option>
+                    <option value="false" selected="@(ViewBag.IsFlagged == false)">Chưa gắn cờ</option>
+                </select>
+            </div>
+            <div class="col-12 text-end">
+                <button type="submit" class="btn btn-primary me-2"><i class="bi bi-funnel"></i> Lọc</button>
+                <a href="@Url.Action("Index")" class="btn btn-outline-secondary"><i class="bi bi-x-circle"></i> Xóa lọc</a>
+            </div>
+        </div>
+    </form>
+
+    <!-- Danh sách đánh giá -->
+    <div class="table-responsive">
+        <table class="table table-bordered align-middle text-center">
+            <thead class="table-light">
+                <tr>
+                    <th>STT</th>
+                    <th>ID</th>
+                    <th>Sản phẩm</th>
+                    <th>Người dùng</th>
+                    <th>Điểm</th>
+                    <th>Ngày tạo</th>
+                    <th>Trạng thái</th>
+                    <th>Gắn cờ</th>
+                    <th>Hành động</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Any())
+                {
+                    var stt = (ViewBag.CurrentPage - 1) * 10 + 1;
+                    foreach (var review in Model)
+                    {
+                        <tr>
+                            <td>@stt</td>
+                            <td>@review.ReviewId</td>
+                            <td class="text-start">@review.ProductName</td>
+                            <td>@review.UserName</td>
+                            <td>
+                                <span class="text-warning">
+                                    @for (int i = 1; i <= 5; i++)
+                                    {
+                                        <i class="bi @(i <= review.Rating ? "bi-star-fill" : "bi-star")"></i>
+                                    }
+                                </span>
+                            </td>
+                            <td>
+                                @(review.IsUpdated && review.UpdatedAt.HasValue
+                                    ? review.UpdatedAt?.ToString("dd/MM/yyyy")
+                                    : review.CreatedAt?.ToString("dd/MM/yyyy"))
+                            </td>
+                            <td class="text-start">
+                                <strong>@review.ReviewStatus</strong>
+                                @if (review.AdminReplyAt.HasValue && review.CreatedAt.HasValue && review.AdminReplyAt > review.CreatedAt.Value.AddSeconds(10))
+                                {
+                                    <br />
+
+                                    <span class="text-muted small">(Cập nhật: @review.AdminReplyAt?.ToString("dd/MM/yyyy HH:mm"))</span>
+                                }
+                            </td>
+                            <td>
+                                <span class="badge @(review.IsFlagged ? "bg-danger" : "bg-secondary")">
+                                    @(review.IsFlagged ? "Có" : "Không")
+                                </span>
+                            </td>
+                            <td>
+                                <a asp-action="Detail" asp-route-id="@review.ReviewId" class="btn btn-sm btn-outline-primary">
+                                    <i class="bi bi-eye"></i> Chi tiết
+                                </a>
+                            </td>
+                        </tr>
+                        stt++;
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="9" class="text-center text-muted">Không có đánh giá nào phù hợp.</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Phân trang -->
+    @if (ViewBag.TotalPages > 1)
+    {
+        <nav aria-label="Phân trang">
+            <ul class="pagination justify-content-center">
+                @if (ViewBag.CurrentPage > 1)
+                {
+                    <li class="page-item">
+                        <a class="page-link" href="@Url.Action("Index", new { reviewStatus = ViewBag.ReviewStatus, startDate = ViewBag.StartDate, endDate = ViewBag.EndDate, isFlagged = ViewBag.IsFlagged, page = ViewBag.CurrentPage - 1 })">Trước</a>
+                    </li>
+                }
+                @for (int i = 1; i <= ViewBag.TotalPages; i++)
+                {
+                    <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
+                        <a class="page-link" href="@Url.Action("Index", new { reviewStatus = ViewBag.ReviewStatus, startDate = ViewBag.StartDate, endDate = ViewBag.EndDate, isFlagged = ViewBag.IsFlagged, page = i })">@i</a>
+                    </li>
+                }
+                @if (ViewBag.CurrentPage < ViewBag.TotalPages)
+                {
+                    <li class="page-item">
+                        <a class="page-link" href="@Url.Action("Index", new { reviewStatus = ViewBag.ReviewStatus, startDate = ViewBag.StartDate, endDate = ViewBag.EndDate, isFlagged = ViewBag.IsFlagged, page = ViewBag.CurrentPage + 1 })">Sau</a>
+                    </li>
+                }
+            </ul>
+        </nav>
+    }
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.min.js"></script>
+}

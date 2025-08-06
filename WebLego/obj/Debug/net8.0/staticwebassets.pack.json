@@ -1,0 +1,1365 @@
+{
+  "Files": [
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\WebLego.bundle.scp.css",
+      "PackagePath": "staticwebassets\\WebLego.8niol8rkwb.bundle.scp.css"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\css\\aboutus.css",
+      "PackagePath": "staticwebassets\\css\\aboutus.css"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\css\\auth.css",
+      "PackagePath": "staticwebassets\\css\\auth.css"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\css\\cart.css",
+      "PackagePath": "staticwebassets\\css\\cart.css"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\css\\checkout.css",
+      "PackagePath": "staticwebassets\\css\\checkout.css"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\css\\community.css",
+      "PackagePath": "staticwebassets\\css\\community.css"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\css\\contact.css",
+      "PackagePath": "staticwebassets\\css\\contact.css"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\css\\detailorder.css",
+      "PackagePath": "staticwebassets\\css\\detailorder.css"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\css\\detailproduct.css",
+      "PackagePath": "staticwebassets\\css\\detailproduct.css"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\css\\home.css",
+      "PackagePath": "staticwebassets\\css\\home.css"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\css\\membership.css",
+      "PackagePath": "staticwebassets\\css\\membership.css"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\css\\order.css",
+      "PackagePath": "staticwebassets\\css\\order.css"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\css\\product.css",
+      "PackagePath": "staticwebassets\\css\\product.css"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\css\\profile.css",
+      "PackagePath": "staticwebassets\\css\\profile.css"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\css\\site.css",
+      "PackagePath": "staticwebassets\\css\\site.css"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\favicon.ico",
+      "PackagePath": "staticwebassets\\favicon.ico"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\about-us\\24826adb-55a8-4929-889d-204cfa02abc5.jpg",
+      "PackagePath": "staticwebassets\\images\\about-us\\24826adb-55a8-4929-889d-204cfa02abc5.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\about-us\\57759e76-47c2-4f28-a285-734a63fc85bd.jpg",
+      "PackagePath": "staticwebassets\\images\\about-us\\57759e76-47c2-4f28-a285-734a63fc85bd.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\about-us\\8c69113e-336c-4553-aee8-408d2c1580f5.jpg",
+      "PackagePath": "staticwebassets\\images\\about-us\\8c69113e-336c-4553-aee8-408d2c1580f5.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\about-us\\99b7fdfe-5a4b-43c3-8e12-2a62b444d27a.jpg",
+      "PackagePath": "staticwebassets\\images\\about-us\\99b7fdfe-5a4b-43c3-8e12-2a62b444d27a.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\about-us\\c158b118-be52-4fb5-8262-8d6a13d9500e.jpg",
+      "PackagePath": "staticwebassets\\images\\about-us\\c158b118-be52-4fb5-8262-8d6a13d9500e.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\about-us\\d7b1441a-2e00-4559-9363-d16a1314ab40.jpg",
+      "PackagePath": "staticwebassets\\images\\about-us\\d7b1441a-2e00-4559-9363-d16a1314ab40.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\background_spnoibat.png",
+      "PackagePath": "staticwebassets\\images\\background_spnoibat.png"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\banner_1.png",
+      "PackagePath": "staticwebassets\\images\\banner_1.png"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\banner_2.png",
+      "PackagePath": "staticwebassets\\images\\banner_2.png"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\banner_3.png",
+      "PackagePath": "staticwebassets\\images\\banner_3.png"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\banners\\2d5041ad-8f68-4283-82bc-9079588dd458.png",
+      "PackagePath": "staticwebassets\\images\\banners\\2d5041ad-8f68-4283-82bc-9079588dd458.png"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\banners\\315b0def-703c-48e3-8522-28db83f8e4c7.png",
+      "PackagePath": "staticwebassets\\images\\banners\\315b0def-703c-48e3-8522-28db83f8e4c7.png"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\banners\\9437bcad-c3d7-4fdb-a4d4-5e847801191f.png",
+      "PackagePath": "staticwebassets\\images\\banners\\9437bcad-c3d7-4fdb-a4d4-5e847801191f.png"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\banners\\df30a234-12fe-48bb-af41-87d291e73c1e.png",
+      "PackagePath": "staticwebassets\\images\\banners\\df30a234-12fe-48bb-af41-87d291e73c1e.png"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\banners\\dfa9dd5b-d874-40e3-aba6-eb3a03dfb21d.png",
+      "PackagePath": "staticwebassets\\images\\banners\\dfa9dd5b-d874-40e3-aba6-eb3a03dfb21d.png"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\banners\\fec6f24e-c016-4960-a0ce-28770179f2b7.png",
+      "PackagePath": "staticwebassets\\images\\banners\\fec6f24e-c016-4960-a0ce-28770179f2b7.png"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\cate_duongduasieuxe.png",
+      "PackagePath": "staticwebassets\\images\\cate_duongduasieuxe.png"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\cate_id1.png",
+      "PackagePath": "staticwebassets\\images\\cate_id1.png"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\cate_id2.png",
+      "PackagePath": "staticwebassets\\images\\cate_id2.png"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\cate_id3.png",
+      "PackagePath": "staticwebassets\\images\\cate_id3.png"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\cate_id4.png",
+      "PackagePath": "staticwebassets\\images\\cate_id4.png"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\cate_id5.png",
+      "PackagePath": "staticwebassets\\images\\cate_id5.png"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\cate_khuvuonkidieu.png",
+      "PackagePath": "staticwebassets\\images\\cate_khuvuonkidieu.png"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\cate_kiquankientruc.png",
+      "PackagePath": "staticwebassets\\images\\cate_kiquankientruc.png"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\cate_nhipdapcongtruong.png",
+      "PackagePath": "staticwebassets\\images\\cate_nhipdapcongtruong.png"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\cate_phepthuathogwarts.png",
+      "PackagePath": "staticwebassets\\images\\cate_phepthuathogwarts.png"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\categories\\13ff0f1f-d63a-48e5-9c83-8739471ab19c.png",
+      "PackagePath": "staticwebassets\\images\\categories\\13ff0f1f-d63a-48e5-9c83-8739471ab19c.png"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\categories\\1a792baf-040b-42b7-bc30-6c7d0fbd6d4b.png",
+      "PackagePath": "staticwebassets\\images\\categories\\1a792baf-040b-42b7-bc30-6c7d0fbd6d4b.png"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\categories\\21db604b-ce3d-44b5-a28f-38df44e2987f.png",
+      "PackagePath": "staticwebassets\\images\\categories\\21db604b-ce3d-44b5-a28f-38df44e2987f.png"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\categories\\2b0b07ce-a6ce-4622-b578-01bb26f60467.png",
+      "PackagePath": "staticwebassets\\images\\categories\\2b0b07ce-a6ce-4622-b578-01bb26f60467.png"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\categories\\4e81934e-60f5-44f3-b706-5a0acd3395d6.png",
+      "PackagePath": "staticwebassets\\images\\categories\\4e81934e-60f5-44f3-b706-5a0acd3395d6.png"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\categories\\6807eb01-6289-46da-b3b8-cf1d52c66993.png",
+      "PackagePath": "staticwebassets\\images\\categories\\6807eb01-6289-46da-b3b8-cf1d52c66993.png"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\categories\\737d3545-dccc-4ab7-b0e2-d0808aee45e5.png",
+      "PackagePath": "staticwebassets\\images\\categories\\737d3545-dccc-4ab7-b0e2-d0808aee45e5.png"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\categories\\877ef45c-fecd-47a1-bd8b-42f415597df5.png",
+      "PackagePath": "staticwebassets\\images\\categories\\877ef45c-fecd-47a1-bd8b-42f415597df5.png"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\categories\\8df6eafe-a1c0-420a-acdd-93e5cbac67b4.png",
+      "PackagePath": "staticwebassets\\images\\categories\\8df6eafe-a1c0-420a-acdd-93e5cbac67b4.png"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\categories\\a58e0d27-5f0e-430a-9122-426f5de56a1c.png",
+      "PackagePath": "staticwebassets\\images\\categories\\a58e0d27-5f0e-430a-9122-426f5de56a1c.png"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\categories\\aa1b2d9c-a1be-46fc-94cc-237a10ebdd36.png",
+      "PackagePath": "staticwebassets\\images\\categories\\aa1b2d9c-a1be-46fc-94cc-237a10ebdd36.png"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\categories\\d3d03d58-f061-46ae-9d4e-9847e88062e0.png",
+      "PackagePath": "staticwebassets\\images\\categories\\d3d03d58-f061-46ae-9d4e-9847e88062e0.png"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\categories\\e23a252f-5fbb-4dd1-a5a9-0d5de156304e.png",
+      "PackagePath": "staticwebassets\\images\\categories\\e23a252f-5fbb-4dd1-a5a9-0d5de156304e.png"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\categories\\f72a093b-2a18-4611-83cc-ea434a6fb9c4.png",
+      "PackagePath": "staticwebassets\\images\\categories\\f72a093b-2a18-4611-83cc-ea434a6fb9c4.png"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\categories\\fdf8df5d-35a0-460e-8114-d65d9ddd3088.png",
+      "PackagePath": "staticwebassets\\images\\categories\\fdf8df5d-35a0-460e-8114-d65d9ddd3088.png"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\community\\04456e9c-d738-4292-a933-bc786ad12f43.png",
+      "PackagePath": "staticwebassets\\images\\community\\04456e9c-d738-4292-a933-bc786ad12f43.png"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\community\\56852c0f-8142-415e-bf81-dc8f8f1ec608.jpg",
+      "PackagePath": "staticwebassets\\images\\community\\56852c0f-8142-415e-bf81-dc8f8f1ec608.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\community\\7c948971-4b6f-4893-a496-23028c229f07.jpg",
+      "PackagePath": "staticwebassets\\images\\community\\7c948971-4b6f-4893-a496-23028c229f07.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\community\\7f7dc4d9-c1d2-4713-83f7-3e44c9cb15ba.png",
+      "PackagePath": "staticwebassets\\images\\community\\7f7dc4d9-c1d2-4713-83f7-3e44c9cb15ba.png"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\community\\8dff5d07-d8aa-44d2-8077-2db85effd877.png",
+      "PackagePath": "staticwebassets\\images\\community\\8dff5d07-d8aa-44d2-8077-2db85effd877.png"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\community\\9bb30763-e408-4160-baf1-b9dbd8768245.jpg",
+      "PackagePath": "staticwebassets\\images\\community\\9bb30763-e408-4160-baf1-b9dbd8768245.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\community\\a5853c74-8fb4-4904-b393-81775b1d636c.jpg",
+      "PackagePath": "staticwebassets\\images\\community\\a5853c74-8fb4-4904-b393-81775b1d636c.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\community\\af937a49-7495-45cf-9803-db9e8fdf7b46.png",
+      "PackagePath": "staticwebassets\\images\\community\\af937a49-7495-45cf-9803-db9e8fdf7b46.png"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\community\\c1e4bdee-a90a-4d7b-83a6-8bece1302da4.jpg",
+      "PackagePath": "staticwebassets\\images\\community\\c1e4bdee-a90a-4d7b-83a6-8bece1302da4.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\community\\c98f391e-9be0-4a91-a843-ec6305b27dce.jpg",
+      "PackagePath": "staticwebassets\\images\\community\\c98f391e-9be0-4a91-a843-ec6305b27dce.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\community\\ed6e6f96-f184-47fb-9a17-79af002493b0.jpg",
+      "PackagePath": "staticwebassets\\images\\community\\ed6e6f96-f184-47fb-9a17-79af002493b0.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\contests\\13238995-9708-4b95-9255-b2d010115d5c.jpg",
+      "PackagePath": "staticwebassets\\images\\contests\\13238995-9708-4b95-9255-b2d010115d5c.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\contests\\2f52d7ce-3bda-4e4d-b5f3-ab6bba0d28b1.jpg",
+      "PackagePath": "staticwebassets\\images\\contests\\2f52d7ce-3bda-4e4d-b5f3-ab6bba0d28b1.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\contests\\32615991-8825-467e-bb35-45b01367cf30.jpg",
+      "PackagePath": "staticwebassets\\images\\contests\\32615991-8825-467e-bb35-45b01367cf30.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\contests\\3fdcc184-73b8-466b-9809-3c3976942390.jpg",
+      "PackagePath": "staticwebassets\\images\\contests\\3fdcc184-73b8-466b-9809-3c3976942390.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\contests\\63090e57-2017-460c-98fb-26e2cfd4104f.jpg",
+      "PackagePath": "staticwebassets\\images\\contests\\63090e57-2017-460c-98fb-26e2cfd4104f.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\contests\\646a0dce-6892-49ca-a1a2-37f573f64677.jpg",
+      "PackagePath": "staticwebassets\\images\\contests\\646a0dce-6892-49ca-a1a2-37f573f64677.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\contests\\6b31e79c-8c16-445b-b0a6-4829fd4a5169.jpg",
+      "PackagePath": "staticwebassets\\images\\contests\\6b31e79c-8c16-445b-b0a6-4829fd4a5169.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\contests\\89140904-42c9-4229-9a04-f3de419ca1d6.jpg",
+      "PackagePath": "staticwebassets\\images\\contests\\89140904-42c9-4229-9a04-f3de419ca1d6.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\contests\\92317d9a-9e7a-4e75-9ab5-5c5e33e6c1a1.jpg",
+      "PackagePath": "staticwebassets\\images\\contests\\92317d9a-9e7a-4e75-9ab5-5c5e33e6c1a1.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\contests\\97110203-89ea-4778-be24-7c26341943a1.jpg",
+      "PackagePath": "staticwebassets\\images\\contests\\97110203-89ea-4778-be24-7c26341943a1.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\contests\\9bb74286-b0c3-4015-9d53-90b58febbc79.jpg",
+      "PackagePath": "staticwebassets\\images\\contests\\9bb74286-b0c3-4015-9d53-90b58febbc79.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\contests\\b0a3cfa4-11fe-40fd-aa6f-9bf8789d2e10.jpg",
+      "PackagePath": "staticwebassets\\images\\contests\\b0a3cfa4-11fe-40fd-aa6f-9bf8789d2e10.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\contests\\b21e5fb5-408d-4e1f-80ce-4aa07a4c4e55.jpg",
+      "PackagePath": "staticwebassets\\images\\contests\\b21e5fb5-408d-4e1f-80ce-4aa07a4c4e55.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\contests\\bfc72f64-b9db-487c-9de8-f4d69692a08c.jpg",
+      "PackagePath": "staticwebassets\\images\\contests\\bfc72f64-b9db-487c-9de8-f4d69692a08c.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\contests\\ce04972f-36b3-43cd-825b-e3e155aee3ff.jpg",
+      "PackagePath": "staticwebassets\\images\\contests\\ce04972f-36b3-43cd-825b-e3e155aee3ff.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\contests\\d3a2a5ae-d8cc-4745-9de6-e481176116f1.jpg",
+      "PackagePath": "staticwebassets\\images\\contests\\d3a2a5ae-d8cc-4745-9de6-e481176116f1.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\contests\\df5cb0cd-b703-40c2-b704-9f1b9aac65c1.jpg",
+      "PackagePath": "staticwebassets\\images\\contests\\df5cb0cd-b703-40c2-b704-9f1b9aac65c1.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\contests\\f2f412c5-2766-4fb0-bca1-2535fef0d34a.jpg",
+      "PackagePath": "staticwebassets\\images\\contests\\f2f412c5-2766-4fb0-bca1-2535fef0d34a.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\contests\\fdaa3a00-56ae-4513-a6ca-8203b8493244.jpg",
+      "PackagePath": "staticwebassets\\images\\contests\\fdaa3a00-56ae-4513-a6ca-8203b8493244.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\contests\\sample-contest-image.jpg",
+      "PackagePath": "staticwebassets\\images\\contests\\sample-contest-image.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\ic_ar.png",
+      "PackagePath": "staticwebassets\\images\\ic_ar.png"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\ic_dh.png",
+      "PackagePath": "staticwebassets\\images\\ic_dh.png"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\ic_dx.png",
+      "PackagePath": "staticwebassets\\images\\ic_dx.png"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\ic_user.png",
+      "PackagePath": "staticwebassets\\images\\ic_user.png"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\icon_account.png",
+      "PackagePath": "staticwebassets\\images\\icon_account.png"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\icon_address.png",
+      "PackagePath": "staticwebassets\\images\\icon_address.png"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\icon_addtocart.png",
+      "PackagePath": "staticwebassets\\images\\icon_addtocart.png"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\icon_addtocart_hover.png",
+      "PackagePath": "staticwebassets\\images\\icon_addtocart_hover.png"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\icon_agerange.png",
+      "PackagePath": "staticwebassets\\images\\icon_agerange.png"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\icon_arrow.png",
+      "PackagePath": "staticwebassets\\images\\icon_arrow.png"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\icon_arrow_left.png",
+      "PackagePath": "staticwebassets\\images\\icon_arrow_left.png"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\icon_arrow_right.png",
+      "PackagePath": "staticwebassets\\images\\icon_arrow_right.png"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\icon_billcheck.png",
+      "PackagePath": "staticwebassets\\images\\icon_billcheck.png"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\icon_cart.png",
+      "PackagePath": "staticwebassets\\images\\icon_cart.png"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\icon_cartcheck.png",
+      "PackagePath": "staticwebassets\\images\\icon_cartcheck.png"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\icon_delete.png",
+      "PackagePath": "staticwebassets\\images\\icon_delete.png"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\icon_favorite.png",
+      "PackagePath": "staticwebassets\\images\\icon_favorite.png"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\icon_heart.png",
+      "PackagePath": "staticwebassets\\images\\icon_heart.png"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\icon_info.png",
+      "PackagePath": "staticwebassets\\images\\icon_info.png"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\icon_location.png",
+      "PackagePath": "staticwebassets\\images\\icon_location.png"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\icon_locked.png",
+      "PackagePath": "staticwebassets\\images\\icon_locked.png"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\icon_loved.png",
+      "PackagePath": "staticwebassets\\images\\icon_loved.png"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\icon_order.png",
+      "PackagePath": "staticwebassets\\images\\icon_order.png"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\icon_payment.png",
+      "PackagePath": "staticwebassets\\images\\icon_payment.png"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\icon_pieces.png",
+      "PackagePath": "staticwebassets\\images\\icon_pieces.png"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\icon_product.png",
+      "PackagePath": "staticwebassets\\images\\icon_product.png"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\icon_rank.png",
+      "PackagePath": "staticwebassets\\images\\icon_rank.png"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\icon_rating.png",
+      "PackagePath": "staticwebassets\\images\\icon_rating.png"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\icon_search.png",
+      "PackagePath": "staticwebassets\\images\\icon_search.png"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\icon_unlocked.png",
+      "PackagePath": "staticwebassets\\images\\icon_unlocked.png"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\icon_user.png",
+      "PackagePath": "staticwebassets\\images\\icon_user.png"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\icon_voucher.png",
+      "PackagePath": "staticwebassets\\images\\icon_voucher.png"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\lego-icon.png",
+      "PackagePath": "staticwebassets\\images\\lego-icon.png"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\logo_lego.png",
+      "PackagePath": "staticwebassets\\images\\logo_lego.png"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\BaiPheLieuVoiXeHoi1.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\BaiPheLieuVoiXeHoi1.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\BaiPheLieuVoiXeHoi2.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\BaiPheLieuVoiXeHoi2.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\BaiPheLieuVoiXeHoi3.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\BaiPheLieuVoiXeHoi3.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\BoHoaHong1.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\BoHoaHong1.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\BoHoaHong2.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\BoHoaHong2.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\BoHoaHong3.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\BoHoaHong3.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\BoHoaHongXinhXan1.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\BoHoaHongXinhXan1.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\BoHoaHongXinhXan2.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\BoHoaHongXinhXan2.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\BoHoaHongXinhXan3.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\BoHoaHongXinhXan3.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\CanCauXayDungDiDongMauVang1.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\CanCauXayDungDiDongMauVang1.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\CanCauXayDungDiDongMauVang2.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\CanCauXayDungDiDongMauVang2.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\CanCauXayDungDiDongMauVang3.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\CanCauXayDungDiDongMauVang3.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\CayBonsai1.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\CayBonsai1.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\CayBonsai2.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\CayBonsai2.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\CayBonsai3.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\CayBonsai3.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\CayHanhPhuc1.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\CayHanhPhuc1.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\CayHanhPhuc2.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\CayHanhPhuc2.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\CayHanhPhuc3.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\CayHanhPhuc3.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\CayMandrake1.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\CayMandrake1.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\CayMandrake2.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\CayMandrake2.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\CayMandrake3.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\CayMandrake3.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\CayNho1.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\CayNho1.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\CayNho2.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\CayNho2.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\CayNho3.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\CayNho3.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\ChiecMuPhanLoaiBietNoi1.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\ChiecMuPhanLoaiBietNoi1.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\ChiecMuPhanLoaiBietNoi2.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\ChiecMuPhanLoaiBietNoi2.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\ChiecMuPhanLoaiBietNoi3.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\ChiecMuPhanLoaiBietNoi3.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\CuocPhieuLuuKnightBus1.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\CuocPhieuLuuKnightBus1.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\CuocPhieuLuuKnightBus2.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\CuocPhieuLuuKnightBus2.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\CuocPhieuLuuKnightBus3.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\CuocPhieuLuuKnightBus3.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\CuocRuotDuoiCuaThuyenCanhSat1.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\CuocRuotDuoiCuaThuyenCanhSat1.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\CuocRuotDuoiCuaThuyenCanhSat2.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\CuocRuotDuoiCuaThuyenCanhSat2.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\CuocRuotDuoiCuaThuyenCanhSat3.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\CuocRuotDuoiCuaThuyenCanhSat3.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\DaiPhunNuocTreVi1.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\DaiPhunNuocTreVi1.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\DaiPhunNuocTrevi2.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\DaiPhunNuocTrevi2.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\DaiPhunNuocTrevi3.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\DaiPhunNuocTrevi3.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\DonCanhSat1.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\DonCanhSat1.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\DonCanhSat2.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\DonCanhSat2.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\DonCanhSat3.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\DonCanhSat3.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\DongXeMercedes-BenzG500Professional1.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\DongXeMercedes-BenzG500Professional1.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\DongXeMercedes-BenzG500Professional2.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\DongXeMercedes-BenzG500Professional2.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\DongXeMercedes-BenzG500Professional3.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\DongXeMercedes-BenzG500Professional3.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\DuongPrivetChuyenThamCuaCoMarge1.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\DuongPrivetChuyenThamCuaCoMarge1.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\DuongPrivetChuyenThamCuaCoMarge2.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\DuongPrivetChuyenThamCuaCoMarge2.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\DuongPrivetChuyenThamCuaCoMarge3.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\DuongPrivetChuyenThamCuaCoMarge3.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\FerrariFXXK1.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\FerrariFXXK1.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\FerrariFXXK2.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\FerrariFXXK2.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\FerrariFXXK3.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\FerrariFXXK3.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\HoaCuc1.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\HoaCuc1.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\HoaCuc2.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\HoaCuc2.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\HoaCuc3.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\HoaCuc3.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\HoaLan1.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\HoaLan1.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\HoaLan2.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\HoaLan2.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\HoaLan3.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\HoaLan3.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\HoaLanMini1.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\HoaLanMini1.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\HoaLanMini2.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\HoaLanMini2.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\HoaLanMini3.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\HoaLanMini3.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\HoaMan1.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\HoaMan1.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\HoaMan2.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\HoaMan2.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\HoaMan3.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\HoaMan3.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\KimTuThapGiza1.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\KimTuThapGiza1.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\KimTuThapGiza2.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\KimTuThapGiza2.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\KimTuThapGiza3.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\KimTuThapGiza3.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\LandRoverCoDienDefender90-1.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\LandRoverCoDienDefender90-1.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\LandRoverCoDienDefender90-2.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\LandRoverCoDienDefender90-2.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\LandRoverCoDienDefender90-3.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\LandRoverCoDienDefender90-3.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\LauDaiHimeji1.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\LauDaiHimeji1.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\LauDaiHimeji2.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\LauDaiHimeji2.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\LauDaiHimeji3.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\LauDaiHimeji3.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\LauDaiHogwarts1.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\LauDaiHogwarts1.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\LauDaiHogwarts2.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\LauDaiHogwarts2.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\LauDaiHogwarts3.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\LauDaiHogwarts3.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\LuanDon1.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\LuanDon1.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\LuanDon2.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\LuanDon2.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\LuanDon3.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\LuanDon3.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\MayBayChoKhach1.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\MayBayChoKhach1.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\MayBayChoKhach2.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\MayBayChoKhach2.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\MayBayChoKhach3.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\MayBayChoKhach3.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\MayDaoXayDungMauVang1.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\MayDaoXayDungMauVang1.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\MayDaoXayDungMauVang2.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\MayDaoXayDungMauVang2.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\MayDaoXayDungMauVang3.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\MayDaoXayDungMauVang3.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\McLarenP1-1.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\McLarenP1-1.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\McLarenP1-2.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\McLarenP1-2.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\McLarenP1-3.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\McLarenP1-3.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\NewYork1.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\NewYork1.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\NewYork2.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\NewYork2.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\NewYork3.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\NewYork3.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\NganHangPhuThuyGringotts-PhienBanDanhChoNhaSuuTap1.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\NganHangPhuThuyGringotts-PhienBanDanhChoNhaSuuTap1.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\NganHangPhuThuyGringotts-PhienBanDanhChoNhaSuuTap2.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\NganHangPhuThuyGringotts-PhienBanDanhChoNhaSuuTap2.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\NganHangPhuThuyGringotts-PhienBanDanhChoNhaSuuTap3.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\NganHangPhuThuyGringotts-PhienBanDanhChoNhaSuuTap3.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\NhaHagridMotChuyenViengThamBatNgo1.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\NhaHagridMotChuyenViengThamBatNgo1.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\NhaHagridMotChuyenViengThamBatNgo2.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\NhaHagridMotChuyenViengThamBatNgo2.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\NhaHagridMotChuyenViengThamBatNgo3.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\NhaHagridMotChuyenViengThamBatNgo3.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\NhaThoDucBaParis1.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\NhaThoDucBaParis1.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\NhaThoDucBaParis2.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\NhaThoDucBaParis2.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\NhaThoDucBaParis3.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\NhaThoDucBaParis3.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\NuThanTuDo1.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\NuThanTuDo1.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\NuThanTuDo2.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\NuThanTuDo2.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\NuThanTuDo3.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\NuThanTuDo3.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\Paris1.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\Paris1.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\Paris2.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\Paris2.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\Paris3.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\Paris3.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\Porsche911-1.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\Porsche911-1.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\Porsche911-2.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\Porsche911-2.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\Porsche911-3.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\Porsche911-3.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\SieuXeTheThaoLamborghiniRevuelto1.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\SieuXeTheThaoLamborghiniRevuelto1.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\SieuXeTheThaoLamborghiniRevuelto2.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\SieuXeTheThaoLamborghiniRevuelto2.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\SieuXeTheThaoLamborghiniRevuelto3.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\SieuXeTheThaoLamborghiniRevuelto3.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\TamDuong1.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\TamDuong1.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\TamDuong2.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\TamDuong2.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\TamDuong3.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\TamDuong3.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\TauTocHanhHogwarts1.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\TauTocHanhHogwarts1.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\TauTocHanhHogwarts2.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\TauTocHanhHogwarts2.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\TauTocHanhHogwarts3.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\TauTocHanhHogwarts3.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\TheBurrow-PhienBanDanhChoNhaSuuTap1.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\TheBurrow-PhienBanDanhChoNhaSuuTap1.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\TheBurrow-PhienBanDanhChoNhaSuuTap2.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\TheBurrow-PhienBanDanhChoNhaSuuTap2.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\TheBurrow-PhienBanDanhChoNhaSuuTap3.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\TheBurrow-PhienBanDanhChoNhaSuuTap3.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\Vespa125-1.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\Vespa125-1.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\Vespa125-2.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\Vespa125-2.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\Vespa125-3.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\Vespa125-3.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\VongHoa1.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\VongHoa1.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\VongHoa2.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\VongHoa2.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\VongHoa3.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\VongHoa3.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\XeBayFordAnglia1.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\XeBayFordAnglia1.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\XeBayFordAnglia2.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\XeBayFordAnglia2.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\XeBayFordAnglia3.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\XeBayFordAnglia3.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\XeChevrolet CamaroZ28-1.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\XeChevrolet CamaroZ28-1.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\XeChevrolet CamaroZ28-2.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\XeChevrolet CamaroZ28-2.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\XeChevrolet CamaroZ28-3.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\XeChevrolet CamaroZ28-3.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\XeDienVaNhaGaTrungTamThanhPho1.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\XeDienVaNhaGaTrungTamThanhPho1.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\XeDienVaNhaGaTrungTamThanhPho2.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\XeDienVaNhaGaTrungTamThanhPho2.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\XeDienVaNhaGaTrungTamThanhPho3.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\XeDienVaNhaGaTrungTamThanhPho3.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\XeKeoCuuHoHangNangCoCanCau1.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\XeKeoCuuHoHangNangCoCanCau1.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\XeKeoCuuHoHangNangCoCanCau2.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\XeKeoCuuHoHangNangCoCanCau2.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\XeKeoCuuHoHangNangCoCanCau3.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\XeKeoCuuHoHangNangCoCanCau3.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\XeMayKawasakiNinjaH2R-1.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\XeMayKawasakiNinjaH2R-1.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\XeMayKawasakiNinjaH2R-2.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\XeMayKawasakiNinjaH2R-2.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\XeMayKawasakiNinjaH2R-3.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\XeMayKawasakiNinjaH2R-3.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\XeTaiBurger1.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\XeTaiBurger1.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\XeTaiBurger2.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\XeTaiBurger2.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\XeTaiBurger3.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\XeTaiBurger3.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\YamahaMT-10SP-1.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\YamahaMT-10SP-1.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\YamahaMT-10SP-2.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\YamahaMT-10SP-2.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\products\\YamahaMT-10SP-3.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\YamahaMT-10SP-3.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\reviews\\3fe165ad-9c13-44c4-b22d-58aa056c5ab7.jpg",
+      "PackagePath": "staticwebassets\\images\\reviews\\3fe165ad-9c13-44c4-b22d-58aa056c5ab7.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\reviews\\649b0843-5ebe-4f81-b0d0-4d453b104cb7.jpg",
+      "PackagePath": "staticwebassets\\images\\reviews\\649b0843-5ebe-4f81-b0d0-4d453b104cb7.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\reviews\\7914d7c0-56ed-46f8-80e5-b72472ef3638.png",
+      "PackagePath": "staticwebassets\\images\\reviews\\7914d7c0-56ed-46f8-80e5-b72472ef3638.png"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\reviews\\9235e33f-dbab-4b5b-ac3b-a07cf36239a6.jpg",
+      "PackagePath": "staticwebassets\\images\\reviews\\9235e33f-dbab-4b5b-ac3b-a07cf36239a6.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\reviews\\9ee34321-8073-4f6d-8201-7c91fb9cbb6b.jpg",
+      "PackagePath": "staticwebassets\\images\\reviews\\9ee34321-8073-4f6d-8201-7c91fb9cbb6b.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\reviews\\c1a5f6ff-94df-44cb-b1e3-fb5d495d0d32.jpg",
+      "PackagePath": "staticwebassets\\images\\reviews\\c1a5f6ff-94df-44cb-b1e3-fb5d495d0d32.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\reviews\\c8a3eb7b-ac1a-464e-85b3-8300e1a0e644.jpg",
+      "PackagePath": "staticwebassets\\images\\reviews\\c8a3eb7b-ac1a-464e-85b3-8300e1a0e644.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\reviews\\e0e8ade2-8cde-408d-a2c0-ef6687938a08.jpg",
+      "PackagePath": "staticwebassets\\images\\reviews\\e0e8ade2-8cde-408d-a2c0-ef6687938a08.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\reviews\\ef5cefa0-6174-4046-8c2b-9e06cb8aecdc.png",
+      "PackagePath": "staticwebassets\\images\\reviews\\ef5cefa0-6174-4046-8c2b-9e06cb8aecdc.png"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\reviews\\f9b2a7d1-8422-42d5-b101-29d9679c1722.jpg",
+      "PackagePath": "staticwebassets\\images\\reviews\\f9b2a7d1-8422-42d5-b101-29d9679c1722.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\images\\reviews\\fc0c92f3-61f1-45c7-9f7a-253424210ec7.jpg",
+      "PackagePath": "staticwebassets\\images\\reviews\\fc0c92f3-61f1-45c7-9f7a-253424210ec7.jpg"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\js\\site.js",
+      "PackagePath": "staticwebassets\\js\\site.js"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\lib\\bootstrap\\LICENSE",
+      "PackagePath": "staticwebassets\\lib\\bootstrap"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.css"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.css.map"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.min.css"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.js"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.js.map"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.min.js"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\lib\\jquery-validation\\LICENSE.md",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\LICENSE.md"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\additional-methods.js"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\additional-methods.min.js"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\jquery.validate.js"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\jquery.validate.min.js"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\lib\\jquery\\LICENSE.txt",
+      "PackagePath": "staticwebassets\\lib\\jquery\\LICENSE.txt"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\lib\\jquery\\dist\\jquery.js",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.js"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\lib\\jquery\\dist\\jquery.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.js"
+    },
+    {
+      "Id": "D:\\DoAnWeb\\WebLego_v5-v2\\WebLego_v5\\WebLego\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.map"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.WebLego.Microsoft.AspNetCore.StaticWebAssetEndpoints.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssetEndpoints.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.WebLego.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.WebLego.props",
+      "PackagePath": "build\\WebLego.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.WebLego.props",
+      "PackagePath": "buildMultiTargeting\\WebLego.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.WebLego.props",
+      "PackagePath": "buildTransitive\\WebLego.props"
+    }
+  ],
+  "ElementsToRemove": []
+}
