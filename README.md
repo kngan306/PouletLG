@@ -9,7 +9,7 @@ The objective of **PouletLG** is to deliver a modern, full-featured e-commerce p
 
 ---
 
-### 👩‍💻 Customer Features
+### 🛒 Customer Features
 
 - Browse LEGO products by category  
 - View detailed product pages with images, descriptions, pricing, and more  
@@ -56,7 +56,7 @@ You can import it into SQL Server using SQL Server Management Studio (SSMS).
 3. Update `appsettings.json` with your local DB connection string  
 4. Build and run the project in Visual Studio  
 
-## 🧑‍💻 Author
+## 👩‍💻 Author
 
 Kim Ngân - [GitHub Profile](https://github.com/kngan306)
 
