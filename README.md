@@ -2,6 +2,7 @@
 
 **PouletLG** is a fully functional e-commerce web application focused on selling LEGO products. It is developed using **ASP.NET Core MVC** and **SQL Server**.
 
+---
 
 ### 🎯 Project Goals
 The objective of **PouletLG** is to deliver a modern, full-featured e-commerce platform for LEGO products, ensuring a seamless shopping experience for users and providing powerful management tools for administrators.
