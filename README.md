@@ -56,10 +56,6 @@ You can import it into SQL Server using SQL Server Management Studio (SSMS).
 3. Update `appsettings.json` with your local DB connection string  
 4. Build and run the project in Visual Studio  
 
-## 👩‍💻 Author
-
-Kim Ngân - [GitHub Profile](https://github.com/kngan306)
-
 ---
 
 Feel free to contribute or open issues for improvements!
