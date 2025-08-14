@@ -52,6 +52,8 @@ You can import it into SQL Server using SQL Server Management Studio (SSMS).
 3. Update `appsettings.json` with your local DB connection string  
 4. Build and run the project in Visual Studio  
 
+---
+
 ## 📸 Some Demo Images of the Project
 
 ### 🛍️ Customer Interface & Features
@@ -145,6 +147,5 @@ You can import it into SQL Server using SQL Server Management Studio (SSMS).
 ![Forgot Password 2](screenshots/forgot-password2.png)  
 
 ---
-
 
 Feel free to contribute or open issues for improvements!
