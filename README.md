@@ -2,7 +2,7 @@
 
 **PouletLG** is a dynamic and feature-rich e-commerce web application designed for selling LEGO products. Built using **ASP.NET Core MVC** and backed by **SQL Server**, this project delivers a smooth and intuitive shopping experience for LEGO enthusiasts, while also offering powerful administrative tools for product and order management.
 
-🗓 **Project Duration:** January 2025 – March 2025
+🗓 **Project Duration:** May 2025 – July 2025
 
 ---
 
