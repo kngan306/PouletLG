@@ -7,9 +7,7 @@
 ### 🎯 Project Goals
 The objective of **PouletLG** is to deliver a modern, full-featured e-commerce platform for LEGO products, ensuring a seamless shopping experience for users and providing powerful management tools for administrators.
 
----
-
-### 🛒 Customer Features
+## 🛒 Customer Features
 
 - Browse LEGO products by category  
 - View detailed product pages with images, descriptions, pricing, and more  
@@ -23,9 +21,7 @@ The objective of **PouletLG** is to deliver a modern, full-featured e-commerce p
 - Participate in LEGO building competitions with community voting  
 - Join a LEGO user forum to share creations, get tips, and interact with other fans  
 
----
-
-### 🛒 Admin Features
+## 🛒 Admin Features
 
 - Manage products, categories, inventory, and promotional campaigns  
 - Handle customer accounts, orders, returns, and exchanges  
