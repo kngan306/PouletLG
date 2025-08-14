@@ -52,7 +52,7 @@ You can import it into SQL Server using SQL Server Management Studio (SSMS).
 3. Update `appsettings.json` with your local DB connection string  
 4. Build and run the project in Visual Studio  
 
-## 📸 Project Screenshots
+## 📸 Some Demo Images of the Project
 
 ### 🛍️ Customer Interface & Features
 
